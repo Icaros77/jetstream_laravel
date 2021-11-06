@@ -16,11 +16,12 @@
                     lg:px-8
                     bg-red-300
                     flex
-                    flex-col
-                    justify-between
+                    flex-wrap
+                    justify-center
+                    sm:justify-around
                 "
             >
-                <display-items :products="products" />
+            <dashboard-items />
             </div>
         </div>
     </app-layout>
@@ -31,12 +32,13 @@ import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
 import DisplayItems from "./DisplayItems/DisplayItems.vue";
+import DashboardItems from "./DashboardItems/DashboardItems.vue";
 
 export default defineComponent({
     components: {
         AppLayout,
         Welcome,
-        DisplayItems
+        DashboardItems
     },
     props: {
         products: Object,

@@ -1,15 +1,55 @@
 <template>
-    <div class="p-3" v-for="(list, category) in products" :key="category">
-        <h3 :class="{ 'text-right': moveTo() }" class="mb-3 p-2 text-gray-900">
-            {{ toCapitalize(category) }}
-        </h3>
+    <div
+        :class="{'rounded-tr-full' : !index, 'rounded-tl-full': index}"
+        class="
+            p-3
+            pt-0
+            rounded-md
+            mb-12
+            bg-gradient-to-br
+            from-indigo-300
+            via-indigo-400
+            to-indigo-500
+        "
+        v-for="(list, category) in products"
+        :key="category"
+    >
+        <header class="flex">
+            <h3
+                class="
+                    w-1/3
+                    p-2
+                    font-bold
+                    italic
+                    rounded-t-md
+                    text-indigo-600 text-center
+                "
+                :class="{ 'order-2': moveTo() }"
+            >
+                {{ toCapitalize(category) }}
+            </h3>
+            <span
+                :class="{
+                    'order-1': index,
+                    'rounded-bl-md': index,
+                    'rounded-br-md': !index,
+                }"
+                class="w-2/3 inline-block p-2 min-h-full bg-red-300"
+            ></span>
+        </header>
         <div
-            class="flex max-w-full overflow-x-scroll
-             space-x-8 py-8"
-            :class="{ 'justify-end': !index }"
+            class="flex max-w-full overflow-x-scroll rounded-t-md space-x-8 p-8"
+            :class="{ 'flex-row-reverse': !index }"
         >
             <div
-                class="min-w-10 max-w-xs/2 sm:min-w-2/5 md:w-60 md:min-w-10 bg-gray-100 rounded-lg shadow-lg"
+                class="
+                    min-w-10
+                    max-w-xs/2
+                    sm:min-w-2/5
+                    md:w-60 md:min-w-10
+                    bg-gray-100
+                    rounded-lg
+                "
                 v-for="item in list"
                 :key="item.id"
             >
