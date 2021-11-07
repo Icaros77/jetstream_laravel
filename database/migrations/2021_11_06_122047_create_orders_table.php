@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShoppingListsTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateShoppingListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_lists', function (Blueprint $table) {
-
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id();
             $table->json("cart");
-            $table->foreignId("client_id")->constrained("users")->cascadeOnDelete();
-
+            $table->string("order_number")->nullable(false)->index("order_number");
+            $table->foreignId("client_id")->nullable()->constrained("users")->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateShoppingListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_lists');
+        Schema::dropIfExists('orders');
     }
 }

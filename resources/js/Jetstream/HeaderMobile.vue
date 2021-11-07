@@ -10,22 +10,28 @@
             bottom-0
             left-0
             right-0
-            z-20
+            z-30
         "
     >
         <div class="flex w-full h-full items-center justify-between">
             <home-icon
                 @select="button_selected"
                 :buttonActive="activeButton === 'Home'"
-            ></home-icon>
+            />
             <cart-icon
                 @select="button_selected"
                 :buttonActive="activeButton === 'Cart'"
-            ></cart-icon>
+            />
             <menu-icon
+                v-if="this.$props.user"
                 @select="button_selected"
                 :buttonActive="activeButton === 'Menu'"
-            ></menu-icon>
+            />
+            <login-icon
+                v-else
+                @select="button_selected"
+                :buttonActive="activeButton === 'Login'"
+            />
         </div>
     </div>
 </template>
@@ -36,6 +42,7 @@ import Logo from "./ApplicationLogo.vue";
 import HomeIcon from "./ButtonsIcons/HomeIcon.vue";
 import CartIcon from "./ButtonsIcons/CartIcon.vue";
 import MenuIcon from "./ButtonsIcons/MenuIcon.vue";
+import LoginIcon from "./ButtonsIcons/LoginIcon.vue";
 
 export default defineComponent({
     components: {
@@ -43,6 +50,7 @@ export default defineComponent({
         HomeIcon,
         CartIcon,
         MenuIcon,
+        LoginIcon,
     },
     data() {
         return {

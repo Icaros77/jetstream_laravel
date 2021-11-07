@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdToShoppingLists extends Migration
+class AddVendorIdToProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddUserIdToShoppingLists extends Migration
      */
     public function up()
     {
-        Schema::table('shopping_lists', function (Blueprint $table) {
-            $table->foreignId("user_id")->index()->constrained()->cascadeOnDelete();
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreignId("vendor_id")->nullable()->constrained()->nullOnDelete();
         });
     }
 
@@ -25,8 +25,8 @@ class AddUserIdToShoppingLists extends Migration
      */
     public function down()
     {
-        Schema::table('shopping_lists', function (Blueprint $table) {
-            $table->dropConstrainedForeignId("user_id");
+        Schema::table('products', function (Blueprint $table) {
+            //
         });
     }
 }

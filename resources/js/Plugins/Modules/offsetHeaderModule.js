@@ -2,7 +2,6 @@ const module = {
     namespaced: true,
     state: {
         show: false,
-        nameButton: 'Menu'
     },
     getters: {
         getShow(state) {
@@ -11,7 +10,7 @@ const module = {
     },
     mutations: {
         toggleMenu(state, payload) {
-            if(payload.nameButton === state.nameButton) {
+            if(payload.nameButton === 'Menu' || payload.nameButton === 'Login') {
                 state.show = !payload.buttonActive;
             }else {
                 state.show = false;

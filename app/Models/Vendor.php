@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShoppingList extends Model
+class Vendor extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "cart",
-        
-        // references users
-        "client_id"
+        "name",
+        "identifier",
+        "address",
+        "postal_code",
+        "city",
+        "country"
     ];
 }

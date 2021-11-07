@@ -11,10 +11,12 @@ class Product extends Model
 
     protected $fillable = [
         "name",
+        "product_number",
         "price",
         "image_path",
-        "descrizione",
-        "category"
+        "description",
+        "category",
+        "vendor_id"
     ];
 
     public static function getProducts() {
