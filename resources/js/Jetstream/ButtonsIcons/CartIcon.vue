@@ -4,7 +4,7 @@
         :class="{ 'bg-red-400': buttonActive }"
         class="flex-1 flex justify-center transition duration-300"
     >
-        <button type="button" class="p-2">
+        <a :href="route('cart')" type="button" class="p-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 :class="{
@@ -23,19 +23,16 @@
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
             </svg>
-        </button>
+        </a>
     </div>
 </template>
 
 \
 <script>
 import { defineComponent } from "vue";
-import { mapMutations } from "vuex";
-import store from "../../Plugins/VuexStore";
 
 export default defineComponent({
     emits: ["select"],
-    store: store,
     props: {
         buttonActive: {
             default: false,
@@ -45,9 +42,7 @@ export default defineComponent({
     methods: {
         select() {
             this.$emit("select", this.nameButton);
-            this.toggleMenu({nameButton: this.nameButton});
         },
-        ...mapMutations("offsetHeader", ["toggleMenu"]),
     },
 });
 </script>

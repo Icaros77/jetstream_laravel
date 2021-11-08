@@ -1,6 +1,6 @@
 <template>
     <div class="py-12">
-        <div
+        <section
             class="
                 max-w-7xl
                 p-5
@@ -12,21 +12,22 @@
                 sm:justify-around
             "
         >
-            <dashboard-items />
-        </div>
+            <shop-cart-items />
+        </section>
     </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import AppLayout from "@/Layouts/AppLayout.vue";
-import DisplayItems from "./DisplayItems/DisplayItems.vue";
-import DashboardItems from "./DashboardItems/DashboardItems.vue";
+import store from "../../Plugins/VuexStore";
+import AppLayoutVue from "../Layouts/AppLayout.vue";
+import ShopCartItems from "./ShopCartItems/ShopCartItems.vue";
 
 export default defineComponent({
     components: {
-        DashboardItems,
+        ShopCartItems,
     },
-    layout: AppLayout,
+    layout: AppLayoutVue,
+    store: store,
 });
 </script>

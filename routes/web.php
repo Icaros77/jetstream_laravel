@@ -27,15 +27,17 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', [DashboardController::class, "index"])
-    ->name('dashboard');
+Route::get("/", function() {
+    return Inertia::render("Dashboard");
+})->name("dashboard");
+// Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-Route::post("/login", [LoginController::class, "login"])->name("login")
-    ->middleware("guest");
-Route::post("/checkSession", [LoginController::class, "checkSession"])->name("checkSession");
+//     Route::get('/admin', [AdminController::class, "index"])
+//         ->name("admin");
+// });
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::post("/login", [LoginController::class, "login"])->name("login");
 
-    Route::get('/admin', [AdminController::class, "index"])
-        ->name("admin");
+Route::middleware(["auth:sanctum", 'verified'])->group(function () {
+    Route::post("/checkSession", [LoginController::class, "checkSession"])->name("checkSession");
 });

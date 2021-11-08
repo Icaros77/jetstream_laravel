@@ -60,7 +60,7 @@
                                         items-center
                                         h-full
                                     "
-                                    >{{ this.$page.props.user.name }}</span
+                                    >{{ this.$page.props.user?.name }}</span
                                 >
                             </div>
                         </div>
@@ -69,9 +69,17 @@
             </nav>
 
             <!-- Page Heading -->
-            <header class="shadow" v-if="$slots.header">
+            <header class="shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header"></slot>
+                    <h2
+                        class="
+                            font-semibold
+                            text-xl text-gray-800
+                            leading-tight
+                        "
+                    >
+                        {{this.$page.component}}
+                    </h2>
                 </div>
             </header>
 

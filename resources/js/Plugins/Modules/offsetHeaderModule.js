@@ -2,6 +2,7 @@ const module = {
     namespaced: true,
     state: {
         show: false,
+        currentActive: ''
     },
     getters: {
         getShow(state) {

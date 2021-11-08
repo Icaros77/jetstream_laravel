@@ -14,6 +14,9 @@ const store = createStore({
         getUser(state) {
             return state.user;
         },
+        getCart(state) {
+            return state.user.cart;
+        }
     },
     mutations: {
         assignUser(state, { user }) {
@@ -22,7 +25,8 @@ const store = createStore({
         destroyUser(state) {
             state.user = null;
         },
-        checkSession() {
+        checkSession(state) {
+            if (state.user) return;
             axios.post(route("checkSession")).then((response) => {
                 const user = Object.keys(response.data).length
                     ? response.data
@@ -33,8 +37,10 @@ const store = createStore({
     },
     actions: {
         logUser({ commit }, { formData }) {
-            axios.post(route("login"), formData).then((response) => {
-                commit("assignUser", { user: response.data });
+            axios.get("/sanctum/csrf-cookie").then((response) => {
+                axios.post(route("login"), formData).then((response) => {
+                    commit("assignUser", { user: response.data });
+                });
             });
         },
         logoutUser({ commit }) {

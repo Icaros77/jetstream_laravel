@@ -15,4 +15,13 @@ class ShoppingList extends Model
         // references users
         "client_id"
     ];
+
+    protected $casts = [
+        'cart' => 'array'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
