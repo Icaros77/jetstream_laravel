@@ -18,10 +18,10 @@
             </div>
             <div class="w-full mt-4">
                 <form @submit.prevent="login" class="p-2 flex flex-col w-full">
-                    <label-name v-model="form.email" type="email"
+                    <label-name @update:value="update" type="email"
                         >Email</label-name
                     >
-                    <label-name v-model="form.password" type="password"
+                    <label-name @update:value="update" type="password"
                         >Password</label-name
                     >
                     <div class="p-2 w-1/2 self-end flex justify-end">
@@ -48,30 +48,31 @@
 import { defineComponent } from "vue";
 import Button from "./Button.vue";
 import LabelName from "./FormElements/LabelName.vue";
+import store from "../Plugins/VuexStore";
 
 export default defineComponent({
     components: {
         LabelName,
         Button,
     },
+    store: store,
     data() {
         return {
-            form: this.$inertia.form({
-                email: "",
-                password: "",
-            }),
+            email: "",
+            password: "",
         };
     },
     methods: {
         login(event) {
-            this.form
-                .transform((data) => ({
-                    ...data,
-                    remember: this.form.remember ? "on" : "",
-                }))
-                .post(this.route("login"), {
-                    onFinish: () => this.form.reset("password"),
-                });
+            const formData = new FormData();
+            formData.append("email", this.email);
+            formData.append("password", this.password);
+            this.$store.dispatch("logUser", {
+                formData,
+            });
+        },
+        update({ value, type }) {
+            this[type] = value;
         },
     },
 });

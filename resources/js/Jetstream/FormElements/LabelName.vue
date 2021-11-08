@@ -89,6 +89,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+    emits: ["update:value"],
     props: {
         type: {
             tpye: String,
@@ -110,14 +111,16 @@ export default defineComponent({
     },
     methods: {
         isChanging(event) {
-            let currentStatus = event.target.value ? true : false;
-            if (document.activeElement == event.target) {
+            const target = event.target;
+            let value = target.value;
+            let currentStatus = value ? true : false;
+            if (document.activeElement == target) {
                 this.status = true;
             } else {
                 this.status = currentStatus;
             }
+            this.$emit("update:value", { value, type: this.type });
         },
-
         isFocused(event) {
             if (event.target.value) return;
             this.status = true;
@@ -127,10 +130,9 @@ export default defineComponent({
             this.status = false;
         },
         showPassword() {
-            this.$refs.input.type = !this.isHiding ? 'password' : 'text';
+            this.$refs.input.type = !this.isHiding ? "password" : "text";
             this.isHiding = !this.isHiding;
         },
     },
-    setup() {},
 });
 </script>

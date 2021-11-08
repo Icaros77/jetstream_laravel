@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +29,10 @@ use Inertia\Inertia;
 
 Route::get('/', [DashboardController::class, "index"])
     ->name('dashboard');
+
+Route::post("/login", [LoginController::class, "login"])->name("login")
+    ->middleware("guest");
+Route::post("/checkSession", [LoginController::class, "checkSession"])->name("checkSession");
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 

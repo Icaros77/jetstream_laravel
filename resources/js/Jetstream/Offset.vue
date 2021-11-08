@@ -33,11 +33,9 @@
 
 <script>
 import { defineComponent, onMounted, onUnmounted } from "vue";
-import Button from "./Button.vue";
 import store from "../Plugins/VuexStore";
 
 export default defineComponent({
-    components: { Button },
     store: store,
 
     computed: {

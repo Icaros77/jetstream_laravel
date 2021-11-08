@@ -9,16 +9,16 @@ const module = {
         },
     },
     mutations: {
-        toggleMenu(state, payload) {
-            if(payload.nameButton === 'Menu' || payload.nameButton === 'Login') {
-                state.show = !payload.buttonActive;
-            }else {
+        toggleMenu(state, { nameButton, buttonActive }) {
+            if (nameButton === "Menu" || nameButton === "Login") {
+                state.show = !buttonActive;
+            } else {
                 state.show = false;
             }
         },
         defaultMenu(state) {
             state.show = false;
-        }
+        },
     },
 };
 

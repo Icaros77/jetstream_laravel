@@ -20,6 +20,6 @@ class Product extends Model
     ];
 
     public static function getProducts() {
-        return Product::select("id", "name", "price", "descrizione", "image_path")->get();
+        return Product::select("id", "name", "price", "description", "image_path")->get();
     }
 }

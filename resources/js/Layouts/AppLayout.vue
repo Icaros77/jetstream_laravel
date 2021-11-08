@@ -2,19 +2,29 @@
     <header-mobile />
     <div>
         <Head :title="title" />
-        <offset>
-            <navigation v-if="this.$props.user"/>
-            <login-signup v-else />
+        <offset v-if="isLoggedIn">
+            <navigation />
+        </offset>
+        <offset v-else>
+            <login-signup />
         </offset>
 
         <jet-banner />
 
         <div class="min-h-screen">
-            <nav class="bg-white border-b border-gray-100">
+            <nav
+                class="
+                    bg-gradient-to-br
+                    from-gray-100
+                    via-pink-100
+                    to-indigo-100
+                    border-b border-gray-100
+                "
+            >
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
-                        <div class="flex">
+                    <div class="flex h-16">
+                        <div class="flex w-full justify-between">
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
@@ -38,6 +48,20 @@
                                 >
                                     Dashboard
                                 </jet-nav-link>
+                            </div>
+
+                            <div v-show="isLoggedIn" class="h-full">
+                                <span
+                                    class="
+                                        text-indigo-400
+                                        font-semibold
+                                        flex
+                                        justify-center
+                                        items-center
+                                        h-full
+                                    "
+                                    >{{ this.$page.props.user.name }}</span
+                                >
                             </div>
                         </div>
                     </div>
@@ -72,12 +96,17 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import HeaderMobile from "../Jetstream/HeaderMobile.vue";
 import LoginSignup from "../Jetstream/LS.vue";
 import Offset from "../Jetstream/Offset.vue";
+import store from "../Plugins/VuexStore";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
+    setup() {
+        store.commit("checkSession");
+    },
     props: {
         title: String,
     },
-
+    store: store,
     components: {
         Head,
         JetApplicationMark,
@@ -96,6 +125,9 @@ export default defineComponent({
         return {
             showingNavigationDropdown: false,
         };
+    },
+    computed: {
+        ...mapGetters(["isLoggedIn", "getUser"]),
     },
 
     methods: {
