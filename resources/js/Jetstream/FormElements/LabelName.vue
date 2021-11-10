@@ -81,6 +81,8 @@
             @input="isChanging"
             autocomplete="off"
             ref="input"
+            :value="modelValue"
+            required
         />
     </div>
 </template>
@@ -89,12 +91,13 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    emits: ["update:value"],
+    emits: ["update:modelValue"],
     props: {
         type: {
             tpye: String,
             value: "text",
         },
+        modelValue: String
     },
     data() {
         return {
@@ -111,15 +114,14 @@ export default defineComponent({
     },
     methods: {
         isChanging(event) {
-            const target = event.target;
+            const target = this.$refs.input;
             let value = target.value;
-            let currentStatus = value ? true : false;
             if (document.activeElement == target) {
                 this.status = true;
             } else {
-                this.status = currentStatus;
+                this.status = value ? true : false;
             }
-            this.$emit("update:value", { value, type: this.type });
+            this.$emit("update:modelValue", value);
         },
         isFocused(event) {
             if (event.target.value) return;

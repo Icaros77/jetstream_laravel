@@ -24,7 +24,7 @@ class LoginController extends Controller
         try {
             $user = Auth::user();
             if (boolval($user)) {
-                return $user;
+                return response()->json(['user' => $user]);
             }
             Auth::logoutOtherDevices($req->password);
             if (Auth::attempt($req->only($this->fortifyAccess, "password"))) {
@@ -40,7 +40,6 @@ class LoginController extends Controller
                 return response()->json(['user' => $user]);
             }
         } catch (Exception $e) {
-            dd($e);
             return response()->json(["error" => 'An error has occurred']);
         }
     }

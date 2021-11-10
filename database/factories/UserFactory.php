@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ShoppingList;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -83,13 +84,13 @@ class UserFactory extends Factory
     {
         return constant("self::$string")[rand(0, count(constant("self::$string")) - 1)];
     }
-    // protected function fakeAddress()
-    // {
-    // }
-    // protected function fakeCountry()
-    // {
-    //     return self::COUNTRIES[rand(0, count(self::COUNTRIES))];
-    // }
+    
+    public function addCart()
+    {
+        return $this->afterCreating(function(User $user) {
+            ShoppingList::create(['cart' => [], 'client_id' => $user->id]);
+        });
+    }
 
     /**
      * Indicate that the model's email address should be unverified.

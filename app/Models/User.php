@@ -60,8 +60,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public static function boot() {
+        parent::boot();
+    }
+
     public function cart()
     {
         return $this->hasOne(ShoppingList::class, 'client_id');
     }
+
 }

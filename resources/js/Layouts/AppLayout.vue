@@ -50,7 +50,7 @@
                                 </jet-nav-link>
                             </div>
 
-                            <div v-show="isLoggedIn" class="h-full">
+                            <div v-show="this.$page.props.user" class="h-full">
                                 <span
                                     class="
                                         text-indigo-400
@@ -109,7 +109,7 @@ import { mapGetters } from "vuex";
 
 export default defineComponent({
     setup() {
-        store.commit("checkSession");
+        // store.commit("checkSession");
     },
     props: {
         title: String,

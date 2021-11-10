@@ -19,7 +19,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import store from "../../Plugins/VuexStore";
+import store from "../Plugins/VuexStore";
 import AppLayoutVue from "../Layouts/AppLayout.vue";
 import ShopCartItems from "./ShopCartItems/ShopCartItems.vue";
 

@@ -36,13 +36,6 @@ const store = createStore({
         },
     },
     actions: {
-        logUser({ commit }, { formData }) {
-            axios.get("/sanctum/csrf-cookie").then((response) => {
-                axios.post(route("login"), formData).then((response) => {
-                    commit("assignUser", { user: response.data });
-                });
-            });
-        },
         logoutUser({ commit }) {
             axios.post(route("logout")).then(() => {
                 commit("destroyUser");

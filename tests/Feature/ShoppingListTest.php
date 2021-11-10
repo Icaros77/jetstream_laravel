@@ -14,41 +14,25 @@ class ShoppingListTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setup() :void {
-        parent::setup();
-        $seeder = new DatabaseSeeder;
-        $seeder->run();
-    }
-
-    public function teardown() :void {
-        parent::tearDown();
-        $seeder = new DatabaseSeeder;
-        $seeder->run();
-    }
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_obtain_shopping_list()
+    public function setup(): void
     {
-        // $this->withoutExceptionHandling();
-        $user = User::first();
+        parent::setup();
+        $this->createUserCart();
+    }
 
-        $shoppingList = ShoppingList::all();
+    
+    public function test_show_cart()
+    {
+        $user = User::first();
         $this->actingAs($user);
-        $this->assertAuthenticatedAs($user);
-        $this->get(route("dashboard"))
+        $cart = $user->cart->cart;
+
+        $this->get(route("cart"))
             ->assertOk()
-            ->assertInertia(function(Assert $page) use($shoppingList) {
-                $page->component("Dashboard")
-                ->hasAll([
-                    "shoppingList" => $shoppingList->count(),
-                ])
-                ->whereAll([
-                    "shoppingList" => $shoppingList,
-                ]);
-                
-            } );
+            ->assertInertia(function (Assert $page) use($cart) {
+                $page->component("ShopCart")
+                    ->has("cart")
+                    ->where("cart", $cart);
+            });
     }
 }

@@ -8,19 +8,15 @@
 import { defineComponent } from "vue";
 import AppLayoutVue from "../../Layouts/AppLayout.vue";
 import store from "../../Plugins/VuexStore";
-import { mapGetters } from "vuex";
 
 export default defineComponent({
     setup() {},
+    props:{
+        products: {
+            type: Boolean
+        }
+    },
     store: store,
-    layout: AppLayoutVue,
-    computed: {
-        products() {
-            return this.getCart.products;
-        },
-    },
-    methods: {
-        ...mapGetters["getCart"],
-    },
+    layout: AppLayoutVue
 });
 </script>

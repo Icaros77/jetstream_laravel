@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,41 +12,11 @@ class LoginTest extends TestCase
     use RefreshDatabase;
 
 
-    /**
-     * Create the user and the shopping cart
-     * 
-     * @return model
-     */
-
-    public function createUser()
-    {
-        User::factory(1)->create();
-        $user = User::find(1);
-        ShoppingList::create([
-            'client_id' => $user->id,
-            'cart' => []
-        ]);
-    }
-    /**
-     * Fetch credentials
-     *
-     * @return array
-     */
-    public function credentials()
-    {
-        $user = User::find(1);
-        
-        return [
-            "email" => $user->email,
-            "password" => "password"
-        ];
-    }
-
     public function test_login_with_cart()
     {
 
-        $this->createUser();
-        $user = User::with("cart")->find(1);
+        $this->createUserCart();
+        $user = User::with("cart")->first();
         $data = $this->credentials();
         $cart = $user->cart->cart;
 
@@ -58,5 +27,15 @@ class LoginTest extends TestCase
         $this->assertEmpty($cart);
 
         $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_logout()
+    {
+        $this->createUserCart();
+        $user = User::first();
+
+        $this->assertGuest();
+        $this->actingAs($user)->post(route("logout"));
+        $this->assertGuest();
     }
 }

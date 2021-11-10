@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
     public function fortifyUsernameRules()
     {
         $rules = "required|string";
-        return $this->name === 'email' ? $rules . '|email' : $rules;
+        return $this->name === 'email' ? $rules . '|email|exists:users' : $rules;
     }
 
     public function fortifyUsernameMessage()
@@ -35,6 +35,7 @@ class LoginRequest extends FormRequest
         $message = [];
         if($this->name === 'email') {
             $message['email'] = 'Email must be a valid email address';
+            $message["exists"] = 'No user has been found';
         }
         return $message;
     }

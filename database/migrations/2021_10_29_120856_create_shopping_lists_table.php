@@ -15,6 +15,7 @@ class CreateShoppingListsTable extends Migration
     {
         Schema::create('shopping_lists', function (Blueprint $table) {
 
+            $table->id();
             $table->json("cart");
             $table->foreignId("client_id")->constrained("users")->cascadeOnDelete();
 
