@@ -34,10 +34,7 @@ import { mapMutations } from "vuex";
 import store from "../../Plugins/VuexStore";
 
 export default defineComponent({
-    created() {
-        this.defaultMenu();
-    },
-    emits: ["select", "open-side-menu"],
+    emits: ["select"],
     store: store,
 
     props: {
@@ -55,7 +52,6 @@ export default defineComponent({
             });
         },
         ...mapMutations("offsetHeader", ["toggleMenu"]),
-        ...mapMutations("offsetHeader", ["defaultMenu"]),
     },
     created() {
         const unselectMenu = (event) => {

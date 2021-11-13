@@ -1,6 +1,6 @@
 <template>
     <teleport to="body">
-        <transition
+        <transition name="slide"
             enter-active-class="ease-in duration-300"
             enter-from-class="translate-y-full"
             enter-to-class="translate-y-0"
@@ -12,7 +12,7 @@
                 v-show="show"
                 class="
                     translate-y-full
-                    tranform
+                    transform
                     fixed
                     w-screen
                     inset-0
@@ -53,7 +53,6 @@ export default defineComponent({
                 this.$store.commit("offsetHeader/defaultMenu");
             }
         };
-        this.$store.commit("offsetHeader/defaultMenu");
         onMounted(() => document.addEventListener("keydown", closeable));
         onUnmounted(() => {
             document.removeEventListener("keydown", closeable);

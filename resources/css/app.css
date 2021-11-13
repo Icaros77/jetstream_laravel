@@ -59,35 +59,36 @@ html::-webkit-scrollbar-thumb:vertical {
     .h-header {
         height: calc(100vh - 80px);
     }
-    .bubble-animation {
-        
+
+    .bubble-animation.show {
         @apply
+        bg-gradient-to-br
         transition-all
+        duration-700
         top-0
         left-0
     }
     .bubble-animation.login {
         clip-path: circle(200%);
         @apply
-        bg-gradient-to-br
         from-red-200
         to-red-400
     }
     .bubble-animation.register {
-        
         clip-path: circle(200%);
         @apply
-        bg-gradient-to-br
         from-indigo-200
         to-indigo-400
     }
     .bubble-animation.login.hide {
-        clip-path: circle(7vh at 0 100%);
+        clip-path: circle(15vh at 0 100%);
+
     }
     .bubble-animation.register.hide {
-        
-        clip-path: circle(7vh at 100% 0);
+        clip-path: circle(15vh at 100% 0);
     }
+
+
     .header-link {
         @apply 
         flex

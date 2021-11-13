@@ -1,7 +1,7 @@
 <template>
     <div
         class="w-full sm:w-2/5 mb-5 bg-gray-50 rounded-md shadow-lg"
-        v-for="item in products"
+        v-for="item in this.$page.props.products"
         :key="item.id"
     >
         <div class="w-full flex sm:block ">
@@ -53,7 +53,7 @@
                             items-center
                         "
                     >
-                        {{ item.descrizione }}
+                        {{ item.description }}
                     </p>
                 </div>
             </div>

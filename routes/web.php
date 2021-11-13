@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,6 +46,11 @@ Route::middleware(("auth:sanctum"))->group(function () {
 Route::post("/login", [LoginController::class, "login"])->name("login")
     ->middleware("guest");
 
+
+Route::post("/register", [RegisterController::class, "create"])
+    ->name("register");
+
+Route::post("/logout", [LoginController::class, "logout"])->name("logout");
+
 Route::middleware(["auth:sanctum", 'verified'])->group(function () {
-    Route::post("/checkSession", [LoginController::class, "checkSession"])->name("checkSession");
 });

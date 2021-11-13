@@ -125,7 +125,11 @@ export default defineComponent({
     store: store,
     methods: {
         logout() {
-            this.$store.dispatch("logoutUser");
+            this.$inertia.post(route("logout"), {
+                onSuccess: () => {
+                    this.commit("offsetHeader/defaultMenu");
+                },
+            });
         },
     },
 });

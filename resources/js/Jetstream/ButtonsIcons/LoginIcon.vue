@@ -49,7 +49,6 @@ export default defineComponent({
             });
         },
         ...mapMutations("offsetHeader", ["toggleMenu"]),
-        ...mapMutations("offsetHeader", ["defaultMenu"]),
     },
     created() {
         const unselectMenu = (event) => {

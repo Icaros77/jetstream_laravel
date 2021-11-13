@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Service\ProductService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(ProductService $service)
     {
-        $products = Product::getProducts();
-        return Inertia::render("Products", compact("products"));
+        $products = $service->getProducts();
+        return Inertia::render("Products/Index", compact("products"));
     }
 
     public function fetch_products()

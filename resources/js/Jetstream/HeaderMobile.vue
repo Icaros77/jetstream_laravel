@@ -23,7 +23,7 @@
                 :buttonActive="activeButton === 'Cart'"
             />
             <menu-icon
-                v-if="isLoggedIn"
+                v-if="this.$page.props.user"
                 @select="button_selected"
                 :buttonActive="activeButton === 'Menu'"
             />
@@ -43,8 +43,6 @@ import HomeIcon from "./ButtonsIcons/HomeIcon.vue";
 import CartIcon from "./ButtonsIcons/CartIcon.vue";
 import MenuIcon from "./ButtonsIcons/MenuIcon.vue";
 import LoginIcon from "./ButtonsIcons/LoginIcon.vue";
-import store from "../Plugins/VuexStore";
-import { mapGetters } from "vuex";
 
 export default defineComponent({
     components: {
@@ -54,17 +52,18 @@ export default defineComponent({
         MenuIcon,
         LoginIcon,
     },
-    store: store,
     data() {
         return {
             activeButton: "",
         };
     },
-    computed: {
-        ...mapGetters(["isLoggedIn"]),
-    },
     methods: {
         button_selected(nameButton) {
+            if (nameButton === "Cart") {
+                this.$inertia.get(route("cart"));
+                this.activeButton = nameButton;
+                return;
+            }
             this.activeButton =
                 this.activeButton === nameButton ? "" : nameButton;
         },

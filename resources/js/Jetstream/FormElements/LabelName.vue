@@ -1,6 +1,7 @@
 <template>
     <div class="p-2 w-full mb-5 relative">
         <span
+            @click.stop="selectInput"
             :class="slidesUpDown"
             class="
                 absolute
@@ -135,6 +136,9 @@ export default defineComponent({
             this.$refs.input.type = !this.isHiding ? "password" : "text";
             this.isHiding = !this.isHiding;
         },
+        selectInput() {
+            this.$refs.input.focus();
+        }
     },
 });
 </script>

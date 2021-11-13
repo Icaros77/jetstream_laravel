@@ -2,11 +2,9 @@
     <header-mobile />
     <div>
         <Head :title="title" />
-        <offset v-if="isLoggedIn">
-            <navigation />
-        </offset>
-        <offset v-else>
-            <login-signup />
+        <offset>
+            <navigation  v-if="this.$page.props.user"/>
+            <login-signup v-else/>
         </offset>
 
         <jet-banner />
@@ -108,9 +106,6 @@ import store from "../Plugins/VuexStore";
 import { mapGetters } from "vuex";
 
 export default defineComponent({
-    setup() {
-        // store.commit("checkSession");
-    },
     props: {
         title: String,
     },
@@ -149,10 +144,6 @@ export default defineComponent({
                     preserveState: false,
                 }
             );
-        },
-
-        logout() {
-            this.$inertia.post(route("logout"));
         },
     },
 });

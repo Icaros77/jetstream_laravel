@@ -45,7 +45,7 @@ export default defineComponent({
     methods: {
         select() {
             this.$emit("select", this.nameButton);
-            this.toggleMenu({ nameButton: this.nameButton });
+            this.$store.commit('offsetHeader/defaultMenu');
         },
         ...mapMutations("offsetHeader", ["toggleMenu"]),
     },

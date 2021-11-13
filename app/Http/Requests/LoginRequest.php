@@ -3,17 +3,25 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Laravel\Fortify\Fortify;
+use App\Service\FortifyRules;
+use Illuminate\Contracts\Validation\Validator;
+// use Dotenv\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
+    // use FortifyRules;
 
-    protected $name;
 
-    public function __construct()
-    {
-        $this->name = Fortify::username();
-    }
+    protected $redirectRoute = "dashboard";
+    protected $errorBag = 'loginErrors';
+
+    // public function __construct()
+    // {
+    //     $this->name = $this->username();
+    //     $this->redirectRoute = route("dashboard");
+    // }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,21 +32,19 @@ class LoginRequest extends FormRequest
         return true;
     }
 
-    public function fortifyUsernameRules()
-    {
-        $rules = "required|string";
-        return $this->name === 'email' ? $rules . '|email|exists:users' : $rules;
-    }
-
-    public function fortifyUsernameMessage()
-    {
-        $message = [];
-        if($this->name === 'email') {
-            $message['email'] = 'Email must be a valid email address';
-            $message["exists"] = 'No user has been found';
-        }
-        return $message;
-    }
+    // protected function failedValidation(Validator $validator)
+    // {
+    //     $response =
+    //         redirect()->route("dashboard")->withErrors($validator);
+    //         // dd('hik');
+    //         // dd($validator->errors());
+    //     new ValidationException(
+    //         $validator,
+    //         $response,
+    //         $this->errorBag
+    //     );
+    //     return $response;
+    // }
 
     /**
      * Get the validation rules that apply to the request.
@@ -48,20 +54,21 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            $this->name => $this->fortifyUsernameRules(),
+            'email' => 'required|string|email|exists:users,email',
             'password' => 'required|string'
         ];
     }
 
     public function messages()
     {
-        return array_merge([
-            'password.required' => 'Password is required',
-            'password.string' => 'Password must be a string',
-            $this->name . '.required' => $this->name . ' is required',
-            $this->name . '.string' => $this->name . 'must be a string'
-        ],
-        $this->fortifyUsernameMessage()
-    );
+        return
+            [
+                'email.required' => 'Email is required',
+                'email.email' => 'Email format must be a regular email',
+                'email.string' => 'Email must be a string',
+                'email.exists' => 'No user found',
+                'password.required' => 'Password is required',
+                'password.string' => 'Password must be a string',
+            ];
     }
 }

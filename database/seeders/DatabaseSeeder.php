@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(1)->addCart()->create(["email" => "a@hot.com"]);
-        // $this->call([
-        //     ProductSeeder::class
-        // ]);
+        $this->call([
+            UserSeeder::class,
+            VendorSeeder::class
+        ]);
     }
 }

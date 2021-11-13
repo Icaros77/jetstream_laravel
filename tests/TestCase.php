@@ -30,8 +30,6 @@ abstract class TestCase extends BaseTestCase
 
     public function createUserCart()
     {
-        // addCart() creates a shopping cart after creating the user
-        // UserFactory addCart
         User::factory(1)->addCart()->create(["email" => 'a@hot.com']);
     }
     /**
@@ -47,5 +45,16 @@ abstract class TestCase extends BaseTestCase
             "email" => $user->email,
             "password" => "password"
         ];
+    }
+
+    /**
+     * Set header X-Requested-With to XMLHttpRequest
+     * for request
+     * @return self
+     */
+
+    public function setXHR()
+    {
+        return $this->withHeader("X-Requested-With", "XMLHttpRequest")->get("/sanctum/csrf-cookie");
     }
 }

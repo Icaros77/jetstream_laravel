@@ -19,7 +19,8 @@ class Product extends Model
         "vendor_id"
     ];
 
-    public static function getProducts() {
-        return Product::select("id", "name", "price", "description", "image_path")->get();
+    public function vendor()
+    {
+       return  $this->belongsTo(Vendor::class);
     }
 }

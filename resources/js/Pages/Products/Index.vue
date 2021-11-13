@@ -20,7 +20,7 @@
                     sm:justify-around
                 "
             >
-                <menu-items :products="products" />
+                <menu-items />
             </div>
         </div>
     </app-layout>
@@ -29,17 +29,12 @@
 <script>
 import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import MenuItems from "./MenuItems/MenuItems.vue";
+import MenuItems from "./Partials/MenuItems.vue";
 
 export default defineComponent({
     components: {
         AppLayout,
         MenuItems,
-    },
-    props: {
-        products: {
-            type: Object,
-        },
     },
 });
 </script>

@@ -23,7 +23,10 @@ class ShoppingListFactory extends Factory
     public function definition()
     {
         return [
-            "cart" => [],
+            "cart" => [
+                'products' => [],
+                'total_ammount' => ''
+            ],
         ];
     }
 }

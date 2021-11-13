@@ -63,6 +63,13 @@ return [
 
     'home' => RouteServiceProvider::HOME,
 
+    /**
+     * Redirects
+     */
+
+     'redirects' => [
+         'logout' => RouteServiceProvider::LOGOUTTO
+     ],
     /*
     |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain

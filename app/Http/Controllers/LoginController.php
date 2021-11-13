@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\MakeFuckingRequest;
 use App\Models\User;
+use App\Service\FortifyRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
 
@@ -19,38 +22,43 @@ class LoginController extends Controller
         $this->fortifyAccess = Fortify::username();
     }
 
-    public function login(LoginRequest $req)
+    public function login(Request $req)
     {
         try {
+            $validatations = Validator::make(
+                $req->all(),
+                [
+                    'email' => 'required|string|email|exists:users,email',
+                    'password' => 'required|string'
+                ],
+                [
+                    'email.required' => 'Email required'
+                ]
+            );
+            if($validatations->fails()) {
+                
+                return redirect()->route("dashboard");
+            }
             $user = Auth::user();
             if (boolval($user)) {
-                return response()->json(['user' => $user]);
+                return redirect()->route("dashboard");
             }
+
             Auth::logoutOtherDevices($req->password);
             if (Auth::attempt($req->only($this->fortifyAccess, "password"))) {
-                $user = User::where($this->fortifyAccess, $req[$this->fortifyAccess])
-                    ->select(
-                        "id",
-                        "name",
-                        "email",
-
-                    )
-                    ->firstOrFail();
                 $req->session()->regenerate();
-                return response()->json(['user' => $user]);
+                return redirect()->route("dashboard");
             }
         } catch (Exception $e) {
-            return response()->json(["error" => 'An error has occurred']);
+            return redirect()->route("dashboard");
         }
     }
 
-    public function checkSession(Request $req)
+    public function logout(Request $req)
     {
-        if (Auth::user()) {
-            $user = User::where($this->fortifyAccess, Auth::user()->{$this->fortifyAccess})
-                ->select("id", "name", "email")->first();
-            return response()->json($user);
-        }
-        return response()->json(null);
+        Auth::logout();
+        $req->session()->invalidate();
+        $req->session()->regenerateToken();
+        return redirect()->route("dashboard");
     }
 }
