@@ -58,7 +58,7 @@
     import JetDialogModal from '@/Jetstream/DialogModal.vue'
     import JetDangerButton from '@/Jetstream/DangerButton.vue'
     import JetInput from '@/Jetstream/Input.vue'
-    import JetInputError from '@/Jetstream/InputError.vue'
+    import JetInputError from '@/components/FormElements/InputError.vue'
     import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
     export default defineComponent({

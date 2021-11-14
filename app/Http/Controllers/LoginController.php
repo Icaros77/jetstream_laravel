@@ -22,7 +22,7 @@ class LoginController extends Controller
         $this->fortifyAccess = Fortify::username();
     }
 
-    public function login(Request $req)
+    public function login(LoginRequest $req)
     {
         try {
             $validatations = Validator::make(

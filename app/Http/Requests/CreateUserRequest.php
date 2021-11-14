@@ -7,7 +7,8 @@ use App\Service\FortifyRules;
 
 class CreateUserRequest extends FormRequest
 {
-    // use FortifyRules;
+    protected $redirectRoute = 'dashboard';
+    protected $errorBag = 'signUpErrors';
     /**
      * Determine if the user is authorized to make this request.
      *

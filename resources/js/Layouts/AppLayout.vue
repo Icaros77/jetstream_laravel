@@ -3,12 +3,10 @@
     <div>
         <Head :title="title" />
         <offset>
-            <navigation  v-if="this.$page.props.user"/>
-            <login-signup v-else/>
+            <navigation v-if="this.$page.props.user" />
         </offset>
 
         <jet-banner />
-
         <div class="min-h-screen">
             <nav
                 class="
@@ -67,7 +65,7 @@
             </nav>
 
             <!-- Page Heading -->
-            <header class="shadow">
+            <header class="shadow mb-5">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <h2
                         class="
@@ -76,14 +74,17 @@
                             leading-tight
                         "
                     >
-                        {{this.$page.component}}
+                        {{ this.$page.component }}
                     </h2>
                 </div>
             </header>
+            <notification />
 
             <!-- Page Content -->
-            <main>
-                <slot></slot>
+            <main class="mb-24 flex justify-center">
+                <div class="w-full sm:max-w-lg">
+                    <slot></slot>
+                </div>
             </main>
         </div>
     </div>
@@ -100,10 +101,10 @@ import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
 import Navigation from "../Jetstream/Navigation.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import HeaderMobile from "../Jetstream/HeaderMobile.vue";
-import LoginSignup from "../Jetstream/LS.vue";
 import Offset from "../Jetstream/Offset.vue";
 import store from "../Plugins/VuexStore";
 import { mapGetters } from "vuex";
+import Notification from "../components/Notification.vue";
 
 export default defineComponent({
     props: {
@@ -121,8 +122,8 @@ export default defineComponent({
         Navigation,
         HeaderMobile,
         Offset,
-        LoginSignup,
         Link,
+        Notification,
     },
     data() {
         return {

@@ -1,101 +1,309 @@
 <template>
     <Head title="Register" />
 
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
+    <div
+        class="
+            h-full-mobile
+            p-5
+            flex flex-col
+            justify-between
+            items-center
+            overflow-y-scroll
+            sm:min-h-full
+        "
+    >
+        <div
+            class="
+                w-full
+                flex
+                max-w-sm
+                sm:bg-gradient-to-br
+                sm:from-indigo-300
+                sm:to-indigo-500
+                sm:rounded-lg
+                sm:justify-center
+                sm:items-center
+                sm:p-8
+                sm:max-w-full
 
-        <jet-validation-errors class="mb-4" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <jet-label for="name" value="Name" />
-                <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
-            </div>
-
-            <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <jet-label for="password_confirmation" value="Confirm Password" />
-                <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4" v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature">
-                <jet-label for="terms">
-                    <div class="flex items-center">
-                        <jet-checkbox name="terms" id="terms" v-model:checked="form.terms" />
-
-                        <div class="ml-2">
-                            I agree to the <a target="_blank" :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Terms of Service</a> and <a target="_blank" :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
-                        </div>
+            "
+        >
+            <form
+                ref="form"
+                @submit.prevent="register"
+                class="
+                    p-2
+                    flex
+                    w-full
+                    overflow-x-hidden
+                    sm:flex-col sm:overflow-x-visible
+                "
+            >
+                <div
+                    class="
+                        transform
+                        transition-transform
+                        flex flex-col
+                        justify-end
+                        min-w-full
+                        sm:-translate-x-0
+                    "
+                >
+                    <label-name
+                        v-model="form.name"
+                        :first="true"
+                        type="text"
+                        errorBag="signUpErrors"
+                        ref="name"
+                        >Username</label-name
+                    >
+                    <label-name
+                        v-model="form.email"
+                        type="email"
+                        errorBag="signUpErrors"
+                        ref="email"
+                        >Email</label-name
+                    >
+                    <div
+                        class="
+                            p-2
+                            mt-2
+                            w-1/2
+                            self-end
+                            flex
+                            justify-center
+                            sm:hidden
+                        "
+                    >
+                        <button
+                            @click.prevent.stop="continueForm"
+                            type="button"
+                            class="
+                                btn
+                                bg-gradient-to-br
+                                from-indigo-300
+                                to-indigo-500
+                                italics
+                                border-none
+                                shadow-lg
+                            "
+                        >
+                            Proceed!
+                        </button>
                     </div>
-                </jet-label>
-            </div>
+                </div>
+                <div
+                    class="
+                        transform
+                        transition-transform
+                        flex flex-col
+                        justify-end
+                        min-w-full
+                        sm:-translate-x-0
+                    "
+                >
+                    <label-name
+                        v-model="form.password"
+                        type="password"
+                        errorBag="signUpErrors"
+                        >Password</label-name
+                    >
+                    <label-name
+                        v-model="form.password_confirmation"
+                        type="password"
+                        errorBag="signUpErrors"
+                        >Password Confirmation</label-name
+                    >
+                    <div
+                        class="
+                            p-2
+                            mt-2
+                            w-full
+                            self-end
+                            flex
+                            justify-around
+                            sm:flex-col sm:space-y-4
+                        "
+                    >
+                        <button
+                            @click.prevent.stop="continueForm"
+                            type="button"
+                            class="
+                                btn
+                                bg-gradient-to-br
+                                from-indigo-300
+                                to-indigo-500
+                                italics
+                                border-none
+                                shadow-lg
+                                sm:hidden
+                            "
+                        >
+                            Go back!
+                        </button>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
-                </Link>
-
-                <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </jet-button>
+                        <Link
+                            :href="route('login')"
+                            class="
+                                hidden
+                                shadow-lg
+                                text-center
+                                bg-gradient-to-br
+                                from-indigo-300
+                                to-indigo-500
+                                sm:btn
+                                sm:p-2
+                                sm:w-max
+                                sm:text-xs
+                                sm:rounded-lg
+                                sm:from-red-300
+                                sm:to-red-500
+                            "
+                        >
+                            Have an account? Login!
+                        </Link>
+                        <button
+                            type="submit"
+                            class="
+                                btn
+                                bg-gradient-to-br
+                                from-indigo-300
+                                to-indigo-500
+                                italics
+                                border-none
+                                shadow-lg
+                                sm:from-red-300
+                                sm:to-red-500
+                                sm:w-max
+                                sm:self-end
+                            "
+                        >
+                            Sign up!
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <transition
+            enter-active-class="ease-in duration-500 delay-150"
+            enter-from-class="opacity-0"
+            enter-to-class="opacity-100"
+        >
+            <div
+                v-show="proceeded"
+                class="
+                    w-full
+                    flex flex-col
+                    justify-center
+                    items-center
+                    sm:hidden
+                "
+            >
+                <span
+                    v-show="form.name"
+                    class="
+                        w-10/12
+                        p-1
+                        bg-gradient-to-br
+                        from-indigo-300
+                        to-indigo-500
+                        text-white text-sm text-center
+                        rounded-full
+                    "
+                    >{{ form.name }}</span
+                >
+                <span
+                    v-show="form.email"
+                    class="
+                        mt-2
+                        w-10/12
+                        p-1
+                        bg-gradient-to-br
+                        from-indigo-300
+                        to-indigo-500
+                        text-white text-sm text-center
+                        rounded-full
+                    "
+                    >{{ form.email }}</span
+                >
             </div>
-        </form>
-    </jet-authentication-card>
+        </transition>
+        <div class="w-full max-w-sm mt-12 sm:hidden">
+            <Link
+                :href="route('login')"
+                class="
+                    p-5
+                    inline-block
+                    shadow-lg
+                    w-full
+                    text-center
+                    rounded-full
+                    bg-gradient-to-br
+                    text-white text-base
+                    uppercase
+                    from-indigo-300
+                    to-indigo-500
+                "
+            >
+                Have an account? Login!
+            </Link>
+        </div>
+    </div>
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetCheckbox from '@/Jetstream/Checkbox.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
+import { defineComponent } from "vue";
+import { Head, Link } from "@inertiajs/inertia-vue3";
+import AppLayoutVue from "@/Layouts/AppLayout.vue";
+import LabelName from "@/components/FormElements/LabelName.vue";
 
-    export default defineComponent({
-        components: {
-            Head,
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors,
-            Link,
+export default defineComponent({
+    components: {
+        Head,
+        Link,
+        LabelName,
+    },
+    layout: AppLayoutVue,
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+            }),
+            proceeded: false,
+        };
+    },
+
+    methods: {
+        register() {
+            axios.get("/sanctum/csrf-cookie").then(() => {
+                this.form
+                    .transform((data) => ({ ...data }))
+                    .post(route("register"), {
+                        onFinish: (page) => {
+                            this.form.reset();
+                        },
+                    });
+            });
         },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: '',
-                    terms: false,
-                })
+        continueForm() {
+            if (!this.form.name) {
+                this.$refs.name.$refs.input.focus();
+                return;
             }
+            if (!this.form.email) {
+                this.$refs.email.$refs.input.focus();
+                return;
+            }
+
+            Array.from(this.$refs.form.children).forEach((child) =>
+                child.classList.toggle("-translate-x-full")
+            );
+            this.proceeded = true;
         },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('register'), {
-                    onFinish: () => this.form.reset('password', 'password_confirmation'),
-                })
-            }
-        }
-    })
+    },
+});
 </script>

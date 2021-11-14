@@ -23,7 +23,7 @@
                         bg-transparent
                     "
                     v-model="quantity"
-                    @input.numeric="changeAmmount"
+                    @input.number="changeAmmount"
                 />
             </div>
             <jet-button

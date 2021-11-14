@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,11 +39,6 @@ Route::middleware(("auth:sanctum"))->group(function () {
     Route::get("/cart", [ShoppingListController::class, "index"])
         ->name("cart");
 });
-// Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
-//     Route::get('/admin', [AdminController::class, "index"])
-//         ->name("admin");
-// });
 
 Route::post("/login", [LoginController::class, "login"])->name("login")
     ->middleware("guest");
@@ -52,5 +49,3 @@ Route::post("/register", [RegisterController::class, "create"])
 
 Route::post("/logout", [LoginController::class, "logout"])->name("logout");
 
-Route::middleware(["auth:sanctum", 'verified'])->group(function () {
-});

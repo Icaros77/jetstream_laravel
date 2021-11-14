@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 w-full mb-5 relative">
+    <div :class="{'mt-10' : !first}" class="p-2 w-full relative">
         <span
             @click.stop="selectInput"
             :class="slidesUpDown"
@@ -75,6 +75,9 @@
                 w-full
                 border-indigo-400
                 focus:ring-indigo-600
+                focus:ring-2
+                focus:ring-offset-0
+                focus:border-0
                 rounded-full
             "
             @focus="isFocused"
@@ -86,19 +89,29 @@
             required
         />
     </div>
+    <input-error :type="type" :errorBag="errorBag" />
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import InputError from "./InputError.vue";
 
 export default defineComponent({
     emits: ["update:modelValue"],
+    components: {
+        InputError,
+    },
     props: {
         type: {
             tpye: String,
-            value: "text",
+            default: "text",
         },
-        modelValue: String
+        modelValue: String,
+        errorBag: String,
+        first: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
@@ -138,7 +151,7 @@ export default defineComponent({
         },
         selectInput() {
             this.$refs.input.focus();
-        }
+        },
     },
 });
 </script>

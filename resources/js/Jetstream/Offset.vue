@@ -1,6 +1,6 @@
 <template>
     <teleport to="body">
-        <transition name="slide"
+        <transition
             enter-active-class="ease-in duration-300"
             enter-from-class="translate-y-full"
             enter-to-class="translate-y-0"

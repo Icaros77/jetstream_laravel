@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -38,6 +39,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($req), [
             'user' => $req->user()?->load('cart:cart')->only(["id", "name", "email", "cart"]),
+            'notification' => Session::get('notification'),
         ]);
     }
 }

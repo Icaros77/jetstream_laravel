@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./forms/generalForm.css";
+
 html {
     min-width: 360px !important;
 }
@@ -51,41 +53,23 @@ html::-webkit-scrollbar-thumb:vertical {
     border-radius: 5px;
 }
 
-
+#notification > div >  div::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    border-radius: 2px;
+    background-color: whitesmoke;
+    width: 100%;
+    margin: 0 auto;
+    bottom: 0;
+    left: 0;
+}
 @layer components {
     .product-container:hover .product-description {
         @apply translate-x-0;
     }
     .h-header {
         height: calc(100vh - 80px);
-    }
-
-    .bubble-animation.show {
-        @apply
-        bg-gradient-to-br
-        transition-all
-        duration-700
-        top-0
-        left-0
-    }
-    .bubble-animation.login {
-        clip-path: circle(200%);
-        @apply
-        from-red-200
-        to-red-400
-    }
-    .bubble-animation.register {
-        clip-path: circle(200%);
-        @apply
-        from-indigo-200
-        to-indigo-400
-    }
-    .bubble-animation.login.hide {
-        clip-path: circle(15vh at 0 100%);
-
-    }
-    .bubble-animation.register.hide {
-        clip-path: circle(15vh at 100% 0);
     }
 
 

@@ -43,9 +43,9 @@ class LoginTest extends TestCase
         $this->assertGuest();
         $this->post(route("login"), $data)
             ->assertRedirect(route("dashboard"))
-            ;// ->assertJsonFragment(
-            //     $errors
-            // );
+            ->assertJsonFragment(
+                $errors
+            );
 
         $this->assertGuest();
     }
