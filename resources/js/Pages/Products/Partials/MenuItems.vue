@@ -1,74 +1,111 @@
 <template>
-    <div
-        class="w-full sm:w-2/5 mb-5 bg-gray-50 rounded-md shadow-lg"
-        v-for="item in this.$page.props.products"
-        :key="item.id"
-    >
-        <div class="w-full flex sm:block ">
-            <div
-                class="
-                    w-1/3
-                    sm:w-full
-                    sm:h-40 sm:rounded-t-md
-                    sm:rounded-b-none
-                    rounded-md
-                    product-container
-                    relative
-                    overflow-hidden
-                "
-            >
-                <img
-                    :src="item.image_path"
-                    class="
-                        w-full
-                        h-full
-                        object-center object-cover
-                        sm:rounded-t-md
-                        sm:rounded-b-none
-                        rounded-md
-                    "
-                    :alt="item.name"
-                />
+    <form @submit.stop.prevent="updateCart" method="POST" id="updateCartForm">
+        <div
+            class="w-full sm:w-2/5 mb-5 bg-gray-50 rounded-md shadow-lg"
+            v-for="item in this.$page.props.products"
+            :key="item.id"
+        >
+            <div class="w-full flex sm:block">
                 <div
-                    :class="slidingFrom()"
                     class="
-                        hidden
-                        absolute
-                        inset-0
-                        bg-yellow-700 bg-opacity-40
-                        sm:flex
-                        flex-column
-                        transform transform-gpu
-                        product-description
-                        transition-transform
+                        w-1/3
+                        sm:w-full sm:h-40 sm:rounded-t-md sm:rounded-b-none
+                        rounded-md
+                        product-container
+                        relative
+                        overflow-hidden
                     "
                 >
-                    <p
+                    <img
+                        :src="item.image_path"
                         class="
-                            text-white
                             w-full
-                            font-bold
-                            flex-stretch flex
-                            justify-center
-                            items-center
+                            h-full
+                            object-center object-cover
+                            sm:rounded-t-md sm:rounded-b-none
+                            rounded-md
+                        "
+                        :alt="item.name"
+                    />
+                    <div
+                        :class="slidingFrom()"
+                        class="
+                            hidden
+                            absolute
+                            inset-0
+                            bg-yellow-700 bg-opacity-40
+                            sm:flex
+                            flex-column
+                            transform transform-gpu
+                            product-description
+                            transition-transform
                         "
                     >
-                        {{ item.description }}
+                        <p
+                            class="
+                                text-white
+                                w-full
+                                font-bold
+                                flex-stretch flex
+                                justify-center
+                                items-center
+                            "
+                            style="padding: 5%"
+                        >
+                            {{ item.description }}
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="
+                        w-2/3
+                        sm:w-full
+                        p-3
+                        pb-0
+                        flex flex-col
+                        justify-around
+                    "
+                >
+                    <p class="px-5 pb-5 flex justify-around">
+                        <span class="text-gray-600 font-semibold">{{
+                            item.name
+                        }}</span>
+                        <span class="text-gray-600 font-semibold"
+                            >{{
+                                parseFloat(item.price / 100).toFixed(2)
+                            }}
+                            €</span
+                        >
                     </p>
+                    <menu-item-counter :item="item" />
                 </div>
             </div>
-            <div class="w-2/3 sm:w-full p-3 pb-0 flex flex-col justify-around">
-                <p class="px-5 pb-5 flex justify-around">
-                    <span class="text-gray-600 font-semibold">{{
-                        item.name
-                    }}</span>
-                    <span class="text-gray-600 font-semibold"
-                        >{{ item.price }} €</span
-                    >
-                </p>
-                <menu-item-counter :item="item" />
-            </div>
         </div>
+    </form>
+    <div
+        class="
+            flex
+            w-10/12
+            justify-center
+            fixed
+            bg-indigo-500
+            mx-auto
+            rounded-full
+            shadow-lg
+            h-12
+            right-0
+            left-0
+            max-w-sm
+        "
+        style="bottom: calc(100% - 42rem); min-width: 320px"
+    >
+        <button
+            form="updateCartForm"
+            type="button"
+            class="p-3 w-full h-full text-center uppercase font-bold text-white"
+        >
+            Add to Cart!
+        </button>
     </div>
 </template>
 
@@ -109,6 +146,7 @@ export default defineComponent({
                 "translate-x-full": true,
             };
         },
+        updateCart() {},
     },
 });
 </script>

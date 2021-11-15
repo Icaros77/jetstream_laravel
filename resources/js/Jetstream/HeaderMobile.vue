@@ -59,13 +59,12 @@ export default defineComponent({
     },
     methods: {
         button_selected(nameButton) {
-            if (nameButton === "Cart") {
-                this.$inertia.get(route("cart"));
-                this.activeButton = nameButton;
+            if (nameButton === "Menu") {
+                this.activeButton =
+                    this.activeButton === nameButton ? "" : nameButton;
                 return;
             }
-            this.activeButton =
-                this.activeButton === nameButton ? "" : nameButton;
+            this.activeButton = nameButton;
         },
     },
 });

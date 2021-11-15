@@ -34,11 +34,6 @@ Route::get("/", function () {
     return Inertia::render("Dashboard");
 })->name("dashboard");
 
-Route::middleware(("auth:sanctum"))->group(function () {
-
-    Route::get("/cart", [ShoppingListController::class, "index"])
-        ->name("cart");
-});
 
 Route::post("/login", [LoginController::class, "login"])->name("login")
     ->middleware("guest");

@@ -75,8 +75,6 @@
     import JetInput from '@/Jetstream/Input.vue'
     import JetInputError from '@/components/FormElements/InputError.vue'
     import JetLabel from '@/Jetstream/Label.vue'
-    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 
     export default defineComponent({
         components: {
@@ -86,7 +84,6 @@
             JetInput,
             JetInputError,
             JetLabel,
-            JetSecondaryButton,
         },
 
         props: ['user'],

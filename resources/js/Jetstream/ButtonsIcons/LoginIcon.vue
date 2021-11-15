@@ -4,7 +4,7 @@
         :class="{ 'bg-red-400': buttonActive }"
         class="flex-1 flex justify-center transition duration-300"
     >
-        <button type="button" class="p-2">
+        <Link :href="route('login')" class="p-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 :class="{
@@ -22,7 +22,7 @@
                     clip-rule="evenodd"
                 />
             </svg>
-        </button>
+        </Link>
     </div>
 </template>
 
@@ -30,9 +30,13 @@
 import { defineComponent } from "vue";
 import { mapMutations } from "vuex";
 import store from "../../Plugins/VuexStore";
+import { Link } from "@inertiajs/inertia-vue3";
 
 export default defineComponent({
     emits: ["select"],
+    components: {
+        Link,
+    },
     store: store,
     props: {
         buttonActive: {
@@ -43,21 +47,8 @@ export default defineComponent({
     methods: {
         select() {
             this.$emit("select", this.nameButton);
-            this.toggleMenu({
-                nameButton: this.nameButton,
-                buttonActive: this.buttonActive
-            });
         },
         ...mapMutations("offsetHeader", ["toggleMenu"]),
-    },
-    created() {
-        const unselectMenu = (event) => {
-            const showing = this.$store.getters["offsetHeader/getShow"];
-            if (showing && event.key === "Escape") {
-                this.$emit("select", this.nameButton);
-            }
-        };
-        document.addEventListener("keydown", unselectMenu);
     },
 });
 </script>

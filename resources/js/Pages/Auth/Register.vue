@@ -1,252 +1,252 @@
 <template>
     <Head title="Register" />
-
-    <div
-        class="
-            h-full-mobile
-            p-5
-            flex flex-col
-            justify-between
-            items-center
-            overflow-y-scroll
-            sm:min-h-full
-        "
-    >
+    <div class="w-full sm:max-w-lg">
         <div
             class="
-                w-full
-                flex
-                max-w-sm
-                sm:bg-gradient-to-br
-                sm:from-indigo-300
-                sm:to-indigo-500
-                sm:rounded-lg
-                sm:justify-center
-                sm:items-center
-                sm:p-8
-                sm:max-w-full
-
+                h-full-mobile
+                p-5
+                flex flex-col
+                justify-between
+                items-center
+                overflow-y-scroll
+                sm:min-h-full
             "
         >
-            <form
-                ref="form"
-                @submit.prevent="register"
+            <div
                 class="
-                    p-2
-                    flex
                     w-full
-                    overflow-x-hidden
-                    sm:flex-col sm:overflow-x-visible
+                    flex
+                    max-w-sm
+                    sm:bg-gradient-to-br
+                    sm:from-indigo-300
+                    sm:to-indigo-500
+                    sm:rounded-lg
+                    sm:justify-center
+                    sm:items-center
+                    sm:p-8
+                    sm:max-w-full
                 "
             >
-                <div
+                <form
+                    ref="form"
+                    @submit.prevent="register"
                     class="
-                        transform
-                        transition-transform
-                        flex flex-col
-                        justify-end
-                        min-w-full
-                        sm:-translate-x-0
+                        p-2
+                        flex
+                        w-full
+                        overflow-x-hidden
+                        sm:flex-col sm:overflow-x-visible
                     "
                 >
-                    <label-name
-                        v-model="form.name"
-                        :first="true"
-                        type="text"
-                        errorBag="signUpErrors"
-                        ref="name"
-                        >Username</label-name
-                    >
-                    <label-name
-                        v-model="form.email"
-                        type="email"
-                        errorBag="signUpErrors"
-                        ref="email"
-                        >Email</label-name
-                    >
                     <div
                         class="
-                            p-2
-                            mt-2
-                            w-1/2
-                            self-end
-                            flex
-                            justify-center
-                            sm:hidden
+                            transform
+                            transition-transform
+                            flex flex-col
+                            justify-end
+                            min-w-full
+                            sm:-translate-x-0
                         "
                     >
-                        <button
-                            @click.prevent.stop="continueForm"
-                            type="button"
-                            class="
-                                btn
-                                bg-gradient-to-br
-                                from-indigo-300
-                                to-indigo-500
-                                italics
-                                border-none
-                                shadow-lg
-                            "
+                        <label-name
+                            v-model="form.name"
+                            :first="true"
+                            type="text"
+                            errorBag="signUpErrors"
+                            ref="name"
+                            >Username</label-name
                         >
-                            Proceed!
-                        </button>
-                    </div>
-                </div>
-                <div
-                    class="
-                        transform
-                        transition-transform
-                        flex flex-col
-                        justify-end
-                        min-w-full
-                        sm:-translate-x-0
-                    "
-                >
-                    <label-name
-                        v-model="form.password"
-                        type="password"
-                        errorBag="signUpErrors"
-                        >Password</label-name
-                    >
-                    <label-name
-                        v-model="form.password_confirmation"
-                        type="password"
-                        errorBag="signUpErrors"
-                        >Password Confirmation</label-name
-                    >
-                    <div
-                        class="
-                            p-2
-                            mt-2
-                            w-full
-                            self-end
-                            flex
-                            justify-around
-                            sm:flex-col sm:space-y-4
-                        "
-                    >
-                        <button
-                            @click.prevent.stop="continueForm"
-                            type="button"
+                        <label-name
+                            v-model="form.email"
+                            type="email"
+                            errorBag="signUpErrors"
+                            ref="email"
+                            >Email</label-name
+                        >
+                        <div
                             class="
-                                btn
-                                bg-gradient-to-br
-                                from-indigo-300
-                                to-indigo-500
-                                italics
-                                border-none
-                                shadow-lg
+                                p-2
+                                mt-2
+                                w-1/2
+                                self-end
+                                flex
+                                justify-center
                                 sm:hidden
                             "
                         >
-                            Go back!
-                        </button>
-
-                        <Link
-                            :href="route('login')"
-                            class="
-                                hidden
-                                shadow-lg
-                                text-center
-                                bg-gradient-to-br
-                                from-indigo-300
-                                to-indigo-500
-                                sm:btn
-                                sm:p-2
-                                sm:w-max
-                                sm:text-xs
-                                sm:rounded-lg
-                                sm:from-red-300
-                                sm:to-red-500
-                            "
-                        >
-                            Have an account? Login!
-                        </Link>
-                        <button
-                            type="submit"
-                            class="
-                                btn
-                                bg-gradient-to-br
-                                from-indigo-300
-                                to-indigo-500
-                                italics
-                                border-none
-                                shadow-lg
-                                sm:from-red-300
-                                sm:to-red-500
-                                sm:w-max
-                                sm:self-end
-                            "
-                        >
-                            Sign up!
-                        </button>
+                            <button
+                                @click.prevent.stop="continueForm"
+                                type="button"
+                                class="
+                                    btn
+                                    bg-gradient-to-br
+                                    from-indigo-300
+                                    to-indigo-500
+                                    italics
+                                    border-none
+                                    shadow-lg
+                                "
+                            >
+                                Proceed!
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-        <transition
-            enter-active-class="ease-in duration-500 delay-150"
-            enter-from-class="opacity-0"
-            enter-to-class="opacity-100"
-        >
-            <div
-                v-show="proceeded"
-                class="
-                    w-full
-                    flex flex-col
-                    justify-center
-                    items-center
-                    sm:hidden
-                "
-            >
-                <span
-                    v-show="form.name"
-                    class="
-                        w-10/12
-                        p-1
-                        bg-gradient-to-br
-                        from-indigo-300
-                        to-indigo-500
-                        text-white text-sm text-center
-                        rounded-full
-                    "
-                    >{{ form.name }}</span
-                >
-                <span
-                    v-show="form.email"
-                    class="
-                        mt-2
-                        w-10/12
-                        p-1
-                        bg-gradient-to-br
-                        from-indigo-300
-                        to-indigo-500
-                        text-white text-sm text-center
-                        rounded-full
-                    "
-                    >{{ form.email }}</span
-                >
+                    <div
+                        class="
+                            transform
+                            transition-transform
+                            flex flex-col
+                            justify-end
+                            min-w-full
+                            sm:-translate-x-0
+                        "
+                    >
+                        <label-name
+                            v-model="form.password"
+                            type="password"
+                            errorBag="signUpErrors"
+                            >Password</label-name
+                        >
+                        <label-name
+                            v-model="form.password_confirmation"
+                            type="password"
+                            errorBag="signUpErrors"
+                            >Password Confirmation</label-name
+                        >
+                        <div
+                            class="
+                                p-2
+                                mt-2
+                                w-full
+                                self-end
+                                flex
+                                justify-around
+                                sm:flex-col sm:space-y-4
+                            "
+                        >
+                            <button
+                                @click.prevent.stop="continueForm"
+                                type="button"
+                                class="
+                                    btn
+                                    bg-gradient-to-br
+                                    from-indigo-300
+                                    to-indigo-500
+                                    italics
+                                    border-none
+                                    shadow-lg
+                                    sm:hidden
+                                "
+                            >
+                                Go back!
+                            </button>
+
+                            <Link
+                                :href="route('login')"
+                                class="
+                                    hidden
+                                    shadow-lg
+                                    text-center
+                                    bg-gradient-to-br
+                                    from-indigo-300
+                                    to-indigo-500
+                                    sm:btn
+                                    sm:p-2
+                                    sm:w-max
+                                    sm:text-xs
+                                    sm:rounded-lg
+                                    sm:from-red-300
+                                    sm:to-red-500
+                                "
+                            >
+                                Have an account? Login!
+                            </Link>
+                            <button
+                                type="submit"
+                                class="
+                                    btn
+                                    bg-gradient-to-br
+                                    from-indigo-300
+                                    to-indigo-500
+                                    italics
+                                    border-none
+                                    shadow-lg
+                                    sm:from-red-300
+                                    sm:to-red-500
+                                    sm:w-max
+                                    sm:self-end
+                                "
+                            >
+                                Sign up!
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </transition>
-        <div class="w-full max-w-sm mt-12 sm:hidden">
-            <Link
-                :href="route('login')"
-                class="
-                    p-5
-                    inline-block
-                    shadow-lg
-                    w-full
-                    text-center
-                    rounded-full
-                    bg-gradient-to-br
-                    text-white text-base
-                    uppercase
-                    from-indigo-300
-                    to-indigo-500
-                "
+            <transition
+                enter-active-class="ease-in duration-500 delay-150"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
             >
-                Have an account? Login!
-            </Link>
+                <div
+                    v-show="proceeded"
+                    class="
+                        w-full
+                        flex flex-col
+                        justify-center
+                        items-center
+                        sm:hidden
+                    "
+                >
+                    <span
+                        v-show="form.name"
+                        class="
+                            w-10/12
+                            p-1
+                            bg-gradient-to-br
+                            from-indigo-300
+                            to-indigo-500
+                            text-white text-sm text-center
+                            rounded-full
+                        "
+                        >{{ form.name }}</span
+                    >
+                    <span
+                        v-show="form.email"
+                        class="
+                            mt-2
+                            w-10/12
+                            p-1
+                            bg-gradient-to-br
+                            from-indigo-300
+                            to-indigo-500
+                            text-white text-sm text-center
+                            rounded-full
+                        "
+                        >{{ form.email }}</span
+                    >
+                </div>
+            </transition>
+            <div class="w-full max-w-sm mt-12 sm:hidden">
+                <Link
+                    :href="route('login')"
+                    class="
+                        p-5
+                        inline-block
+                        shadow-lg
+                        w-full
+                        text-center
+                        rounded-full
+                        bg-gradient-to-br
+                        text-white text-base
+                        uppercase
+                        from-indigo-300
+                        to-indigo-500
+                    "
+                >
+                    Have an account? Login!
+                </Link>
+            </div>
         </div>
     </div>
 </template>

@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $req)
     {
         return array_merge(parent::share($req), [
-            'user' => $req->user()?->load('cart:cart')->only(["id", "name", "email", "cart"]),
+            'user' => $req->user()?->load('cart:cart,client_id')->only(["id", "name", "email", "cart"]),
             'notification' => Session::get('notification'),
         ]);
     }

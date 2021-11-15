@@ -82,9 +82,7 @@
 
             <!-- Page Content -->
             <main class="mb-24 flex justify-center">
-                <div class="w-full sm:max-w-lg">
-                    <slot></slot>
-                </div>
+                <slot></slot>
             </main>
         </div>
     </div>
@@ -97,7 +95,6 @@ import JetBanner from "@/Jetstream/Banner.vue";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import JetNavLink from "@/Jetstream/NavLink.vue";
-import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
 import Navigation from "../Jetstream/Navigation.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import HeaderMobile from "../Jetstream/HeaderMobile.vue";
@@ -118,7 +115,6 @@ export default defineComponent({
         JetDropdown,
         JetDropdownLink,
         JetNavLink,
-        JetResponsiveNavLink,
         Navigation,
         HeaderMobile,
         Offset,

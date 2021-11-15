@@ -10,11 +10,8 @@ const module = {
     },
     mutations: {
         toggleMenu(state, { nameButton, buttonActive }) {
-            if (nameButton === "Menu" || nameButton === "Login") {
-                state.show = !buttonActive;
-            } else {
-                state.show = false;
-            }
+            if (nameButton === "Menu") state.show = !buttonActive;
+            else state.show = false;
         },
         defaultMenu(state) {
             state.show = false;
