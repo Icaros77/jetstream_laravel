@@ -25,7 +25,7 @@ class CartUpdateRequest extends FormRequest
     {
         return [
             'products' => ['required', 'array'],
-            'total_amount' => ['required', 'numeric','integer', 'min:0']
+            'total_amount_cart' => ['required', 'numeric','integer', 'min:0']
         ];
     }
 
@@ -34,10 +34,10 @@ class CartUpdateRequest extends FormRequest
         return [
             'cart.required' => 'Cart is required',
             'cart.array' => 'Cart required products',
-            'total_amount.required' => 'Total amount is required',
-            'total_amount.number' => 'Total amount must be a number', 
-            'total_amount.min' => 'Total amount cannot be negative', 
-            'total_amount.integer' => 'Total amount must be a integer', 
+            'total_amount_cart.required' => 'Total amount is required',
+            'total_amount_cart.number' => 'Total amount must be a number', 
+            'total_amount_cart.min' => 'Total amount cannot be negative', 
+            'total_amount_cart.integer' => 'Total amount must be a integer', 
         ];
     }
 }

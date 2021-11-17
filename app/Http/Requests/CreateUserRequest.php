@@ -3,11 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Service\FortifyRules;
 
 class CreateUserRequest extends FormRequest
 {
-    protected $redirectRoute = 'dashboard';
+    protected $redirectRoute = 'register';
     protected $errorBag = 'signUpErrors';
     /**
      * Determine if the user is authorized to make this request.
@@ -38,12 +37,12 @@ class CreateUserRequest extends FormRequest
     {
         return
             [
-                'name.required' => 'Name is required',
-                'name.string' => 'Name must be a string',
+                'name.required' => 'Username is required',
+                'name.string' => 'Username must be a string',
                 'email.required' => 'Email is required',
                 'email.email' => 'Email format must be a regular email',
                 'email.string' => 'Email must be a string',
-                'email.unique' => 'Email alrady exists',
+                'email.unique' => 'Email already exists',
                 'password.required' => 'Password is required',
                 'password.string' => 'Password must be a string',
                 'password_confirmation.required' => 'Password is required',

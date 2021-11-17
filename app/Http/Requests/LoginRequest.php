@@ -3,17 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Service\FortifyRules;
-use Illuminate\Contracts\Validation\Validator;
-// use Dotenv\Exception\ValidationException;
-use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
     // use FortifyRules;
 
 
-    protected $redirectRoute = "dashboard";
+    protected $redirectRoute = "login";
     protected $errorBag = 'loginErrors';
 
     // public function __construct()

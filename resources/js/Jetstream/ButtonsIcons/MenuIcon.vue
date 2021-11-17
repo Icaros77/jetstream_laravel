@@ -3,6 +3,7 @@
         @click="select"
         :class="{ 'bg-red-400': buttonActive }"
         class="transition duration-300 flex-1 flex justify-center"
+        id="menu_icon_mobile"
     >
         <button type="button" class="p-2">
             <svg

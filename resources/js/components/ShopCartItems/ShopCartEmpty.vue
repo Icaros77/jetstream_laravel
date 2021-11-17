@@ -10,7 +10,7 @@
             justify-center
             items-center
             rounded-lg
-            h-full
+            min-h-1/4
         "
     >
         <div class="p-4">

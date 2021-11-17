@@ -4,7 +4,7 @@
         :class="{ 'bg-red-400': buttonActive }"
         class="flex-1 flex justify-center transition duration-300"
     >
-        <Link :href="route('cart')" class="p-2">
+        <Link :href="route('cart.index')" class="p-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 :class="{

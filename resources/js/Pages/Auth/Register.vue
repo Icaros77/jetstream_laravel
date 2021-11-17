@@ -15,7 +15,7 @@
             <div
                 class="
                     w-full
-                    flex
+                    flex-grow flex
                     max-w-sm
                     sm:bg-gradient-to-br
                     sm:from-indigo-300
@@ -43,7 +43,7 @@
                             transform
                             transition-transform
                             flex flex-col
-                            justify-end
+                            justify-center
                             min-w-full
                             sm:-translate-x-0
                         "
@@ -52,6 +52,7 @@
                             v-model="form.name"
                             :first="true"
                             type="text"
+                            name="name"
                             errorBag="signUpErrors"
                             ref="name"
                             >Username</label-name
@@ -60,6 +61,7 @@
                             v-model="form.email"
                             type="email"
                             errorBag="signUpErrors"
+                            name="email"
                             ref="email"
                             >Email</label-name
                         >
@@ -96,7 +98,7 @@
                             transform
                             transition-transform
                             flex flex-col
-                            justify-end
+                            justify-center
                             min-w-full
                             sm:-translate-x-0
                         "
@@ -104,12 +106,14 @@
                         <label-name
                             v-model="form.password"
                             type="password"
+                            name="password"
                             errorBag="signUpErrors"
                             >Password</label-name
                         >
                         <label-name
                             v-model="form.password_confirmation"
                             type="password"
+                            name="password_confirmation"
                             errorBag="signUpErrors"
                             >Password Confirmation</label-name
                         >
@@ -125,7 +129,7 @@
                             "
                         >
                             <button
-                                @click.prevent.stop="continueForm"
+                                @click.prevent.stop="goBack"
                                 type="button"
                                 class="
                                     btn
@@ -137,6 +141,7 @@
                                     shadow-lg
                                     sm:hidden
                                 "
+                                ref="go_back"
                             >
                                 Go back!
                             </button>
@@ -166,15 +171,12 @@
                                 class="
                                     btn
                                     bg-gradient-to-br
-                                    from-indigo-300
-                                    to-indigo-500
+                                    from-red-400
+                                    to-red-600
                                     italics
                                     border-none
                                     shadow-lg
-                                    sm:from-red-300
-                                    sm:to-red-500
-                                    sm:w-max
-                                    sm:self-end
+                                    sm:w-max sm:self-end
                                 "
                             >
                                 Sign up!
@@ -191,6 +193,7 @@
                 <div
                     v-show="proceeded"
                     class="
+                        flex-grow
                         w-full
                         flex flex-col
                         justify-center
@@ -227,7 +230,7 @@
                     >
                 </div>
             </transition>
-            <div class="w-full max-w-sm mt-12 sm:hidden">
+            <div class="w-full max-w-sm mt-8 sm:hidden">
                 <Link
                     :href="route('login')"
                     class="
@@ -283,8 +286,11 @@ export default defineComponent({
                 this.form
                     .transform((data) => ({ ...data }))
                     .post(route("register"), {
+                        onError: () => {
+                            this.$refs.go_back.click();
+                        },
                         onFinish: (page) => {
-                            this.form.reset();
+                            this.form.reset('email');
                         },
                     });
             });
@@ -300,9 +306,14 @@ export default defineComponent({
             }
 
             Array.from(this.$refs.form.children).forEach((child) =>
-                child.classList.toggle("-translate-x-full")
+                child.classList.add("-translate-x-full")
             );
             this.proceeded = true;
+        },
+        goBack() {
+            Array.from(this.$refs.form.children).forEach((child) =>
+                child.classList.remove("-translate-x-full")
+            );
         },
     },
 });

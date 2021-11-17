@@ -89,7 +89,7 @@
             required
         />
     </div>
-    <input-error :type="type" :errorBag="errorBag" />
+    <input-error :name="name" :errorBag="errorBag" />
 </template>
 
 <script>
@@ -106,6 +106,7 @@ export default defineComponent({
             tpye: String,
             default: "text",
         },
+        name: String,
         modelValue: String,
         errorBag: String,
         first: {

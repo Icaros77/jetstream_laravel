@@ -33,12 +33,14 @@
                         v-model="form.email"
                         :first="true"
                         type="email"
+                        name="email"
                         errorBag="loginErrors"
                         >Email</label-name
                     >
                     <label-name
                         v-model="form.password"
                         type="password"
+                        name="password"
                         errorBag="loginErrors"
                         >Password</label-name
                     >

@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\ShoppingList;
 use App\Models\User;
 use App\Models\Vendor;
-use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -44,36 +43,47 @@ class ShoppingListTest extends TestCase
         $this->actingAs($user);
 
         $vendors = Vendor::factory(2)->addProducts()->create();
-        $products = $vendors->load('products:product_number,name,price,vendor_id')->map(function ($vendor) {
+        $products = $vendors->load('products:id,product_number,name,price,vendor_id')->map(function ($vendor) {
             return $vendor->products;
         })->flatten();
 
 
+        $total_amount = 0;
+        $products = $products->groupBy('product_number')->map(function ($product) use (&$total_amount) {
+            $product = $product->first();
+            $quantity = random_int(1,5);
+            $total = $product->price * $quantity;
+            $total_amount += $total;
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'quantity' => $quantity,
+                'product_number' => $product->product_number,
+                'total_amount' => $total
+            ];
+        });
+        
         $data = [
-            'products' => $products->groupBy('product_number')->map(function ($product) {
-                $product = $product->first();
-                return [
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'product_number' => $product->product_number,
-
-                ];
-            }),
-            'total_amount' => $products->pluck("price")->sum()
+            'products' => $products,
+            'total_amount_cart' => $total_amount
         ];
 
         $this->assertDatabaseMissing("shopping_lists", [
-            'client_id' => $user->id, 'cart' => $data
+            'client_id' => $user->id,
+            'cart' => json_encode($data['products']),
+            "total_amount_cart" => $total_amount
         ]);
 
         $this->postJson(route("cart.store"), $data)
             ->assertRedirect(route("dashboard"));
 
+        $products = $data["products"];
+        $total    = $data["total_amount_cart"];
         $this->assertDatabaseHas(
             "shopping_lists",
             [
                 'client_id' => $user->id,
-                'cart' => json_encode($data)
+                'total_amount_cart' => $total
             ]
         );
     }

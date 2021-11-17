@@ -11,31 +11,40 @@
             sm:justify-around
         "
     >
-        <shop-cart-items v-if="cart" />
+        <shop-cart-items v-if="isCartEmpty" :cart="cart" />
         <shop-cart-empty v-else />
     </section>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import store from "../Plugins/VuexStore";
 import AppLayoutVue from "../Layouts/AppLayout.vue";
-import ShopCartItems from "./ShopCartItems/ShopCartItems.vue";
-import ShopCartEmpty from "./ShopCartItems/ShopCartEmpty.vue";
+import ShopCartItems from "@/components/ShopCartItems/ShopCartItems.vue";
+import ShopCartEmpty from "@/components/ShopCartItems/ShopCartEmpty.vue";
+import store from "@/Plugins/VuexStore";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
     components: {
         ShopCartItems,
         ShopCartEmpty,
     },
+
+    props: ["user"],
     layout: AppLayoutVue,
     store: store,
     computed: {
-        cart() {
-            let cart = this.$page.props.user.cart.cart;
-            if(!cart) return;
+        isCartEmpty() {
+            let cart = this.cart();
+
             return Object.keys(cart.products).length > 0;
         },
+        cart() {
+            return Object.keys(this.user.cart.cart.products)
+                ? this.user.cart.cart
+                : this.getSessionCart;
+        },
+        ...mapGetters(["getSessionCart"]),
     },
 });
 </script>

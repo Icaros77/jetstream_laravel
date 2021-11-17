@@ -92,15 +92,12 @@
 import { defineComponent } from "vue";
 import JetApplicationMark from "@/Jetstream/ApplicationMark.vue";
 import JetBanner from "@/Jetstream/Banner.vue";
-import JetDropdown from "@/Jetstream/Dropdown.vue";
-import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import JetNavLink from "@/Jetstream/NavLink.vue";
 import Navigation from "../Jetstream/Navigation.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import HeaderMobile from "../Jetstream/HeaderMobile.vue";
 import Offset from "../Jetstream/Offset.vue";
 import store from "../Plugins/VuexStore";
-import { mapGetters } from "vuex";
 import Notification from "../components/Notification.vue";
 
 export default defineComponent({
@@ -112,8 +109,6 @@ export default defineComponent({
         Head,
         JetApplicationMark,
         JetBanner,
-        JetDropdown,
-        JetDropdownLink,
         JetNavLink,
         Navigation,
         HeaderMobile,
@@ -125,9 +120,6 @@ export default defineComponent({
         return {
             showingNavigationDropdown: false,
         };
-    },
-    computed: {
-        ...mapGetters(["isLoggedIn", "getUser"]),
     },
 
     methods: {
