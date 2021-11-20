@@ -11,7 +11,7 @@ class ProductInvalidException extends Exception
     }
 
     public function render() {
-        return redirect()->route("dashboard")->with([
+        return redirect()->back()->with([
             'error' => 'An error occurred. A product is not valid'
         ]);
     }

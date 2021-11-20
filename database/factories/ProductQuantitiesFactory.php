@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\ShoppingList;
-use App\Models\User;
+use App\Models\ProductQuantities;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ShoppingListFactory extends Factory
+class ProductQuantitiesFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ShoppingList::class;
+    protected $model = ProductQuantities::class;
 
     /**
      * Define the model's default state.
@@ -22,6 +21,9 @@ class ShoppingListFactory extends Factory
      */
     public function definition()
     {
-        return [];
+        return [
+            'quantity' => random_int(1,50),
+            'quantity_in_process' => 0,
+        ];
     }
 }

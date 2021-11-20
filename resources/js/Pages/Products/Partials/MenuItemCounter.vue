@@ -30,29 +30,13 @@
                 class="w-2/3 flex justify-start"
                 :class="{ visible: quantity, invisible: !quantity }"
             >
-                <button
-                    @click="addToCart"
-                    type="button"
-                    class="
-                        w-3/5
-                        text-white
-                        bg-gradient-to-br
-                        from-indigo-300
-                        to-indigo-500
-                        font-bold
-                        text-xs
-                        p-2
-                        rounded-md
-                    "
-                >
-                    Add to cart
-                </button>
+                <add-to-cart @addToCart="addToCart" />
             </div>
             <div class="w-1/3 flex justify-end">
                 <span
-                    v-show="quantity"
+                    v-show="quantity_in_cart"
                     class="self-end text-sm text-red-600 font-bold"
-                    >{{ quantity }} in cart
+                    >{{ quantity_in_cart }} in cart
                 </span>
             </div>
         </div>
@@ -61,27 +45,12 @@
 
 <script>
 import { defineComponent } from "vue";
-import JetButton from "@/Jetstream/Button.vue";
-import { mapGetters, mapMutations } from "vuex";
+import AddToCart from "./AddToCart.vue";
+import Cart from "@/app_modules/Cart";
 
 export default defineComponent({
     components: {
-        JetButton,
-    },
-    setup(props) {
-        const setTotal = function () {
-            let product_number = props.item.product_number;
-            const cart = props.cart;
-            if (!cart) return "0.00";
-
-            let product = cart.products[product_number];
-
-            if (!product) return "0.00";
-
-            return parseFloat(product.total_amount / 100).toFixed(2) || "0.00";
-        };
-
-        return { setTotal };
+        AddToCart,
     },
     props: {
         item: Object,
@@ -90,12 +59,10 @@ export default defineComponent({
 
     data() {
         return {
-            total_amount: this.setTotal(),
-            quantity: this.getQuantity(this.item.product_number),
+            total_amount: "0.00",
+            quantity: 0,
+            quantity_in_cart: this.getQuantity(),
         };
-    },
-    computed: {
-        ...mapGetters(["getSessionCart"]),
     },
     methods: {
         changeAmount(event) {
@@ -110,19 +77,31 @@ export default defineComponent({
             this.total_amount = (value * (this.item.price / 100)).toFixed(2);
             this.quantity = value;
         },
+
         addToCart() {
-            this.addToCart({
-                id: this.item.id,
-                name: this.item.name,
-                total_amount: this.total_amount,
-                quantity: this.quantity,
-                product_number: this.item.product_number,
+            const product = this.item;
+            product.quantity = this.quantity;
+            product.total_amount = this.total_amount;
+
+            const product_data = Cart.$addToCart(this.cart, product);
+            if (!product_data) return;
+
+            const form = this.$inertia.form({ product_data });
+
+            form.transform((data) => ({ ...data })).post(route("cart.store"), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    this.quantity = 0;
+                    this.total_amount = "0.00";
+                    this.quantity_in_cart =
+                        this.cart[product_data.product_number].quantity;
+                },
             });
         },
-        getQuantity(product_number) {
-            return this.cart.products[product_number]?.quantity || 0;
+
+        getQuantity() {
+            return this.cart[this.item.product_number]?.quantity || 0;
         },
-        ...mapMutations(["addToCart"]),
     },
 });
 </script>

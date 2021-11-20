@@ -3,23 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CartUpdateRequest;
-use App\Models\ShoppingList;
-use App\Service\ShoppingListService;
+use App\Service\ShoppingCartDBService;
+use App\Service\ShoppingCartSessionService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ShoppingListController extends Controller
 {
-    public function index(Request $req)
+    public function index()
     {
-        $user = $req->user()->load("cart");
-        $cart = $user->cart->cart;
-        return Inertia::render("ShopCart", compact("cart"));
+        return Inertia::render("Cart/Index", ['title' => 'Cart']);
     }
 
-    public function store(CartUpdateRequest $req, ShoppingListService $service)
+    public function store(CartUpdateRequest $req)
     {
+        $service = Auth::check() ? new ShoppingCartDBService : new ShoppingCartSessionService;
+
         $service->updateCart($req);
-        return redirect()->route('dashboard');
+        return redirect()->back()->with([
+            "notification" => [
+                "message" => "Item added to cart!"
+            ]
+        ]);
     }
 }

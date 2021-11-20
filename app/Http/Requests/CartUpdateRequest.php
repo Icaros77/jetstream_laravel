@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class CartUpdateRequest extends FormRequest
 {
@@ -21,23 +22,19 @@ class CartUpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $req)
     {
+        // dd($req->all());
         return [
-            'products' => ['required', 'array'],
-            'total_amount_cart' => ['required', 'numeric','integer', 'min:0']
+            'product_data' => ['required', 'array'],
         ];
     }
 
     public function messages()
     {
         return [
-            'cart.required' => 'Cart is required',
-            'cart.array' => 'Cart required products',
-            'total_amount_cart.required' => 'Total amount is required',
-            'total_amount_cart.number' => 'Total amount must be a number', 
-            'total_amount_cart.min' => 'Total amount cannot be negative', 
-            'total_amount_cart.integer' => 'Total amount must be a integer', 
+            'product_data.required' => 'Product is required',
+            'product_data.array' => 'Product must be array'
         ];
     }
 }

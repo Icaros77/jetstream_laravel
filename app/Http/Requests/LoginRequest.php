@@ -12,12 +12,6 @@ class LoginRequest extends FormRequest
     protected $redirectRoute = "login";
     protected $errorBag = 'loginErrors';
 
-    // public function __construct()
-    // {
-    //     $this->name = $this->username();
-    //     $this->redirectRoute = route("dashboard");
-    // }
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,20 +21,6 @@ class LoginRequest extends FormRequest
     {
         return true;
     }
-
-    // protected function failedValidation(Validator $validator)
-    // {
-    //     $response =
-    //         redirect()->route("dashboard")->withErrors($validator);
-    //         // dd('hik');
-    //         // dd($validator->errors());
-    //     new ValidationException(
-    //         $validator,
-    //         $response,
-    //         $this->errorBag
-    //     );
-    //     return $response;
-    // }
 
     /**
      * Get the validation rules that apply to the request.

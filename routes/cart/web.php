@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource("cart", ShoppingListController::class)
-    ->middleware(['auth:sanctum', 'verified']);
+Route::resource("cart", ShoppingListController::class);
 

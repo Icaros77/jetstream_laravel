@@ -3,7 +3,7 @@
     <div>
         <Head :title="title" />
         <offset>
-            <navigation v-if="this.$page.props.user" />
+            <navigation />
         </offset>
 
         <jet-banner />
@@ -74,13 +74,13 @@
                             leading-tight
                         "
                     >
-                        {{ this.$page.component }}
+                        {{ title }}
                     </h2>
                 </div>
             </header>
-            <notification />
+            <notification v-show="$page.props.notification" />
 
-            <!-- Page Content -->
+
             <main class="mb-24 flex justify-center">
                 <slot></slot>
             </main>

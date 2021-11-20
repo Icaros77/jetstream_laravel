@@ -1,4 +1,5 @@
 <template>
+    <Head title="Dashboard" />
     <div
         class="
             max-w-7xl
@@ -17,12 +18,14 @@
 
 <script>
 import { defineComponent } from "vue";
+import { Head } from "@inertiajs/inertia-vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import DashboardItems from "./DashboardItems/DashboardItems.vue";
 
 export default defineComponent({
     components: {
         DashboardItems,
+        Head,
     },
     layout: AppLayout,
 });

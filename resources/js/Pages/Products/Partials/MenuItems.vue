@@ -73,24 +73,19 @@
 <script>
 import { defineComponent } from "vue";
 import MenuItemCounter from "./MenuItemCounter.vue";
-import AddToCartButton from "@/components/Products/Buttons/AddToCart.vue";
 
 export default defineComponent({
     components: {
         MenuItemCounter,
-        AddToCartButton,
     },
     props: {
-        products: Object,
         cart: Object
     },
 
     data() {
         return {
             // true => right, false => left
-            // admin can insert new products
             slideFrom: true,
-            // cart: this.getCart(),
         };
     },
 

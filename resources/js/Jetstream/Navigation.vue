@@ -125,7 +125,7 @@
                         </svg>
                     </Link>
                 </li>
-                <li class="rounded-md w-full">
+                <li v-if="$page.props.user" class="rounded-md w-full">
                     <jet-button
                         @click.stop="logout"
                         type="button"
@@ -145,6 +145,38 @@
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                             /></svg
                     ></jet-button>
+                </li>
+                <li v-else class="rounded-md w-full">
+                    <Link
+                        @click.stop="closeMenu"
+                        :href="route('login')"
+                        class="
+                            btn
+                            bg-gradient-to-br
+                            from-gray-100
+                            via-pink-100
+                            to-indigo-200
+                            justify-center
+                            w-full
+                            font-bold
+                            text-indigo-400
+                        "
+                    >
+                        <span class="mr-3">Login</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 fill-current"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </Link>
                 </li>
             </ul>
         </div>

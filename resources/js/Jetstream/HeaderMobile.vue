@@ -23,14 +23,8 @@
                 :buttonActive="activeButton === 'Cart'"
             />
             <menu-icon
-                v-if="this.$page.props.user"
                 @select="button_selected"
                 :buttonActive="activeButton === 'Menu'"
-            />
-            <login-icon
-                v-else
-                @select="button_selected"
-                :buttonActive="activeButton === 'Login'"
             />
         </div>
     </div>

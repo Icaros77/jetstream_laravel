@@ -39,7 +39,7 @@ class UserFactory extends Factory
     public function addCart()
     {
         return $this->afterCreating(function(User $user) {
-            ShoppingList::create(['client_id' => $user->id]);
+            ShoppingList::factory()->create(['client_id' => $user->id]);
         });
     }
 

@@ -12,7 +12,8 @@ class ProductController extends Controller
     public function index(ProductService $service)
     {
         $products = $service->getProducts();
-        return Inertia::render("Products/Index", compact("products"));
+        $title = 'Products';
+        return Inertia::render("Products/Index", compact("products", 'title'));
     }
 
     public function fetch_products()

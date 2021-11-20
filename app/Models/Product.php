@@ -23,4 +23,9 @@ class Product extends Model
     {
        return  $this->belongsTo(Vendor::class);
     }
+
+    public function quantity()
+    {
+        return $this->hasOne(ProductQuantities::class);
+    }
 }

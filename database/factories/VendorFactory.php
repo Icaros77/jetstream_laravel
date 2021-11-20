@@ -33,11 +33,11 @@ class VendorFactory extends Factory
     }
 
 
-    public function addProducts()
+    public function addProducts($amount = null, $quantity_default = null)
     {
-        return $this->afterCreating(function(Vendor $vendor) {
-            
-            Product::factory(random_int(1, 5))->for($vendor)->create();
+        return $this->afterCreating(function(Vendor $vendor) use($amount, $quantity_default) {
+            $amount = $amount ? $amount : random_int(1, 5);
+            Product::factory($amount)->addQuantity($quantity_default)->for($vendor)->create();
         });
     }
 }

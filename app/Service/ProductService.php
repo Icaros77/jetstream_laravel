@@ -2,8 +2,12 @@
 
 namespace App\Service;
 
+use App\Exceptions\QuantityException;
+use App\Exceptions\SQLInjectionException;
 use App\Models\Product;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class ProductService
 {
@@ -26,28 +30,45 @@ class ProductService
      * if 1 product doesn't exist in the DB,
      * throws an ProductInvalidException
      * and doesn't update the cart,
-     * checks id and product_number
+     * checks id and quantity
      * @param Collection $products_insert
-     * @return Collection $products_DB
+     * @return stdClass $product_DB
      */
-    public function checksProducts(Collection $products): Collection
+    public function checkProduct(Collection $product): stdClass
     {
-        $ids = $products->pluck("id")->all();
-        $products_numbers = $products->pluck("product_number")->all();
+        $id = $product['id'];
+        $product_number = $product['product_number'];
+        $quantity = $product['quantity'];
+        $demand = $product['demand'];
 
+        throw_if(
+            !is_int($demand) || !is_int($id) || !is_int($quantity),
+            SQLInjectionException::class
+        );
 
-        // quantity will later be included once the storage table
-        // has been setted and planned
-        $products_DB = Product::whereIn("product_number", $products_numbers)
-            ->whereIn("id", $ids)
-            ->select("price", "product_number", "name", "id")
-            ->get();
+        $product_DB = DB::table("products as p")
+            ->join("product_quantities as q", 'p.id', 'q.product_id')
+            ->where('p.id', $id)
+            ->where('p.product_number', $product_number)
+            ->where('q.quantity', '>', 0)
+            ->select([
+                'p.id',
+                'p.product_number',
+                'p.name',
+                'p.price',
+                DB::raw("(p.price * ($quantity + $demand)) as total_amount")
+            ])
+            ->get()
+            ->first();
 
 
         throw_if(
-            $products_DB->count() != $products->count(),
+            is_null($product_DB),
             ProductInvalidException::class
         );
-        return $products_DB;
+
+        // dispatch event for notifying demand for X product
+
+        return $product_DB;
     }
 }

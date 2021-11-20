@@ -10,14 +10,15 @@ class ShoppingList extends Model
     use HasFactory;
 
     protected $fillable = [
-        "cart",
-        
+        "cart->*",
+        "total_amount_cart",
         // references users
         "client_id"
     ];
 
     protected $casts = [
-        'cart' => 'array'
+        'cart->*' => 'array',
+        'cart' => 'object'
     ];
 
     public function user()

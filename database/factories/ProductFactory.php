@@ -3,50 +3,11 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\ProductQuantities;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
 {
-
-    private const NAMES = [
-        'Mele',
-        'Pere',
-        'Banane',
-        'Nokia N85',
-        'Iphone 22222'
-    ];
-
-    private const PRICES = [
-        100,
-        500,
-        12000,
-        75800,
-        90
-    ];
-
-
-    private const DESCRIPTION = [
-        "Description 1",
-        "Description 2",
-        "Description 3",
-        "Description 4",
-        "Description 5"
-    ];
-
-    private const IMAGE_PATH = [
-        "images/banane.jpg",
-        "images/mele.webp",
-        "images/pere.jpg",
-    ];
-
-
-
-    private const CATEGORY = [
-        "Fruits",
-        "VEGETABLEs",
-        "Phones",
-        "Cars"
-    ];
 
     /**
      * The name of the factory's corresponding model.
@@ -61,7 +22,7 @@ class ProductFactory extends Factory
      * @return array
      */
     public function definition()
-    { 
+    {
         return [
             'name' => $this->faker->word(),
             'product_number' => implode("", $this->faker->randomElements([
@@ -72,5 +33,14 @@ class ProductFactory extends Factory
             'image_path' => $this->faker->imageUrl(),
             'category' => $this->faker->word()
         ];
+    }
+
+    public function addQuantity($amount = null)
+    {
+
+        return $this->afterCreating(function (Product $product) use ($amount) {
+            $amount = $amount ? $amount : random_int(1, 50);
+            ProductQuantities::factory(1)->for($product)->create(['quantity' => $amount]);
+        });
     }
 }

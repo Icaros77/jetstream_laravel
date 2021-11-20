@@ -11,6 +11,7 @@
             items-center
             rounded-lg
             min-h-1/4
+            shadow-lg
         "
     >
         <div class="p-4">
@@ -20,8 +21,9 @@
             <Link
                 :href="route('products.index')"
                 class="font-bold text-white underline uppercase"
-                >Purchase new stuff!!</Link
             >
+                Purchase new stuff!!
+            </Link>
         </div>
     </div>
 </template>
@@ -31,7 +33,6 @@ import { defineComponent } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default defineComponent({
-    setup() {},
     components: {
         Link,
     },
