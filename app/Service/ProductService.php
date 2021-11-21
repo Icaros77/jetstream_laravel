@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
-use App\Exceptions\QuantityException;
 use App\Exceptions\SQLInjectionException;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use stdClass;
@@ -12,7 +12,38 @@ use stdClass;
 class ProductService
 {
 
-    public function getProducts()
+    /**
+     * retrieves products
+     * checks if filtering has been applied or not
+     * @param Request $req
+     */
+    public function getProducts(Request $req)
+    {
+        $query = $req->only("filter", "vendor", "category", "name");
+        // dd($query);
+        if (count($query) == 0) {
+            return $this->getAllProducts();
+        }  else {
+            return $this->filterPerCategory($query);
+        }
+    }
+
+    /**
+     * 
+     */
+    public function filterPerCategory($query)
+    {
+        extract($query);
+        // $products = Product::when($filter != "")
+        
+    }
+
+    /**
+     * Get all products from db
+     * remember to paginate the result
+     * 10 per page
+     */
+    public function getAllProducts()
     {
         return Product::select(
             "id",
@@ -21,9 +52,8 @@ class ProductService
             "description",
             "price",
             "image_path"
-        )->get();
+        )->paginate(10);
     }
-
     /**
      * Checks if the products exists in the DB
      * and retrieves them,

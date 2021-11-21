@@ -81,6 +81,7 @@ abstract class TestCase extends BaseTestCase
      * @return self
      */
 
+
     public function setXHR()
     {
         return $this->withHeader("X-Requested-With", "XMLHttpRequest")->get("/sanctum/csrf-cookie");

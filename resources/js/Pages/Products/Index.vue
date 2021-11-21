@@ -13,7 +13,10 @@
             sm:justify-around
         "
     >
-        <menu-items :cart="passCart" />
+        <navigation :products="products" />
+        <menu-items :cart="passCart" :products="products"/>
+        <navigation :products="products" />
+        <filter-bar />
     </div>
 </template>
 
@@ -22,14 +25,18 @@ import { defineComponent } from "vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import MenuItems from "./Partials/MenuItems.vue";
+import FilterBar from "./Partials/FilterBar.vue";
+import Navigation from "./Partials/NavigationFilterResult.vue";
 import Cart from "@/app_modules/Cart";
 
 export default defineComponent({
     components: {
         MenuItems,
+        FilterBar,
+        Navigation,
         Head,
     },
-    props: ["user", "session_cart"],
+    props: ["user", "session_cart", "products"],
     layout: AppLayout,
 
     computed: {

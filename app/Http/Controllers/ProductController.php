@@ -9,10 +9,11 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index(ProductService $service)
+    public function index(Request $req, ProductService $service)
     {
-        $products = $service->getProducts();
+        $products = $service->getProducts($req);
         $title = 'Products';
+        // dd($products->items());
         return Inertia::render("Products/Index", compact("products", 'title'));
     }
 

@@ -10,6 +10,13 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
+    variants: {
+        extend: {
+            backgroundColor: ['checked',],
+            borderColor: ['checked',],
+        }
+    },
+
     theme: {
         extend: {
             fontFamily: {

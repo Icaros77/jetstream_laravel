@@ -31,7 +31,6 @@ class ProductFactory extends Factory
             'price' => random_int(100, 720),
             'description' => $this->faker->paragraph(1),
             'image_path' => $this->faker->imageUrl(),
-            'category' => $this->faker->word()
         ];
     }
 

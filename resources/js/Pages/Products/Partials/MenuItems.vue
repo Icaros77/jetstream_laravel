@@ -1,7 +1,7 @@
 <template>
     <div
         class="w-full sm:w-2/5 mb-5 bg-gray-50 rounded-md shadow-lg"
-        v-for="item in this.$page.props.products"
+        v-for="item in products.data"
         :key="item.id"
     >
         <div class="w-full flex sm:block">
@@ -78,17 +78,20 @@ export default defineComponent({
     components: {
         MenuItemCounter,
     },
-    props: {
-        cart: Object
+    props: ["products", "cart"],
+    setup(props) {
+        let products = props.products;
+        console.log(products);
+        products.data.forEach((item) => {
+            console.log(item);
+        });
     },
-
     data() {
         return {
             // true => right, false => left
             slideFrom: true,
         };
     },
-
     methods: {
         slidingFrom() {
             if (this.slideFrom) {
