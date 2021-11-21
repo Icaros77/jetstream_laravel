@@ -73,7 +73,11 @@
             "
         >
             <form @submit.stop.prevent="filter">
-                <filter-input @filterFocus="filterFocus" v-model="form.filter" :processing="form.processing"/>
+                <filter-input
+                    @filterFocus="filterFocus"
+                    v-model="form.filter"
+                    :processing="form.processing"
+                />
             </form>
         </div>
     </div>
@@ -98,7 +102,7 @@ export default defineComponent({
                 name: false,
                 vendor: false,
                 category: false,
-                processing: false,
+                processing: 0,
             }),
         };
     },
@@ -118,7 +122,13 @@ export default defineComponent({
         },
         filter() {
             this.form
-                .transform((data) => ({ ...data }))
+                .transform((data) => {
+                    const check = {
+                        ...data,
+                    };
+                    check.filter = check.filter.replace(/\s+/g, "+");
+                    return check;
+                })
                 .get(route("products.index"));
         },
     },

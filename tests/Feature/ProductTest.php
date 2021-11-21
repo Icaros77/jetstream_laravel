@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Vendor;
+use App\Service\ProductService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -35,7 +36,31 @@ class ProductTest extends TestCase
             });
     }
 
-    public function test_filter_per_category()
+    public function filter_search($data)
+    {
+        $query = Product::query();
+        $service = new ProductService;
+        $filter = collect(preg_split("/\,?\++/", $data['filter']))->unique();
+        
+        $service->filterPer("categories", $filter, $query);
+
+        $query->select("id", "name", "price", "description", "product_number", "image_path");
+
+        return $query->get();
+    }
+
+    public function check_results($data) {
+        $results = $this->filter_search($data);
+
+        $this->get(route("products.index", $data))
+            ->assertInertia(function (Assert $page) use ($results) {
+                $page->component("Products/Index")
+                    ->has("products")
+                    ->where("products", $results);
+            });
+    }
+
+    public function test_filter_search()
     {
         $this->withoutExceptionHandling();
 
@@ -45,30 +70,30 @@ class ProductTest extends TestCase
         $vendors = $this->setVendors();
 
         $vendor = $vendors->load([
-            "products" => function($query) {
+            "products" => function ($query) {
                 $query->with("categories:id,name");
             }
         ])->first();
 
         $product = $vendor->products->first();
-        $categories = $product->categories;
-        $product = $product->toArray();
-        $this->remove_unnecessary($product);
-
-        $category_names = $categories->pluck("name");
+        $categories = $product->categories->first();
 
         $data = [
-            "filter" => $category_names->implode(" "),
+            "filter" => $categories->pluck("name")->implode("+"),
             "category" => true,
-            "name" => false,
-            "vendor" => false,
+            "name" => true,
+            "vendor" => true,
         ];
 
-        $this->get(route("products.index", $data))
-            ->assertInertia(function (Assert $page) use ($product) {
-                $page->component("Products/Index")
-                    ->has("products")
-                    ->where("products", $product);
-            });
+        $this->check_results($data);
+
+        $data['name'] = false;
+        $this->check_results($data);
+        
+        $data['category'] = false;
+        $this->check_results($data);
+
+        $data['vendor'] = false;
+        $this->check_results($data);
     }
 }

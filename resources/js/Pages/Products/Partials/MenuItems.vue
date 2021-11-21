@@ -79,18 +79,18 @@ export default defineComponent({
         MenuItemCounter,
     },
     props: ["products", "cart"],
-    setup(props) {
-        let products = props.products;
-        console.log(products);
-        products.data.forEach((item) => {
-            console.log(item);
-        });
-    },
     data() {
         return {
             // true => right, false => left
             slideFrom: true,
         };
+    },
+    computed: {
+        items() {
+            let items = this.products;
+            console.log(items);
+            return [];
+        }
     },
     methods: {
         slidingFrom() {

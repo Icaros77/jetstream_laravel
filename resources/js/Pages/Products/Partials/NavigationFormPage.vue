@@ -43,10 +43,10 @@ export default defineComponent({
                 return;
             }
             let page = parseInt(event.target.value);
-            // console.log(page);
             this.form.page =  page ? page.toString() : "";
         },
         fetchResults() {
+            if(this.form.page > this.last_page) return;
             this.$inertia.get(route("products.index"), {page: this.form.page});
             // this.form.get(route("products.index", this.page), {});
         },

@@ -11,15 +11,14 @@ class ProductController extends Controller
 {
     public function index(Request $req, ProductService $service)
     {
-        $products = $service->getProducts($req);
+        $query = $req->only("filter", "vendor", "category", "name");
+        
+        $products = $service->getProducts($query);
         $title = 'Products';
-        // dd($products->items());
-        return Inertia::render("Products/Index", compact("products", 'title'));
-    }
 
-    public function fetch_products()
-    {
-        $products = Product::getProducts();
-        return response()->json(compact("products"));
+        return Inertia::render(
+            "Products/Index",
+            array_merge(compact("products", 'title'), $query)
+        );
     }
 }

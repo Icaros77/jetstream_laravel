@@ -15,27 +15,69 @@ class ProductService
     /**
      * retrieves products
      * checks if filtering has been applied or not
-     * @param Request $req
+     * @param array $query
      */
-    public function getProducts(Request $req)
+    public function getProducts(array $query)
     {
-        $query = $req->only("filter", "vendor", "category", "name");
-        // dd($query);
         if (count($query) == 0) {
             return $this->getAllProducts();
-        }  else {
-            return $this->filterPerCategory($query);
+        } else {
+            return $this->filterProducts($query);
         }
+    }
+
+    /**
+     * filters per relationship
+     * extract products whose relationship's name
+     * column 'like' $filter array of words
+     * @param String $name relationship name
+     * @param Collection $filter user search criteria
+     * @param QueryBuilder $query current query
+     */
+    public function filterPer($name, $filter, &$query)
+    {
+        return $query->orWhereHas($name, function (&$q) use ($filter) {
+
+            $first_word = $filter->first();
+            $q->where("name", "like", "$first_word%");
+            $filter->skip(1)->each(function ($word) use (&$q) {
+                $q->orWhere("name", "like", "$word%");
+            });
+        });
     }
 
     /**
      * 
      */
-    public function filterPerCategory($query)
+    public function filterProducts($query)
     {
+        // $filter, $name, $vendor, $category
         extract($query);
-        // $products = Product::when($filter != "")
-        
+        $filter = collect(preg_split("/\,?\++/", $filter))->unique();
+
+        $query_builder = Product::query();
+
+        $query_builder->when($filter != "" && $name == "true", function ($query) use ($filter) {
+            $first_word = $filter->first();
+            $query->where("name", "like", "%$first_word%");
+            $filter->skip(1)->each(function ($word) use (&$query) {
+                $query->orWhere("name", "like", "%$word%");
+            });
+            return $query;
+        })
+
+            ->when($filter != "" && $vendor == "true", function ($query) use ($filter) {
+                return $this->filterPer('vendor', $filter, $query);
+            })
+
+            ->when($filter != "" && $category == "true", function ($query) use ($filter) {
+                return $this->filterPer('categories', $filter, $query);
+            })
+
+            ->select("id", "name", "price", "description", "product_number", "image_path");
+
+        return $query_builder->paginate(10)->appends($query);
+        // return $query_builder->get();
     }
 
     /**

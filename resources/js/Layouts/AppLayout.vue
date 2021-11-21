@@ -81,7 +81,7 @@
             <notification v-show="$page.props.notification" />
 
 
-            <main class="mb-24 flex justify-center">
+            <main class="pb-24 flex justify-center">
                 <slot></slot>
             </main>
         </div>

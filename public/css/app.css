@@ -1420,9 +1420,6 @@ select {
 .w-3\/5 {
 	width: 60%;
 }
-.w-2\/5 {
-	width: 40%;
-}
 .w-1\/5 {
 	width: 20%;
 }
@@ -1464,11 +1461,6 @@ select {
 }
 .max-w-md {
 	max-width: 28rem;
-}
-.max-w-min {
-	max-width: -webkit-min-content;
-	max-width: -moz-min-content;
-	max-width: min-content;
 }
 .flex-1 {
 	flex: 1 1 0%;
@@ -1870,6 +1862,10 @@ select {
 	--tw-gradient-from: #f9fafb;
 	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 250, 251, 0));
 }
+.from-indigo-500 {
+	--tw-gradient-from: #6366f1;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(99, 102, 241, 0));
+}
 .via-pink-100 {
 	--tw-gradient-stops: var(--tw-gradient-from), #fce7f3, var(--tw-gradient-to, rgba(252, 231, 243, 0));
 }
@@ -1902,6 +1898,9 @@ select {
 }
 .to-indigo-50 {
 	--tw-gradient-to: #eef2ff;
+}
+.to-indigo-700 {
+	--tw-gradient-to: #4338ca;
 }
 .bg-cover {
 	background-size: cover;
@@ -2051,6 +2050,9 @@ select {
 .pt-0 {
 	padding-top: 0px;
 }
+.pb-6 {
+	padding-bottom: 1.5rem;
+}
 .pl-4 {
 	padding-left: 1rem;
 }
@@ -2060,8 +2062,11 @@ select {
 .pb-5 {
 	padding-bottom: 1.25rem;
 }
-.pb-6 {
-	padding-bottom: 1.5rem;
+.pb-24 {
+	padding-bottom: 6rem;
+}
+.pl-2 {
+	padding-left: 0.5rem;
 }
 .text-left {
 	text-align: left;
@@ -2389,10 +2394,6 @@ html::-webkit-scrollbar-thumb:vertical {
 .checked\:border-transparent:checked {
 	border-color: transparent;
 }
-.checked\:bg-indigo-400:checked {
-	--tw-bg-opacity: 1;
-	background-color: rgba(129, 140, 248, var(--tw-bg-opacity));
-}
 .checked\:bg-indigo-500:checked {
 	--tw-bg-opacity: 1;
 	background-color: rgba(99, 102, 241, var(--tw-bg-opacity));
@@ -2400,9 +2401,6 @@ html::-webkit-scrollbar-thumb:vertical {
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
-}
-.hover\:border-transparent:hover {
-	border-color: transparent;
 }
 .hover\:bg-indigo-600:hover {
 	--tw-bg-opacity: 1;
@@ -2428,9 +2426,12 @@ html::-webkit-scrollbar-thumb:vertical {
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
 }
-.hover\:bg-indigo-400:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(129, 140, 248, var(--tw-bg-opacity));
+.hover\:from-indigo-500:hover {
+	--tw-gradient-from: #6366f1;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(99, 102, 241, 0));
+}
+.hover\:to-indigo-700:hover {
+	--tw-gradient-to: #4338ca;
 }
 .hover\:text-gray-500:hover {
 	--tw-text-opacity: 1;
