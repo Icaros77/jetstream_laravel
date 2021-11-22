@@ -23,14 +23,8 @@
                 :buttonActive="activeButton === 'Cart'"
             />
             <menu-icon
-                v-if="this.$props.user"
                 @select="button_selected"
                 :buttonActive="activeButton === 'Menu'"
-            />
-            <login-icon
-                v-else
-                @select="button_selected"
-                :buttonActive="activeButton === 'Login'"
             />
         </div>
     </div>
@@ -59,8 +53,12 @@ export default defineComponent({
     },
     methods: {
         button_selected(nameButton) {
-            this.activeButton =
-                this.activeButton === nameButton ? "" : nameButton;
+            if (nameButton === "Menu") {
+                this.activeButton =
+                    this.activeButton === nameButton ? "" : nameButton;
+                return;
+            }
+            this.activeButton = nameButton;
         },
     },
 });

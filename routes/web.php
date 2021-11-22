@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ShoppingListController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,11 +30,17 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', [DashboardController::class, "index"])
-    ->name('dashboard');
+Route::get("/", function () {
+    return Inertia::render("Dashboard", ['title' => 'Dashboard']);
+})->name("dashboard");
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
-    Route::get('/admin', [AdminController::class, "index"])
-        ->name("admin");
-});
+Route::post("/login", [LoginController::class, "login"])->name("login")
+    ->middleware("guest");
+
+
+Route::post("/register", [RegisterController::class, "create"])
+    ->name("register");
+
+Route::post("/logout", [LoginController::class, "logout"])->name("logout");
+

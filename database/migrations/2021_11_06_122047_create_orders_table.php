@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->json("cart");
             $table->string("order_number")->nullable(false)->index("order_number");
-            $table->foreignId("client_id")->nullable()->constrained("users")->nullOnDelete();
+            $table->foreignId("client_id")->constrained("users");
             $table->timestamps();
         });
     }

@@ -17,10 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string("product_number")->index("product_number")->nullable(false);
             $table->string("name")->nullable(false);
-            $table->decimal("price")->nullable(false);
+            $table->integer("price")->nullable(false);
             $table->text("description")->nullable(false);
             $table->string("image_path")->nullable(false);
-            $table->string("category")->nullable(false);
             $table->timestamps();
         });
     }

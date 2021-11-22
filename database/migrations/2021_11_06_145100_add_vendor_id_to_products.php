@@ -14,7 +14,7 @@ class AddVendorIdToProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->foreignId("vendor_id")->nullable()->constrained()->nullOnDelete();
+            $table->foreignId("vendor_id")->constrained()->cascadeOnDelete();
         });
     }
 
@@ -26,7 +26,7 @@ class AddVendorIdToProducts extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            //
+            $table->dropConstrainedForeignId('vendor_id');
         });
     }
 }

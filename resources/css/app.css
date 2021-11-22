@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./forms/generalForm.css";
+
 html {
     min-width: 360px !important;
 }
@@ -23,6 +25,7 @@ div::-webkit-scrollbar {
     width: 5px;
     height: 5px;
 }
+
 
 .dashboard-cards-header::before {
     content: '';
@@ -50,7 +53,17 @@ html::-webkit-scrollbar-thumb:vertical {
     border-radius: 5px;
 }
 
-
+#notification > div >  div::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    border-radius: 2px;
+    background-color: whitesmoke;
+    width: 100%;
+    margin: 0 auto;
+    bottom: 0;
+    left: 0;
+}
 @layer components {
     .product-container:hover .product-description {
         @apply translate-x-0;
@@ -58,6 +71,8 @@ html::-webkit-scrollbar-thumb:vertical {
     .h-header {
         height: calc(100vh - 80px);
     }
+
+
     .header-link {
         @apply 
         flex

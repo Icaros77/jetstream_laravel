@@ -13,9 +13,11 @@ class CreateShoppingListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_lists', function (Blueprint $table) {
+        Schema::create('shopping_lists', function (Blueprint $table){
 
-            $table->json("cart");
+            $table->id();
+            $table->json("cart")->nullable();
+            $table->bigInteger("total_amount_cart")->default(0);
             $table->foreignId("client_id")->constrained("users")->cascadeOnDelete();
 
             $table->timestamps();

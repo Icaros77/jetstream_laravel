@@ -10,6 +10,12 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
+    variants: {
+        extend: {
+            backgroundColor: ['hover']
+        }
+    },
+
     theme: {
         extend: {
             fontFamily: {
@@ -32,6 +38,8 @@ module.exports = {
                 '10' : '10rem',
                 '12' : '12rem',
                 '16' : '16rem',
+                '1/2': '50vh',
+                '1/4': '25vh',
             }
         },
     },

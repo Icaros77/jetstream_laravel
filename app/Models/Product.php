@@ -15,11 +15,21 @@ class Product extends Model
         "price",
         "image_path",
         "description",
-        "category",
         "vendor_id"
     ];
 
-    public static function getProducts() {
-        return Product::select("id", "name", "price", "descrizione", "image_path")->get();
+    public function vendor()
+    {
+        return  $this->belongsTo(Vendor::class);
+    }
+
+    public function quantity()
+    {
+        return $this->hasOne(ProductQuantities::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'product_category');
     }
 }

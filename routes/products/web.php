@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix("/products")->name("products.")->middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::prefix("/products")->name("products.")->group(function () {
 
     Route::get('/', [ProductController::class, "index"])->name('index');
     Route::post('/getProducts', [ProductController::class, "fetch_products"])->name('getProducts');

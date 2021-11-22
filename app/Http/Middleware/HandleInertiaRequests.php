@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -34,10 +36,23 @@ class HandleInertiaRequests extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function share(Request $request)
+    public function share(Request $req)
     {
-        return array_merge(parent::share($request), [
-            //
+        if (Auth::check()) {
+            Session::forget('session_cart');
+        } else if (!Session::has('session_cart')) {
+            Session::put('session_cart', [
+                'cart' => [
+                    'cart' => [],
+                    'total_amount_cart' => '0.00'
+                ]
+            ]);
+        }
+
+        return array_merge(parent::share($req), [
+            'user' => $req->user()?->load('cart:cart,client_id,total_amount_cart')->only(["id", "name", "email", "cart"]),
+            'notification' => Session::get('notification'),
+            'session_cart' => Session::get('session_cart'),
         ]);
     }
 }

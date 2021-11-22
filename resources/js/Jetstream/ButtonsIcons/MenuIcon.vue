@@ -3,6 +3,7 @@
         @click="select"
         :class="{ 'bg-red-400': buttonActive }"
         class="transition duration-300 flex-1 flex justify-center"
+        id="menu_icon_mobile"
     >
         <button type="button" class="p-2">
             <svg
@@ -34,10 +35,7 @@ import { mapMutations } from "vuex";
 import store from "../../Plugins/VuexStore";
 
 export default defineComponent({
-    created() {
-        this.defaultMenu();
-    },
-    emits: ["select", "open-side-menu"],
+    emits: ["select"],
     store: store,
 
     props: {
@@ -55,7 +53,6 @@ export default defineComponent({
             });
         },
         ...mapMutations("offsetHeader", ["toggleMenu"]),
-        ...mapMutations("offsetHeader", ["defaultMenu"]),
     },
     created() {
         const unselectMenu = (event) => {

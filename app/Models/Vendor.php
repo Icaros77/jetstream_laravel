@@ -17,4 +17,9 @@ class Vendor extends Model
         "city",
         "country"
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

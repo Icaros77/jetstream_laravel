@@ -32,8 +32,8 @@ class CreateInvoicesTable extends Migration
             $table->decimal("taxes")->nullable(false);
             $table->decimal("grand_total")->nullable(false);
             $table->text("payment_terms")->nullable(false);
-            $table->foreignId("vendor_id")->nullable()->constrained()->nullOnDelete();
-            $table->foreignId("client_id")->nullable()->constrained("users")->nullOnDelete();
+            $table->foreignId("vendor_id")->constrained();
+            $table->foreignId("client_id")->constrained("users");
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@
                 v-show="show"
                 class="
                     translate-y-full
-                    tranform
+                    transform
                     fixed
                     w-screen
                     inset-0
@@ -33,11 +33,9 @@
 
 <script>
 import { defineComponent, onMounted, onUnmounted } from "vue";
-import Button from "./Button.vue";
 import store from "../Plugins/VuexStore";
 
 export default defineComponent({
-    components: { Button },
     store: store,
 
     computed: {
@@ -55,7 +53,6 @@ export default defineComponent({
                 this.$store.commit("offsetHeader/defaultMenu");
             }
         };
-        this.$store.commit("offsetHeader/defaultMenu");
         onMounted(() => document.addEventListener("keydown", closeable));
         onUnmounted(() => {
             document.removeEventListener("keydown", closeable);
