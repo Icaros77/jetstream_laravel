@@ -3,9 +3,11 @@
         @click="select"
         :class="{ 'bg-red-400': buttonActive }"
         class="flex-1 flex justify-center transition duration-300"
+        id="cart_icon"
     >
         <Link :href="route('cart.index')" class="p-2">
             <svg
+                id
                 xmlns="http://www.w3.org/2000/svg"
                 :class="{
                     'text-red-400': !buttonActive,
@@ -30,12 +32,12 @@
 \
 <script>
 import { defineComponent } from "vue";
-import { Link} from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/inertia-vue3";
 
 export default defineComponent({
     emits: ["select"],
     components: {
-        Link
+        Link,
     },
     props: {
         buttonActive: {

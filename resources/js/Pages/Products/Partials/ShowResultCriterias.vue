@@ -15,7 +15,7 @@
                     <h3 class="text-white">Results for:</h3>
                 </header>
                 <div class="pl-2">
-                    <span class="italic font-bold text-white">{{ filter }}</span>
+                    <span class="italic font-bold text-white">{{ getFilter }}</span>
                 </div>
             </div>
             <div class="flex flex-col">
@@ -32,7 +32,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
     props: ["filter", "name", "category", "vendor"],
     computed: {
-        filter() {
+        getFilter() {
             return this.filter.replace(/\++/, " ");
         },
         criteria() {

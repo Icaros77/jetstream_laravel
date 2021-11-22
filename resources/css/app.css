@@ -53,17 +53,6 @@ html::-webkit-scrollbar-thumb:vertical {
     border-radius: 5px;
 }
 
-#notification > div >  div::after {
-    content: '';
-    position: absolute;
-    height: 2px;
-    border-radius: 2px;
-    background-color: whitesmoke;
-    width: 100%;
-    margin: 0 auto;
-    bottom: 0;
-    left: 0;
-}
 @layer components {
     .product-container:hover .product-description {
         @apply translate-x-0;

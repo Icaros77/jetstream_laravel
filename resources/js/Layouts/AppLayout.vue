@@ -14,7 +14,6 @@
                     from-gray-100
                     via-pink-100
                     to-indigo-100
-                    border-b border-gray-100
                 "
             >
                 <!-- Primary Navigation Menu -->
@@ -46,7 +45,7 @@
                                 </jet-nav-link>
                             </div>
 
-                            <div v-show="this.$page.props.user" class="h-full">
+                            <div v-show="user" class="h-full">
                                 <span
                                     class="
                                         text-indigo-400
@@ -56,7 +55,7 @@
                                         items-center
                                         h-full
                                     "
-                                    >{{ this.$page.props.user?.name }}</span
+                                    >{{ user?.name }}</span
                                 >
                             </div>
                         </div>
@@ -70,7 +69,7 @@
                     <h2
                         class="
                             font-semibold
-                            text-xl text-gray-800
+                            text-xl text-indigo-500
                             leading-tight
                         "
                     >
@@ -78,7 +77,7 @@
                     </h2>
                 </div>
             </header>
-            <notification v-show="$page.props.notification" />
+
 
 
             <main class="pb-24 flex justify-center">
@@ -98,12 +97,9 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import HeaderMobile from "../Jetstream/HeaderMobile.vue";
 import Offset from "../Jetstream/Offset.vue";
 import store from "../Plugins/VuexStore";
-import Notification from "../components/Notification.vue";
 
 export default defineComponent({
-    props: {
-        title: String,
-    },
+    props: ['title', 'user'],
     store: store,
     components: {
         Head,

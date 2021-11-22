@@ -95,6 +95,17 @@ export default defineComponent({
                     this.total_amount = "0.00";
                     this.quantity_in_cart =
                         this.cart[product_data.product_number].quantity;
+                    
+                    let cart_icon = document.querySelector("#cart_icon");
+                    let svg = cart_icon.querySelector("svg");
+                    cart_icon.classList.add("bg-red-400");
+                    svg.classList.remove("text-red-400");
+                    svg.classList.add("text-gray-100");
+                    setTimeout(() => {
+                        cart_icon.classList.remove("bg-red-400");
+                        svg.classList.remove("text-gray-100");
+                        svg.classList.add("text-red-400");
+                    }, 1000);
                 },
             });
         },

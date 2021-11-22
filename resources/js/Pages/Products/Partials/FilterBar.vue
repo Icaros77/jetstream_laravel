@@ -10,6 +10,8 @@
                 flex flex-col
                 transform
                 transition-transform
+                border-2
+                border-b-none
                 bg-gradient-to-br
                 from-gray-50
                 via-pink-50
@@ -69,6 +71,7 @@
                 from-gray-50
                 via-pink-50
                 to-indigo-50
+                border-2
                 border-indigo-300
             "
         >

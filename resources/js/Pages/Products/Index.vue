@@ -13,9 +13,15 @@
             sm:justify-around
         "
     >
-        <show-criterias v-if="filter" :filter="filter" :name="name" :category="category" :vendor="vendor" />
+        <show-criterias
+            v-if="filter"
+            :filter="filter"
+            :name="name"
+            :category="category"
+            :vendor="vendor"
+        />
         <navigation :products="products" />
-        <menu-items :cart="passCart" :products="products"/>
+        <menu-items :cart="passCart" :products="products" />
         <navigation :products="products" />
         <filter-bar />
     </div>
@@ -39,13 +45,22 @@ export default defineComponent({
         ShowCriterias,
         Head,
     },
-    props: ["user", "session_cart", "products", "filter", "name", "vendor", "category"],
+    props: [
+        "user",
+        "session_cart",
+        "products",
+        "filter",
+        "name",
+        "vendor",
+        "category",
+        "notification"
+    ],
     layout: AppLayout,
 
     computed: {
         passCart() {
             return Cart.$getCart(this).cart;
-        }
+        },
     },
 });
 </script>
