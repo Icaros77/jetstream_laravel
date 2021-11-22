@@ -157,30 +157,7 @@ export default defineComponent({
         };
     },
 
-    computed: {
-        hasProductsInSession() {
-            return this.session_cart.cart.new_items;
-        },
-    },
     methods: {
-        checkCart(event) {
-            if (this.hasProductsInSession) {
-                this.askRequest = true;
-                this.waitForResponse()
-                    .then((result) => {
-                        if (result == "Ok") {
-                            this.permissionGranted = true;
-                            this.askRequest = false;
-                            this.login(event);
-                        } else this.login(event);
-                    })
-                    .catch(async () => {
-                        await this.waitForResponse();
-                    });
-            } else {
-                this.login(event);
-            }
-        },
         login(event) {
             axios.get("/sanctum/csrf-cookie").then(() => {
                 this.form
@@ -191,12 +168,6 @@ export default defineComponent({
                         },
                     });
             });
-        },
-        async waitForResponse() {
-            console.log(this.$refs.$refs);
-            // let target = event.target;
-            // if (target.labelName === "button") {
-            // }
         },
     },
 });
