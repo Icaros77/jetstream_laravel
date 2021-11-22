@@ -1281,11 +1281,11 @@ select {
 .-mt-px {
 	margin-top: -1px;
 }
-.mb-12 {
-	margin-bottom: 3rem;
-}
 .mb-5 {
 	margin-bottom: 1.25rem;
+}
+.mb-12 {
+	margin-bottom: 3rem;
 }
 .block {
 	display: block;
@@ -1395,6 +1395,9 @@ select {
 .w-screen {
 	width: 100vw;
 }
+.w-1\/2 {
+	width: 50%;
+}
 .w-max {
 	width: -webkit-max-content;
 	width: -moz-max-content;
@@ -1405,9 +1408,6 @@ select {
 }
 .w-2\/3 {
 	width: 66.666667%;
-}
-.w-1\/2 {
-	width: 50%;
 }
 .min-w-0 {
 	min-width: 0px;
@@ -1473,6 +1473,10 @@ select {
 	--tw-translate-x: 1.75rem;
 	transform: var(--tw-transform);
 }
+.-translate-x-7 {
+	--tw-translate-x: -1.75rem;
+	transform: var(--tw-transform);
+}
 .-translate-y-2\/3 {
 	--tw-translate-y: -66.666667%;
 	transform: var(--tw-transform);
@@ -1487,10 +1491,6 @@ select {
 }
 .translate-x-full {
 	--tw-translate-x: 100%;
-	transform: var(--tw-transform);
-}
-.-translate-x-7 {
-	--tw-translate-x: -1.75rem;
 	transform: var(--tw-transform);
 }
 .scale-95 {
@@ -1580,9 +1580,6 @@ select {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-.self-auto {
-	align-self: auto;
 }
 .self-end {
 	align-self: flex-end;
@@ -1769,6 +1766,10 @@ select {
 	--tw-gradient-from: #fecaca;
 	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 202, 202, 0));
 }
+.from-indigo-300 {
+	--tw-gradient-from: #a5b4fc;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(165, 180, 252, 0));
+}
 .from-red-300 {
 	--tw-gradient-from: #fca5a5;
 	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(252, 165, 165, 0));
@@ -1776,10 +1777,6 @@ select {
 .from-gray-100 {
 	--tw-gradient-from: #f3f4f6;
 	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(243, 244, 246, 0));
-}
-.from-indigo-300 {
-	--tw-gradient-from: #a5b4fc;
-	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(165, 180, 252, 0));
 }
 .via-pink-100 {
 	--tw-gradient-stops: var(--tw-gradient-from), #fce7f3, var(--tw-gradient-to, rgba(252, 231, 243, 0));
@@ -1790,14 +1787,14 @@ select {
 .to-red-300 {
 	--tw-gradient-to: #fca5a5;
 }
+.to-indigo-500 {
+	--tw-gradient-to: #6366f1;
+}
 .to-red-400 {
 	--tw-gradient-to: #f87171;
 }
 .to-indigo-100 {
 	--tw-gradient-to: #e0e7ff;
-}
-.to-indigo-500 {
-	--tw-gradient-to: #6366f1;
 }
 .bg-cover {
 	background-size: cover;
