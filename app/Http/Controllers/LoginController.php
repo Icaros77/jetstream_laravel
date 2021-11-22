@@ -26,7 +26,7 @@ class LoginController extends Controller
 
         Auth::logoutOtherDevices($req->password);
         if (Auth::attempt($req->only($this->fortifyAccess, "password"))) {
-            if ($req->session()->has("session_cart.cart")) {
+            if ($req->session()->has("session_cart.cart.cart")) {
                 $service->mergeCart($req);
             }
             $req->session()->regenerate();

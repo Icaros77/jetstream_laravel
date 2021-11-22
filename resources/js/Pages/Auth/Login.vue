@@ -1,7 +1,8 @@
 <template>
     <Head title="Login" />
 
-    <div class="w-full sm:max-w-lg">
+    <div class="w-full relative sm:max-w-lg">
+        <alert-cart-merge :permission="permissionGranted" :request="askRequest" @reply="reply" />
         <div
             class="
                 h-full-mobile
@@ -28,7 +29,10 @@
                     sm:max-w-full
                 "
             >
-                <form @submit.prevent="login" class="p-2 flex flex-col w-full">
+                <form
+                    @submit.prevent="checkCart"
+                    class="p-2 flex flex-col w-full"
+                >
                     <label-name
                         v-model="form.email"
                         :first="true"
@@ -123,12 +127,14 @@
 import { defineComponent } from "vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import LabelName from "@/components/FormElements/LabelName.vue";
+import AlertCartMerge from "./AlertCartMerge.vue";
 import AppLayoutVue from "@/Layouts/AppLayout.vue";
 
 export default defineComponent({
     components: {
         Head,
         Link,
+        AlertCartMerge,
         LabelName,
     },
     layout: AppLayoutVue,
@@ -136,6 +142,7 @@ export default defineComponent({
     props: {
         canResetPassword: Boolean,
         status: String,
+        session_cart: Object,
     },
 
     data() {
@@ -145,10 +152,35 @@ export default defineComponent({
                 password: "",
                 remember: false,
             }),
+            askRequest: false,
+            permissionGranted: false,
         };
     },
 
+    computed: {
+        hasProductsInSession() {
+            return this.session_cart.cart.new_items;
+        },
+    },
     methods: {
+        checkCart(event) {
+            if (this.hasProductsInSession) {
+                this.askRequest = true;
+                this.waitForResponse()
+                    .then((result) => {
+                        if (result == "Ok") {
+                            this.permissionGranted = true;
+                            this.askRequest = false;
+                            this.login(event);
+                        } else this.login(event);
+                    })
+                    .catch(async () => {
+                        await this.waitForResponse();
+                    });
+            } else {
+                this.login(event);
+            }
+        },
         login(event) {
             axios.get("/sanctum/csrf-cookie").then(() => {
                 this.form
@@ -159,6 +191,12 @@ export default defineComponent({
                         },
                     });
             });
+        },
+        async waitForResponse() {
+            console.log(this.$refs.$refs);
+            // let target = event.target;
+            // if (target.labelName === "button") {
+            // }
         },
     },
 });
