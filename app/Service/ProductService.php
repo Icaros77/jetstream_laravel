@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Exceptions\SQLInjectionException;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use stdClass;
