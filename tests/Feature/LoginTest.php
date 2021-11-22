@@ -39,7 +39,6 @@ class LoginTest extends TestCase
         $this->assertGuest();
         $this->post(route("login"), $data)
             ->assertRedirect(route("login"))
-            ->dumpSession()
             ->assertSessionHasErrors("email",null, "loginErrors");
 
         $this->assertGuest();

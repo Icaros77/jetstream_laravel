@@ -2,7 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "./forms/generalForm.css";
 
 html {
     min-width: 360px !important;
@@ -64,7 +63,11 @@ html::-webkit-scrollbar-thumb:vertical {
     .h-body {
         height: calc(100vh - 9rem);
     }
-
+    .h-full-mobile {
+        min-height: calc(100vh - (89px + 9.25rem));
+        height: 100%;
+    }
+    
 
     .header-link {
         @apply 
