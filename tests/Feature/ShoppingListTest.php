@@ -165,7 +165,7 @@ class ShoppingListTest extends TestCase
 
         $product_info['quantity'] = 9;
         $product_info_2['quantity'] = 17;
-        
+
         $total_2 = $product_info_2['quantity'] * $product_info_2['price'];
         $total = ($product_info['quantity']) * $product_info['price'];
         $total_amount_cart = $total + $total_2;
@@ -180,5 +180,135 @@ class ShoppingListTest extends TestCase
 
         $response->assertSessionHas("session_cart.cart.total_amount_cart", $total_amount_cart);
         $response->assertSessionHas("session_cart.cart.cart", $cart_info);
+    }
+
+    public function test_signal_new_items_in_db_cart()
+    {
+        $user = User::first();
+        $this->actingAs($user);
+        $vendors = $this->setVendors();
+        $product = $vendors->first()->products->first();
+        $demand = 17;
+        $data = ['product_data' => $product->toArray()];
+        $this->setRequestCartData($data, $demand);
+
+        $this->get(route("products.index"));
+        $this->post(route("cart.store"), $data)
+            ->assertRedirect(route("products.index"));
+
+        $this->assertDatabaseHas("shopping_lists", ["new_items" => 1, 'client_id' => $user->id]);
+    }
+
+    
+    public function test_signal_new_items_in_session_cart()
+    {
+        $vendors = $this->setVendors();
+        $product = $vendors->first()->products->first();
+        $demand = 17;
+        $data = ['product_data' => $product->toArray()];
+        $this->setRequestCartData($data, $demand);
+
+        $this->get(route("products.index"));
+        $response = $this->post(route("cart.store"), $data)
+            ->assertRedirect(route("products.index"));
+
+        $response->assertSessionHas("session_cart.cart.new_items", 1);
+    }
+
+    public function test_merge_session_cart_to_db_cart_after_logging()
+    {
+        $vendors = $this->setVendors();
+        $product = $vendors->first()->products->first();
+        $demand = 17;
+        $data = ['product_data' => $product->toArray()];
+        $this->setRequestCartData($data, $demand);
+
+        $this->get(route("products.index"));
+        $this->post(route("cart.store"), $data);
+        $this->setRequestCartData($data, $demand, 17);
+        $response = $this->post(route("cart.store"), $data);
+
+        $total = $product->price * ($data['product_data']['demand'] * 2);
+
+        $response->assertSessionHas("session_cart.cart.total_amount_cart", $total);
+
+        $user = User::first();
+        $data = [
+            "email" => $user->email,
+            "password" => "password"
+        ];
+        $response = $this->post(route("login"), $data);
+        $response->assertSessionHas("session_cart", null);
+
+        $this->assertDatabaseHas(
+            "shopping_lists",
+            ["total_amount_cart" => $total, "client_id" => $user->id, "new_items" => 1]
+        );
+    }
+
+    public function test_merge_session_cart_to_existing_db_cart()
+    {
+        $user = User::first();
+        $this->actingAs($user);
+
+        $vendors = $this->setVendors();
+        $product = $vendors->first()->products->first();
+        $demand = 17;
+        $data = ['product_data' => $product->toArray()];
+        $total = $demand * $product->price;
+        $this->setRequestCartData($data, $demand);
+
+
+        $this->get(route("products.index"));
+        $this->post(route("cart.store"), $data);
+
+        $this->assertDatabaseHas(
+            "shopping_lists",
+            ["client_id" => $user->id, "total_amount_cart" => $total]
+        );
+
+        $this->post(route("logout"));
+        $this->assertGuest();
+
+        $this->get(route("products.index"));
+        $response = $this->post(route("cart.store"), $data);
+
+        $total = $product->price * ($data['product_data']['demand']);
+
+        $response->assertSessionHas("session_cart.cart.total_amount_cart", $total);
+
+        $credentials = [
+            "email" => $user->email,
+            "password" => "password"
+        ];
+
+        $response = $this->post(route("login"), $credentials);
+        $response->assertSessionHas("session_cart", null);
+
+        $this->assertDatabaseHas(
+            "shopping_lists",
+            ["total_amount_cart" => $total * 2, "client_id" => $user->id, "new_items" => 1]
+        );
+
+        $this->post(route("logout"));
+        $this->assertGuest();
+
+        $product_2 = $vendors->first()->products->last();
+        $demand_2 = 7;
+        $data_2 = ['product_data' => $product_2->toArray()];
+        $total_2 = $demand_2 * $product_2->price;
+        $this->setRequestCartData($data_2, $demand_2);
+
+        $this->get(route("products.index"));
+        $response = $this->post(route("cart.store"), $data_2);
+
+        $response->assertSessionHas("session_cart.cart.total_amount_cart", $total_2);
+
+        $this->post(route("login"), $credentials);
+
+        $this->assertDatabaseHas(
+            "shopping_lists",
+            ['client_id' => $user->id, 'total_amount_cart' => $total * 2 + $total_2]
+        );
     }
 }

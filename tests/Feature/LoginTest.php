@@ -30,22 +30,17 @@ class LoginTest extends TestCase
 
     public function test_login_fail()
     {
-        // $this->withoutExceptionHandling();
         $this->createUserCart();
         $data = [
             'email' => '',
             'password' => 'password'
         ];
-        $errors = [
-            'email' => ['Email is required']
-        ];
         
         $this->assertGuest();
         $this->post(route("login"), $data)
-            ->assertRedirect(route("dashboard"))
-            ->assertJsonFragment(
-                $errors
-            );
+            ->assertRedirect(route("login"))
+            ->dumpSession()
+            ->assertSessionHasErrors("email",null, "loginErrors");
 
         $this->assertGuest();
     }

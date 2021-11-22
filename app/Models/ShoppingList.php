@@ -11,6 +11,7 @@ class ShoppingList extends Model
 
     protected $fillable = [
         "cart->*",
+        "new_items",
         "total_amount_cart",
         // references users
         "client_id"

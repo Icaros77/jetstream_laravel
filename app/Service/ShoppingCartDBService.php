@@ -42,6 +42,7 @@ class ShoppingCartDBService extends ShoppingCartService
 
         $cart->cart = json_encode($products_in_cart);
         $cart->total_amount_cart += $products_in_cart->$product_number->price * $demand;
+        $cart->new_items = 1;
         $cart->save();
 
         DB::update(

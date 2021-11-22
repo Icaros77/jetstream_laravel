@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
-use App\Exceptions\ProductInvalidException;
 use App\Http\Requests\CartUpdateRequest;
-use App\Models\Product;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Service for SessionCart
@@ -19,11 +19,11 @@ class ShoppingCartSessionService extends ShoppingCartService
     // after 3 days of inactivity, delete the cart
     // launch a scheduled timer every day and check for sessions
     // created 3 days before
-    
+
     public function updateCart(CartUpdateRequest $req): void
     {
         $product_demanded = collect($req->validated()['product_data']);
-        
+
         $product_service = new ProductService;
         $product_DB = $product_service->checkProduct($product_demanded);
 
@@ -42,5 +42,54 @@ class ShoppingCartSessionService extends ShoppingCartService
             "session_cart.cart.total_amount_cart",
             $req->session()->get("session_cart.cart.total_amount_cart") + $amount_to_add
         );
+
+        $req->session()->put("session_cart.cart.new_items", 1);
+    }
+
+    /**
+     * merges the session cart to user db cart
+     * @param LoginRequest $req
+     * @return Void
+     */
+    public function mergeCart(LoginRequest $req): void
+    {
+        $user = Auth::user()->load("cart");
+        
+        $cart_session = collect($req->session()->get("session_cart.cart.cart"));
+        $cart_DB = $user->cart;
+        
+        $new_cart = $this->merge_carts($cart_session, $cart_DB->cart);
+
+        $new_cart = collect($new_cart);
+
+        $cart_DB->cart = json_encode($new_cart);
+        $cart_DB->total_amount_cart = $new_cart->sum("total_amount");
+        $cart_DB->new_items = 1;
+        $cart_DB->save();
+    }
+
+    public function merge_carts($fresh_cart, $cart_DB)
+    {
+        $products_cart_DB = json_decode($cart_DB);
+        $products_cart_session = $fresh_cart->map(function($product) {
+            $product = json_encode($product);
+            return json_decode($product);
+        });
+        
+        if($products_cart_DB) {
+            $products_cart_session->each(function($product_s, $product_number) use(&$products_cart_DB) {
+                if(isset($products_cart_DB->$product_number)) {
+                    $product_DB = $products_cart_DB->$product_number;
+                    $product_DB->quantity += $product_s->quantity;
+                    $product_DB->total_amount = $product_DB->quantity * $product_DB->price;
+                    $products_cart_DB->$product_number = $product_DB;
+                }else {
+                    $products_cart_DB->$product_number = $product_s;
+                }
+            });
+        } else {
+            $products_cart_DB = $products_cart_session;
+        }
+        return $products_cart_DB;
     }
 }

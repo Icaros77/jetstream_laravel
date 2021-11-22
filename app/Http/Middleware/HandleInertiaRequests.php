@@ -44,7 +44,8 @@ class HandleInertiaRequests extends Middleware
             Session::put('session_cart', [
                 'cart' => [
                     'cart' => [],
-                    'total_amount_cart' => '0.00'
+                    'total_amount_cart' => '0.00',
+                    'new_items' => 0
                 ]
             ]);
         }
