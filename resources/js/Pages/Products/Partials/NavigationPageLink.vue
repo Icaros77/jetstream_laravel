@@ -4,9 +4,7 @@
             w-1/5
             text-white
             font-bold
-            bg-gradient-to-br
-            from-indigo-300
-            to-indigo-400
+            indigo-gradient-rounded
             rounded-md
             shadow-lg
             hover:from-indigo-500 hover:to-indigo-700

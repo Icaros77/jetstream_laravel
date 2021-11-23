@@ -5,9 +5,7 @@
         class="
             w-3/5
             text-white
-            bg-gradient-to-br
-            from-indigo-300
-            to-indigo-500
+            indigo-gradient-rounded
             font-bold
             text-xs
             p-2

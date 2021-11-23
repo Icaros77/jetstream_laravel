@@ -46,7 +46,7 @@ class ProductTest extends TestCase
 
         $query->select("id", "name", "price", "description", "product_number", "image_path");
 
-        return $query->get();
+        return $query->paginate(10)->withPath(route("products.index"))->appends($data);
     }
 
     public function check_results($data) {
@@ -80,9 +80,9 @@ class ProductTest extends TestCase
 
         $data = [
             "filter" => $categories->pluck("name")->implode("+"),
+            "vendor" => true,
             "category" => true,
             "name" => true,
-            "vendor" => true,
         ];
 
         $this->check_results($data);

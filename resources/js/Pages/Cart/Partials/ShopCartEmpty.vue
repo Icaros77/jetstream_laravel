@@ -3,24 +3,21 @@
         class="
             w-full
             max-w-md
-            bg-gradient-to-br
-            from-indigo-300
-            to-indigo-500
+            pink-indigo-gradient-rounded
             flex flex-col
             justify-center
             items-center
-            rounded-lg
             min-h-1/4
             shadow-lg
         "
     >
         <div class="p-4">
-            <span class="font-semibold text-white">Your cart is empty!</span>
+            <span class="font-semibold text-indigo-500">Your cart is empty!</span>
         </div>
         <div class="p-4">
             <Link
                 :href="route('products.index')"
-                class="font-bold text-white underline uppercase"
+                class="font-bold text-indigo-500 underline uppercase"
             >
                 Purchase new stuff!!
             </Link>

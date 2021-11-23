@@ -78,7 +78,6 @@
                     </h2>
                 </div>
             </header>
-            <notification v-show="$page.props.notification" />
 
 
             <main class="pb-24 flex justify-center">

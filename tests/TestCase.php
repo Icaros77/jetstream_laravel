@@ -69,7 +69,7 @@ abstract class TestCase extends BaseTestCase
         $vendors->load([
             'products' => function ($query) {
                 $query->with('quantity:id,quantity,product_id')
-                    ->select('id', 'product_number', 'name', 'vendor_id', 'price');
+                    ->select('id', 'product_number', 'name', 'vendor_id', 'price', "image_path");
             },
         ]);
         return $vendors;

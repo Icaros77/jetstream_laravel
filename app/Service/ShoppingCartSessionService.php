@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Http\Requests\CartRemoveItemRequest;
 use App\Http\Requests\CartUpdateRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,7 @@ class ShoppingCartSessionService extends ShoppingCartService
      */
     public function mergeCart(LoginRequest $req): void
     {
-        $user = Auth::user()->load("cart");
+        $user = $req->user()->load("cart");
         
         $cart_session = collect($req->session()->get("session_cart.cart.cart"));
         $cart_DB = $user->cart;
@@ -68,6 +69,14 @@ class ShoppingCartSessionService extends ShoppingCartService
         $cart_DB->save();
     }
 
+    /**
+     * merges the Session and DB cart together
+     * if product is present, sums up the quantities
+     * $cart_DB is $user->cart->cart
+     * which is a JSON
+     * @param Collection $fresh_cart
+     * @param String $cart_DB
+     */
     public function merge_carts($fresh_cart, $cart_DB)
     {
         $products_cart_DB = json_decode($cart_DB);
@@ -91,5 +100,19 @@ class ShoppingCartSessionService extends ShoppingCartService
             $products_cart_DB = $products_cart_session;
         }
         return $products_cart_DB;
+    }
+
+    public function removeItem(CartRemoveItemRequest $req): void
+    {
+        $product_number = $req->validated()['product_number'];
+
+
+        $req->session()->forget("session_cart.cart.cart.$product_number");
+        
+        $cart = $req->session()->get("session_cart.cart.cart");
+        $total_amount_cart = collect($cart)->sum("total_amount");
+        $total_amount_cart = $total_amount_cart ? $total_amount_cart : "0.00";
+        
+        $req->session()->put("session_cart.cart.total_amount_cart", $total_amount_cart);
     }
 }
