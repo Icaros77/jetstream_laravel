@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource("cart", ShoppingListController::class);
+Route::resource("cart", ShoppingListController::class)->only(["index", "store"]);
+Route::post("/remove_item", [ShoppingListController::class, "remove_item"])->name("cart.remove_item");
 

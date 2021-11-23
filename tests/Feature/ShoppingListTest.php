@@ -199,7 +199,7 @@ class ShoppingListTest extends TestCase
         $this->assertDatabaseHas("shopping_lists", ["new_items" => 1, 'client_id' => $user->id]);
     }
 
-    
+
     public function test_signal_new_items_in_session_cart()
     {
         $vendors = $this->setVendors();
@@ -214,6 +214,7 @@ class ShoppingListTest extends TestCase
 
         $response->assertSessionHas("session_cart.cart.new_items", 1);
     }
+
 
     public function test_merge_session_cart_to_db_cart_after_logging()
     {
@@ -310,5 +311,96 @@ class ShoppingListTest extends TestCase
             "shopping_lists",
             ['client_id' => $user->id, 'total_amount_cart' => $total * 2 + $total_2]
         );
+    }
+
+    public function test_remove_items_from_cart_db()
+    {
+        $user = User::with("cart")->first();
+        $vendors = $this->setVendors();
+        $product = $vendors->first()->products->first();
+
+        $cart = $user->cart;
+        $cart->cart = [$product->product_number => $product->toArray()];
+        $cart->save();
+
+        $this->actingAs($user);
+
+        $this->post(route("cart.remove_item"), $product->only("id", "product_number"))
+            ->assertRedirect(route("cart.index"))
+            ->assertSessionHas("notification.message", "Item removed from cart!");
+
+        $this->assertDatabaseHas("shopping_lists", ["client_id" => $user->id, "cart" => null]);
+
+        $product_2 = $vendors->last()->products->last();
+
+        $cart->cart = [
+            $product->product_number => $product->only("id", "product_number"),
+            $product_2->product_number => $product_2->only("id", "product_number"),
+        ];
+
+        $cart->save();
+
+
+        $this->post(route("cart.remove_item"), $product_2->only("id", "product_number"))
+            ->assertRedirect(route("cart.index"))
+            ->assertSessionHas("notification.message", "Item removed from cart!");
+
+
+        $cart = $cart->refresh();
+        $this->assertSame(
+            $cart->cart->{$product->product_number}->id,
+            $product->id,
+            "Ids not the same"
+        );
+    }
+
+    public function test_remove_items_from_cart_session()
+    {
+        $vendors = $this->setVendors();
+        $product = $vendors->first()->products->first();
+
+        $product_number = $product->product_number;
+        $session = [
+            "session_cart.cart.cart.$product_number" => array_merge(
+                $product->only("id", "product_number", "price"),
+                ["total_amount" => $product->price * 15]
+            ),
+            "session_cart.cart.total_amount_cart" => number_format($product->price * 15, 0, ".", ""),
+        ];
+
+        $this->withSession($session)
+            ->post(route("cart.remove_item"), $product->only("id", "product_number"))
+            ->assertRedirect(route("cart.index"))
+            ->assertSessionHas("session_cart.cart.cart", [])
+            ->assertSessionHas("session_cart.cart.total_amount_cart", "0.00")
+            ->assertSessionHas("notification.message", "Item removed from cart!");
+
+        $product_2 = $vendors->last()->products->last();
+        $product_number_2 = $product_2->product_number;
+        
+        $data_2 = array_merge(
+            $product_2->only("id", "product_number", "price"),
+            ["total_amount" => $product_2->price * 15]
+        );
+        
+        $session["session_cart.cart.cart.$product_number_2"] = $data_2;
+        $session["session_cart.cart.total_amount_cart"] = number_format(
+            $product->price * 15 + $product_2->price * 15,
+            0,
+            ".",
+            ""
+        );
+
+        $this->withSession($session)
+            ->post(route("cart.remove_item"), $product->only("id", "product_number"))
+            ->assertRedirect(route("cart.index"))
+            ->assertSessionHas("session_cart.cart.cart", [$product_number_2 => $data_2])
+            ->assertSessionHas("session_cart.cart.total_amount_cart", number_format(
+                $product_2->price * 15,
+                0,
+                ".",
+                ""
+            ))
+            ->assertSessionHas("notification.message", "Item removed from cart!");
     }
 }

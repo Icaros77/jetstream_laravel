@@ -2,7 +2,7 @@
     <div class="sm:w-full flex flex-col">
         <div class="sm:w-full flex justify-around">
             <div class="w-2/3 flex justify-center items-center">
-                <span class="text-gray-700 font-bold"
+                <span class="text-indigo-700 font-bold"
                     >{{ total_amount }} €
                 </span>
             </div>
@@ -11,11 +11,11 @@
                     type="text"
                     class="
                         w-full
-                        text-red-400
+                        text-indigo-400
                         rounded-md
                         font-bold
-                        focus:ring-red-400
-                        border-0
+                        focus:ring-indigo-300
+                        border-2 border-indigo-300
                         shadow-inner
                         text-center
                         bg-transparent

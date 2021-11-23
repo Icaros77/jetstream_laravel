@@ -68,6 +68,21 @@ html::-webkit-scrollbar-thumb:vertical {
         height: 100%;
     }
     
+    .indigo-gradient-rounded {
+        @apply
+        rounded-lg
+        bg-gradient-to-br
+        from-indigo-300
+        to-indigo-500
+    }
+    .pink-indigo-gradient-rounded {
+        @apply
+        bg-gradient-to-br
+        from-gray-100
+        via-pink-100
+        to-indigo-100
+        rounded-lg
+    }
 
     .header-link {
         @apply 

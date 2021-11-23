@@ -1,20 +1,85 @@
 <template>
-    <article
-        class="flex flex-col p-5 w-full bg-indigo-400 rounded-lg"
-        v-for="product in cart.cart"
-        :key="product.id"
+    <div class="w-full flex flex-wrap justify-between p-3">
+        <div class="w-max p-3 pink-indigo-gradient-rounded shadow-lg">
+            <span class="font-bold text-lg text-indigo-500">
+                Total cart: {{ total_amount_cart }} €
+            </span>
+        </div>
+        <div class="w-max p-3 pink-indigo-gradient-rounded shadow-lg">
+            <form @submit.stop.prevent="placeOrder" class="w-full">
+                <button type="submit" class="text-indigo-500 font-bold">
+                    Place order!
+                </button>
+            </form>
+        </div>
+    </div>
+    <div
+        class="
+            flex flex-wrap
+            justify-center
+            sm:justify-around
+            w-full
+            max-h-screen
+            space-y-5
+            overflow-y-scroll
+        "
     >
-        <div>
-            <span class="text-white">{{ product.name }}</span>
-        </div>
-        <div>
-            <span class="text-white">{{ product.quantity }}</span>
-        </div>
-        <div>
-            <span class="text-white">{{ total_amount(product) }} €</span>
-        </div>
-    </article>
-    <div>{{ total_amount_cart }} €</div>
+        <article
+            class="flex w-full pink-indigo-gradient-rounded"
+            v-for="product in cart.cart"
+            :key="product.id"
+        >
+            <div class="w-3/5 h-full">
+                <div class="p-2">
+                    <span class="text-indigo-500 font-bold text-sm">{{
+                        product.name
+                    }}</span>
+                </div>
+                <div class="p-2">
+                    <p class="text-indigo-500">
+                        <small class="font-semibold">Quantity:</small>
+                        <span class="font-bold text-base pl-1">{{
+                            product.quantity
+                        }}</span>
+                    </p>
+                </div>
+                <div class="p-2">
+                    <p class="text-indigo-500">
+                        <small class="font-semibold">Total:</small>
+                        <span class="font-bold text-base pl-1"
+                            >{{ total_amount(product) }} €</span
+                        >
+                    </p>
+                </div>
+                <div class="p-2">
+                    <form @submit.stop.prevent="removeItem" class="w-full">
+                        <button
+                            type="submit"
+                            class="
+                                text-white
+                                indigo-gradient-rounded
+                                font-bold
+                                text-xs
+                                p-2
+                                rounded-md
+                            "
+                            :data-item="product.id"
+                            :data-item_number="product.product_number"
+                        >
+                            Remove from cart
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="w-2/5 h-full">
+                <img
+                    :src="product.image_path"
+                    class="w-full h-full object-cover rounded-r-lg"
+                    :alt="product.name"
+                />
+            </div>
+        </article>
+    </div>
 </template>
 
 <script>
@@ -26,10 +91,7 @@ export default defineComponent({
     },
     computed: {
         total_amount_cart() {
-            let total_amount = parseFloat(
-                this.cart.total_amount_cart / 100
-            );
-            console.log(this.cart);
+            let total_amount = parseFloat(this.cart.total_amount_cart / 100);
             return total_amount?.toFixed(2) || "0.00";
         },
     },
@@ -37,6 +99,23 @@ export default defineComponent({
         total_amount(product) {
             let total_amount = parseFloat(product.total_amount / 100);
             return total_amount?.toFixed(2) || "0.00";
+        },
+        placeOrder(event) {
+            this.$inertia.post("dummyRoute", {
+                onSuccess: () => {
+                    console.log("Success");
+                },
+            });
+        },
+        removeItem(event) {
+            let target = event.target.children[0];
+            let id = target.dataset.item;
+            let product_number = target.dataset.item_number;
+
+            this.$inertia.post(route("cart.remove_item"), {
+                id,
+                product_number,
+            });
         },
     },
 });

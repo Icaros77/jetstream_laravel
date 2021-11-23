@@ -1,6 +1,7 @@
 <?php
 namespace App\Service;
 
+use App\Http\Requests\CartRemoveItemRequest;
 use App\Http\Requests\CartUpdateRequest;
 
 abstract class ShoppingCartService
@@ -14,4 +15,13 @@ abstract class ShoppingCartService
      * @return Void
      */
     abstract function updateCart(CartUpdateRequest $req):void;
+
+    /**
+     * remove item from cart
+     * checks id, alrady checked from
+     * CartRemoveItmeRequest $req
+     * @param CartRemoveItemRequest $req
+     * @return void
+     */
+    abstract function removeItem(CartRemoveItemRequest $req):void;
 }

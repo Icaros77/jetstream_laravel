@@ -2,7 +2,6 @@
     <Head title="Login" />
 
     <div class="w-full relative sm:max-w-lg">
-        <alert-cart-merge :permission="permissionGranted" :request="askRequest" @reply="reply" />
         <div
             class="
                 h-full-mobile
@@ -127,14 +126,12 @@
 import { defineComponent } from "vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import LabelName from "@/components/FormElements/LabelName.vue";
-import AlertCartMerge from "./AlertCartMerge.vue";
 import AppLayoutVue from "@/Layouts/AppLayout.vue";
 
 export default defineComponent({
     components: {
         Head,
         Link,
-        AlertCartMerge,
         LabelName,
     },
     layout: AppLayoutVue,
