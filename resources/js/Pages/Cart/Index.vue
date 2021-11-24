@@ -5,6 +5,8 @@
             max-w-7xl
             w-full
             p-5
+            flex
+            justify-center
             space-y-4
             mx-auto
             sm:px-6

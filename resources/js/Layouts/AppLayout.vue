@@ -8,16 +8,7 @@
 
         <jet-banner />
         <div class="min-h-screen">
-            <nav
-                class="
-                    bg-gradient-to-br
-                    from-gray-100
-                    via-pink-100
-                    to-indigo-100
-                    border-b border-gray-100
-                "
-            >
-                <!-- Primary Navigation Menu -->
+            <nav>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex h-16">
                         <div class="flex w-full justify-between">
@@ -38,12 +29,21 @@
                                     sm:-my-px sm:ml-10 sm:flex
                                 "
                             >
-                                <jet-nav-link
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </jet-nav-link>
+                                <Link
+                                    :href="route('login')"
+                                    :class="'text-indigo-400 inline-flex justify-center items-center'"
+                                    ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="h-8 w-8"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+                                            clip-rule="evenodd"
+                                        /></svg
+                                ></Link>
                             </div>
 
                             <div v-show="this.$page.props.user" class="h-full">
@@ -56,21 +56,67 @@
                                         items-center
                                         h-full
                                     "
-                                    >{{ this.$page.props.user?.name }}</span
                                 >
+                                    {{ this.$page.props.user?.name }}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
+            <nav class="hidden sm:block pl-3 w-max">
+                <div class="flex">
+                    <ul class="flex">
+                        <li
+                            class="p-3"
+                            :class="{
+                                'border-b-2 border-indigo-700':
+                                    active('dashboard'),
+                            }"
+                        >
+                            <Link
+                                :href="route('dashboard')"
+                                :class="'text-indigo-500 font-semibold'"
+                                >Dashboard</Link
+                            >
+                        </li>
+                        <li
+                            class="p-3"
+                            :class="{
+                                'border-b-2 border-indigo-700':
+                                    active('products.index'),
+                            }"
+                        >
+                            <Link
+                                :href="route('products.index')"
+                                :class="'text-indigo-500 font-semibold'"
+                                >Products</Link
+                            >
+                        </li>
+                        <li
+                            class="p-3"
+                            :class="{
+                                'border-b-2 border-indigo-700':
+                                    active('cart.index'),
+                            }"
+                        >
+                            <Link
+                                :href="route('cart.index')"
+                                :class="'text-indigo-500 font-semibold'"
+                                >Cart</Link
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
             <!-- Page Heading -->
-            <header class="shadow mb-5">
+            <header class="shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <h2
                         class="
                             font-semibold
-                            text-xl text-gray-800
+                            text-xl text-indigo-500
                             leading-tight
                         "
                     >
@@ -79,8 +125,7 @@
                 </div>
             </header>
 
-
-            <main class="pb-24 flex justify-center">
+            <main class="pb-24 pt-5">
                 <slot></slot>
             </main>
         </div>
@@ -122,6 +167,13 @@ export default defineComponent({
     },
 
     methods: {
+        active(route) {
+            let exp = new RegExp(this.$page.url + "$");
+            return (
+                exp.test(this.route(route)) ||
+                ("/" === this.$page.url && route == "dashboard")
+            );
+        },
         switchToTeam(team) {
             this.$inertia.put(
                 route("current-team.update"),

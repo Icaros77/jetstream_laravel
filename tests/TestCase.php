@@ -33,19 +33,10 @@ abstract class TestCase extends BaseTestCase
     {
         User::factory(1)->addCart()->create(["email" => 'a@hot.com']);
     }
-    /**
-     * Fetch credentials
-     *
-     * @return array
-     */
-    public function credentials()
-    {
-        $user = User::find(1);
 
-        return [
-            "email" => $user->email,
-            "password" => "password"
-        ];
+    public function createUserCartWithProducts()
+    {
+        User::factory(1)->addCartProducts()->create(["email" => "a@hot.com"]);
     }
 
     /**
@@ -75,15 +66,4 @@ abstract class TestCase extends BaseTestCase
         return $vendors;
     }
 
-    /**
-     * Set header X-Requested-With to XMLHttpRequest
-     * for request
-     * @return self
-     */
-
-
-    public function setXHR()
-    {
-        return $this->withHeader("X-Requested-With", "XMLHttpRequest")->get("/sanctum/csrf-cookie");
-    }
 }

@@ -4,7 +4,7 @@
             <ul class="flex flex-wrap justify-around w-full p-3">
                 <page-links
                     v-for="(link, index) in getLinks"
-                    :key="index"
+                    :key="link.label"
                     :link="link"
                     :index="index"
                     :current_page="current_page"
@@ -32,6 +32,7 @@ export default defineComponent({
     computed: {
         getLinks() {
             let links = this.links.slice(1);
+            console.log(links);
             return links;
         }
     }

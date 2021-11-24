@@ -34,6 +34,10 @@ class VendorFactory extends Factory
     }
 
 
+    /**
+     * $amount is the number of products to create
+     * $quantity_default is the amount of quantity of that product
+     */
     public function addProducts($amount = null, $quantity_default = null)
     {
         return $this->afterCreating(function(Vendor $vendor) use($amount, $quantity_default) {

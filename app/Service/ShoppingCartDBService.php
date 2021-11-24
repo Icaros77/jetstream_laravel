@@ -64,7 +64,6 @@ class ShoppingCartDBService extends ShoppingCartService
         $cart_DB = $cart->cart;
         $cart_DB = collect($cart_DB);
 
-        // dd($cart_DB);
         $cart_DB = $cart_DB->filter(function($product) use($product_number) {
             return $product->product_number != $product_number;
         });

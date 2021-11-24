@@ -17,9 +17,9 @@ class LoginTest extends TestCase
     {
         $this->createUserCart();
         $user = User::with("cart")->first();
-        $data = $this->credentials();
         $cart = $user->cart->cart;
 
+        $data = ["email" => $user->email, "password" => "password"];
         $this->postJson(route("login"), $data)
             ->assertRedirect(route("dashboard"));
 
@@ -46,7 +46,6 @@ class LoginTest extends TestCase
 
     public function test_logout()
     {
-        $this->withoutExceptionHandling();
         $this->createUserCart();
         $user = User::first();
 

@@ -1,6 +1,13 @@
 <template>
     <div
-        class="w-full sm:w-2/5 mb-5 pink-indigo-gradient-rounded rounded-md shadow-lg"
+        class="
+            w-full
+            sm:w-2/5
+            mb-5
+            bg-gray-100
+            rounded-md
+            shadow-lg
+        "
         v-for="item in products.data"
         :key="item.id"
     >
@@ -11,7 +18,7 @@
                     sm:w-full sm:h-40 sm:rounded-t-md sm:rounded-b-none
                     rounded-md
                     product-container
-                    relative
+                    sm:relative
                     overflow-hidden
                 "
             >
@@ -27,7 +34,7 @@
                     :alt="item.name"
                 />
                 <div
-                    :class="slidingFrom()"
+                    :class="slidingFrom"
                     class="
                         hidden
                         absolute
@@ -85,11 +92,7 @@ export default defineComponent({
             slideFrom: true,
         };
     },
-    
-    methods: {
-        parsePrice(item) {
-            return parseFloat(item.price / 100).toFixed(2);
-        },
+    computed: {
         slidingFrom() {
             if (this.slideFrom) {
                 this.slideFrom = false;
@@ -103,6 +106,12 @@ export default defineComponent({
                 "-translate-x-full": false,
                 "translate-x-full": true,
             };
+        },
+    },
+
+    methods: {
+        parsePrice(item) {
+            return parseFloat(item.price / 100).toFixed(2);
         },
     },
 });
