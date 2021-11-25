@@ -31,12 +31,12 @@ abstract class TestCase extends BaseTestCase
 
     public function createUserCart()
     {
-        User::factory(1)->addCart()->create(["email" => 'a@hot.com']);
+        User::factory(1)->addInfo()->addCart()->create(["email" => 'atecom@hotmail.it']);
     }
 
     public function createUserCartWithProducts()
     {
-        User::factory(1)->addCartProducts()->create(["email" => "a@hot.com"]);
+        User::factory(1)->addInfo()->addCartProducts()->create(["email" => "atecom@hotmail.it"]);
     }
 
     /**

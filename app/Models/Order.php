@@ -16,7 +16,19 @@ class Order extends Model
         // index
         "order_number",
 
+        "total_amount_cart",
+
         // references users
         "client_id"
     ];
+
+    protected $casts = [
+        "cart" => 'object',
+        "cart->*" => 'object'
+    ];
+
+    public function info()
+    {
+        return $this->hasOne(OrderInfo::class);
+    }
 }

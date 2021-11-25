@@ -1,0 +1,31 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Info;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class InfoFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Info::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'address' =>$this->faker->address(),
+            'postal_code' => $this->faker->postcode(),
+            'city' => $this->faker->city(),
+            'country' => $this->faker->country(),
+        ];
+    }
+}

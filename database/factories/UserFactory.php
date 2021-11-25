@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Info;
 use App\Models\Product;
 use App\Models\ShoppingList;
 use App\Models\Team;
@@ -38,6 +39,12 @@ class UserFactory extends Factory
     }
 
 
+    public function addInfo()
+    {
+        return $this->afterCreating(function(User $user) {
+            Info::factory()->create(['client_id' => $user->id]);
+        });
+    }
     public function addCart()
     {
         return $this->afterCreating(function (User $user) {
@@ -51,8 +58,8 @@ class UserFactory extends Factory
             $vendors = Vendor::factory(1)->addProducts(3, 20)->create();
             $products = $vendors->first()->products;
             $products = $products->transform(function ($product) {
-                $product->quantity = 15;
-                $product->total_amount = $product->price * 15;
+                $product->quantity = random_int(15,19);
+                $product->total_amount = $product->price * $product->quantity;
                 return $product;
             });
 
@@ -61,12 +68,13 @@ class UserFactory extends Factory
             $products_in_cart = $products_in_cart->transform(function ($product) {
                 return (object) $product->toArray()[0];
             });
-
+            
             ShoppingList::factory()->create([
                 'cart' => $products_in_cart,
                 "client_id" => $user->id,
                 "total_amount_cart" => $total
             ]);
+            
         });
     }
     /**
