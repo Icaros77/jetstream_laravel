@@ -6,7 +6,7 @@ use DateTime;
 use DateTimeZone;
 use Nette\Utils\Random;
 
-trait PlaceOrder
+trait PlaceOrderTrait
 {
     public function generateOrderNumber()
     {

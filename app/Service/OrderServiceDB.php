@@ -5,17 +5,13 @@ namespace App\Service;
 use App\Events\UserPlaceOrder;
 use App\Models\Order;
 use App\Service\OrderService;
-use DateTime;
-use DateTimeZone;
-use Illuminate\Http\Request;
-use Nette\Utils\Random;
 use App\Http\Requests\PlaceOrderRequest;
 use App\Models\OrderInfo;
-use App\Traits\PlaceOrder;
+use App\Traits\PlaceOrderTrait;
 
 class OrderServiceDB extends OrderService
 {
-    use PlaceOrder;
+    use PlaceOrderTrait;
 
     public function placeOrder(PlaceOrderRequest $req): void
     {
@@ -41,7 +37,7 @@ class OrderServiceDB extends OrderService
             )
         );
 
-        UserPlaceOrder::dispatch($user, $order);
+        UserPlaceOrder::dispatch($order, $user);
 
         $cart_DB->cart = null;
         $cart_DB->total_amount_cart = 0;

@@ -25,4 +25,4 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::resource("orders", OrderController::class)->only("store");
+Route::resource("orders", OrderController::class)->only(["create", "store"]);

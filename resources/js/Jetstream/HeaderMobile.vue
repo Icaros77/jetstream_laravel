@@ -11,6 +11,8 @@
             left-0
             right-0
             z-30
+            border-t-2
+            border-indigo-400
         "
     >
         <div class="flex w-full h-full items-center justify-between">

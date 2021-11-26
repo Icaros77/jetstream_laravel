@@ -23,7 +23,7 @@ class UserPlaceOrder
      *
      * @return void
      */
-    public function __construct(User $user, Order $order)
+    public function __construct(Order $order, User $user)
     {
         $this->user = $user;
         $this->order = $order;

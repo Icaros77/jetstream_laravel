@@ -18,9 +18,7 @@
                     inset-0
                     sm:translate-y-0
                     sm:inset-y-0 sm:left-0 sm:w-1/2
-                    bg-gradient-to-br
-                    from-red-300
-                    to-red-400
+                    bg-gray-100
                     z-10
                 "
             >

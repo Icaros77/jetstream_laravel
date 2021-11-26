@@ -66,4 +66,21 @@ abstract class TestCase extends BaseTestCase
         return $vendors;
     }
 
+    
+    /**
+     * Get the shippment informations
+     */
+    public function getInfoShippment(?User $user = null)
+    {
+        $info_shippment = [
+            "client_name" => $user->name ?? "Name",
+            "client_email" => $user->email ?? "a@g.com",
+            "shippment_address" => $user->info->address ?? "via m 34",
+            "shippment_postal_code" => $user->info->postal_code ?? "29121",
+            "shippment_city" => $user->info->city ?? "city",
+            "shippment_country" => $user->info->country ?? "amo",
+        ];
+        return $info_shippment;
+    }
+
 }

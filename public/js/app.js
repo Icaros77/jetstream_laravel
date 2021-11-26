@@ -20252,21 +20252,14 @@ __webpack_require__.r(__webpack_exports__);
       var total_amount = parseFloat(product.total_amount / 100);
       return (total_amount === null || total_amount === void 0 ? void 0 : total_amount.toFixed(2)) || "0.00";
     },
-    placeOrder: function placeOrder(event) {
-      this.$inertia.post("dummyRoute", {
-        onSuccess: function onSuccess() {
-          console.log("Success");
-        }
-      });
-    },
     removeItem: function removeItem(event) {
       var target = event.target.children[0];
       var id = target.dataset.item;
       var product_number = target.dataset.item_number;
-      this.$inertia.post(route("cart.remove_item"), {
+      this.$inertia.patch(route("cart.update", {
         id: id,
         product_number: product_number
-      });
+      }));
     }
   }
 }));
@@ -20436,6 +20429,7 @@ __webpack_require__.r(__webpack_exports__);
       return _app_modules_Cart__WEBPACK_IMPORTED_MODULE_6__["default"].$getCart(this).cart;
     },
     hasProducts: function hasProducts() {
+      console.log(this.products.data);
       return this.products.data.length !== 0;
     }
   }
@@ -21396,7 +21390,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.select && _ctx.select.apply(_ctx, arguments);
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'bg-red-400': _ctx.buttonActive
+      'bg-indigo-400': _ctx.buttonActive
     }, "flex-1 flex justify-center transition duration-300"])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('cart.index'),
@@ -21406,7 +21400,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-          'text-red-400': !_ctx.buttonActive,
+          'text-indigo-400': !_ctx.buttonActive,
           'text-gray-100': _ctx.buttonActive
         }, "h-16 w-16 fill-current"]),
         fill: "none",
@@ -21460,7 +21454,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.select && _ctx.select.apply(_ctx, arguments);
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'bg-red-400': _ctx.buttonActive
+      'bg-indigo-400': _ctx.buttonActive
     }, "transition flex-1 flex justify-center duration-300"])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('dashboard'),
@@ -21470,7 +21464,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["h-16 w-16 fill-current", {
-          'text-red-400': !_ctx.buttonActive,
+          'text-indigo-400': !_ctx.buttonActive,
           'text-gray-100': _ctx.buttonActive
         }]),
         fill: "none",
@@ -21523,7 +21517,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.select && _ctx.select.apply(_ctx, arguments);
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'bg-red-400': _ctx.buttonActive
+      'bg-indigo-400': _ctx.buttonActive
     }, "flex-1 flex justify-center transition duration-300"])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('login'),
@@ -21533,7 +21527,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-          'text-red-400': !_ctx.buttonActive,
+          'text-indigo-400': !_ctx.buttonActive,
           'text-gray-100': _ctx.buttonActive
         }, "h-16 w-16 fill-current"]),
         fill: "none",
@@ -21589,13 +21583,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.select && _ctx.select.apply(_ctx, arguments);
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'bg-red-400': _ctx.buttonActive
+      'bg-indigo-400': _ctx.buttonActive
     }, "transition duration-300 flex-1 flex justify-center"]),
     id: "menu_icon_mobile"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["h-16 w-16 fill-current", {
-      'text-red-400': !_ctx.buttonActive,
+      'text-indigo-400': !_ctx.buttonActive,
       'text-gray-100': _ctx.buttonActive
     }]),
     fill: "none",
@@ -21624,7 +21618,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "w-screen h-20 min-h-20 bg-gray-100 sm:hidden fixed bottom-0 left-0 right-0 z-30"
+  "class": "w-screen h-20 min-h-20 bg-gray-100 sm:hidden fixed bottom-0 left-0 right-0 z-30 border-t-2 border-indigo-400"
 };
 var _hoisted_2 = {
   "class": "flex w-full h-full items-center justify-between"
@@ -21714,7 +21708,7 @@ var _hoisted_3 = {
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
-  "class": "h-18 w-18 fill-current text-red-400",
+  "class": "h-18 w-18 fill-current text-indigo-400",
   viewBox: "0 0 20 20",
   fill: "currentColor"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
@@ -21733,7 +21727,7 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
-  "class": "h-18 w-18 fill-current text-red-400",
+  "class": "h-18 w-18 fill-current text-indigo-400",
   viewBox: "0 0 20 20",
   fill: "currentColor"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
@@ -21752,7 +21746,7 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   xmlns: "http://www.w3.org/2000/svg",
-  "class": "h-18 w-18 fill-current text-red-400",
+  "class": "h-18 w-18 fill-current text-indigo-400",
   viewBox: "0 0 20 20",
   fill: "currentColor"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
@@ -21772,7 +21766,7 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex-shrink"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "block w-11/12 mx-auto h-1 rounded-full bg-gradient-to-r from-pink-100 to-indigo-100"
+  "class": "block w-11/12 mx-auto h-1 indigo-gradient-rounded rounded-full"
 })], -1
 /* HOISTED */
 );
@@ -21868,7 +21862,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return _ctx.closeMenu && _ctx.closeMenu.apply(_ctx, arguments);
     }, ["stop"])),
-    "class": "width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md"
+    "class": "width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md shadow-lg"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_nav_link, {
     href: _ctx.route('products.index')
   }, {
@@ -21884,7 +21878,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return _ctx.closeMenu && _ctx.closeMenu.apply(_ctx, arguments);
     }, ["stop"])),
-    "class": "width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md"
+    "class": "width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md shadow-lg"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_nav_link, {
     href: _ctx.route('products.index')
   }, {
@@ -21900,7 +21894,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return _ctx.closeMenu && _ctx.closeMenu.apply(_ctx, arguments);
     }, ["stop"])),
-    "class": "width-48 mt-4 max-w-xs/2 h-32 bg-gray-100 rounded-md"
+    "class": "width-48 mt-4 max-w-xs/2 h-32 bg-gray-100 rounded-md shadow-lg"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_nav_link, {
     href: _ctx.route('products.index')
   }, {
@@ -21914,7 +21908,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["href"])])])]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('user.index'),
-    "class": "btn bg-gradient-to-br from-gray-100 via-pink-100 to-indigo-200 justify-center w-full font-bold text-indigo-400"
+    "class": "btn indigo-gradient-rounded justify-center w-full font-bold text-white"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_14, _hoisted_15];
@@ -21927,7 +21921,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , ["href"])]), _ctx.$page.props.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_button, {
     onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(_ctx.logout, ["stop"]),
     type: "button",
-    classes: "bg-gradient-to-br from-gray-100 via-pink-100 to-indigo-200 justify-center w-full font-bold text-indigo-400"
+    classes: "indigo-gradient-rounded justify-center w-full font-bold text-white"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_17, _hoisted_18];
@@ -21940,7 +21934,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , ["onClick"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(_ctx.closeMenu, ["stop"]),
     href: _ctx.route('login'),
-    "class": "btn bg-gradient-to-br from-gray-100 via-pink-100 to-indigo-200 justify-center w-full font-bold text-indigo-400"
+    "class": "btn indigo-gradient-rounded justify-center w-full font-bold text-white"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_20, _hoisted_21];
@@ -21969,7 +21963,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "translate-y-full transform fixed w-screen inset-0 sm:translate-y-0 sm:inset-y-0 sm:left-0 sm:w-1/2 bg-gradient-to-br from-red-300 to-red-400 z-10"
+  "class": "translate-y-full transform fixed w-screen inset-0 sm:translate-y-0 sm:inset-y-0 sm:left-0 sm:w-1/2 bg-gray-100 z-10"
 };
 var _hoisted_2 = {
   "class": "flex justify-center flex-col w-full h-header"
@@ -22596,13 +22590,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "w-full max-w-md pink-indigo-gradient-rounded flex flex-col justify-center items-center min-h-1/4 shadow-lg"
+  "class": "w-full max-w-md indigo-gradient-rounded flex flex-col justify-center items-center min-h-1/4 shadow-lg"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "p-4"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "font-semibold text-indigo-500"
+  "class": "font-semibold text-white"
 }, "Your cart is empty!")], -1
 /* HOISTED */
 );
@@ -22618,7 +22612,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {
     href: _ctx.route('products.index'),
-    "class": "font-bold text-indigo-500 underline uppercase"
+    "class": "font-bold text-white underline uppercase"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_4];

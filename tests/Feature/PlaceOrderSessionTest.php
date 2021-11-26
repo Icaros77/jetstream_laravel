@@ -29,8 +29,9 @@ class PlaceOrderSessionTest extends TestCase
             "session_cart.cart.total_amount_cart" => $total_amount_cart
         ];
 
+        $info_shippment = $this->getInfoShippment();
         $this->withSession($session)
-            ->post(route("orders.store"))
+            ->post(route("orders.store"), $info_shippment)
             ->assertRedirect(route("cart.index"));
 
         $this->assertDatabaseCount("orders", 1);

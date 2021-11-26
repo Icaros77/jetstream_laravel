@@ -7,6 +7,7 @@ use App\Mail\OrderPlaced;
 use App\Models\ProductQuantities;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class EmailUserOrderPlaced
@@ -30,8 +31,8 @@ class EmailUserOrderPlaced
     public function handle(UserPlaceOrder $event)
     {
         $user = $event->user;
-        $cart = $user->cart;
-        $products_in_cart = $cart->cart;
+        $order = $event->order;
+        $products_in_cart = $order->cart;
         $products_in_cart = collect($products_in_cart);
         $ids = $products_in_cart->pluck("id");
         $quantities = $products_in_cart->pluck("quantity", "id");

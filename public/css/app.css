@@ -1762,6 +1762,9 @@ select {
 .border-r {
 	border-right-width: 1px;
 }
+.border-t-2 {
+	border-top-width: 2px;
+}
 .border-none {
 	border-style: none;
 }
@@ -1862,6 +1865,10 @@ select {
 .bg-yellow-700 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(180, 83, 9, var(--tw-bg-opacity));
+}
+.bg-indigo-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(129, 140, 248, var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;

@@ -117,22 +117,12 @@ export default defineComponent({
             let total_amount = parseFloat(product.total_amount / 100);
             return total_amount?.toFixed(2) || "0.00";
         },
-        placeOrder(event) {
-            this.$inertia.post("dummyRoute", {
-                onSuccess: () => {
-                    console.log("Success");
-                },
-            });
-        },
         removeItem(event) {
             let target = event.target.children[0];
             let id = target.dataset.item;
             let product_number = target.dataset.item_number;
 
-            this.$inertia.post(route("cart.remove_item"), {
-                id,
-                product_number,
-            });
+            this.$inertia.patch(route("cart.update", {id, product_number}));
         },
     },
 });

@@ -20,10 +20,12 @@ class PlaceOrderDBTest extends TestCase
     {
         Event::fake();
         $this->createUserCartWithProducts();
-        $user = User::with("cart")->first();
+        $user = User::with(["cart", "info"])->first();
+
+        $info_shippment = $this->getInfoShippment($user);
 
         $this->actingAs($user)->get(route("cart.index"));
-        $this->post(route("orders.store"))
+        $this->post(route("orders.store"), $info_shippment)
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("notification.message", "Order has been placed!");
         Event::assertDispatched(UserPlaceOrder::class);
@@ -37,15 +39,17 @@ class PlaceOrderDBTest extends TestCase
     {
         Mail::fake();
         $this->createUserCartWithProducts();
-        
-        $user = User::with("cart")->first();
+
+        $user = User::with(["cart", "info"])->first();
         $cart = $user->cart;
         $quantities = collect($cart->cart)->pluck("quantity", "id");
 
         $total_amount_cart = $cart->total_amount_cart;
+        $info_shippment = $this->getInfoShippment($user);
+
 
         $this->actingAs($user)->get(route("cart.index"));
-        $this->post(route("orders.store"))
+        $this->post(route("orders.store"), $info_shippment)
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("notification.message", "Order has been placed!");
 
@@ -60,7 +64,7 @@ class PlaceOrderDBTest extends TestCase
 
         $products_DB = Product::select("id")->get();
 
-        $products_DB->each(function ($product) use($quantities) {
+        $products_DB->each(function ($product) use ($quantities) {
             $this->assertDatabaseHas("product_quantities", [
                 "quantity" => 20 - $quantities[$product->id],
                 "product_id" => $product->id

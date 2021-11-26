@@ -4,12 +4,12 @@
             <ul class="flex flex-wrap justify-around w-full p-8 px-12">
                 <li
                     @click.stop="closeMenu"
-                    class="width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md"
+                    class="width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md shadow-lg"
                 >
                     <nav-link :href="route('products.index')">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-18 w-18 fill-current text-red-400"
+                            class="h-18 w-18 fill-current text-indigo-400"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                         >
@@ -26,12 +26,12 @@
                 </li>
                 <li
                     @click.stop="closeMenu"
-                    class="width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md"
+                    class="width-48 max-w-xs/2 h-32 bg-gray-100 rounded-md shadow-lg"
                 >
                     <nav-link :href="route('products.index')">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-18 w-18 fill-current text-red-400"
+                            class="h-18 w-18 fill-current text-indigo-400"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                         >
@@ -48,12 +48,12 @@
                 </li>
                 <li
                     @click.stop="closeMenu"
-                    class="width-48 mt-4 max-w-xs/2 h-32 bg-gray-100 rounded-md"
+                    class="width-48 mt-4 max-w-xs/2 h-32 bg-gray-100 rounded-md shadow-lg"
                 >
                     <nav-link :href="route('products.index')">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-18 w-18 fill-current text-red-400"
+                            class="h-18 w-18 fill-current text-indigo-400"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                         >
@@ -77,10 +77,8 @@
                     w-11/12
                     mx-auto
                     h-1
+                    indigo-gradient-rounded
                     rounded-full
-                    bg-gradient-to-r
-                    from-pink-100
-                    to-indigo-100
                 "
             ></span>
         </div>
@@ -101,14 +99,11 @@
                         :href="route('user.index')"
                         class="
                             btn
-                            bg-gradient-to-br
-                            from-gray-100
-                            via-pink-100
-                            to-indigo-200
+                            indigo-gradient-rounded
                             justify-center
                             w-full
                             font-bold
-                            text-indigo-400
+                            text-white
                         "
                         ><span class="mr-3">Profile</span>
                         <svg
@@ -129,7 +124,7 @@
                     <jet-button
                         @click.stop="logout"
                         type="button"
-                        classes="bg-gradient-to-br from-gray-100 via-pink-100 to-indigo-200 justify-center w-full font-bold text-indigo-400"
+                        classes="indigo-gradient-rounded justify-center w-full font-bold text-white"
                         ><span class="mr-3">Logout</span
                         ><svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -152,14 +147,11 @@
                         :href="route('login')"
                         class="
                             btn
-                            bg-gradient-to-br
-                            from-gray-100
-                            via-pink-100
-                            to-indigo-200
+                            indigo-gradient-rounded
                             justify-center
                             w-full
                             font-bold
-                            text-indigo-400
+                            text-white
                         "
                     >
                         <span class="mr-3">Login</span>
