@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CartRemoveItemRequest;
 use App\Http\Requests\CartUpdateRequest;
 use App\Service\ShoppingCartDBService;
 use App\Service\ShoppingCartSessionService;
