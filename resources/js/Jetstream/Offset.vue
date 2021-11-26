@@ -2,11 +2,11 @@
     <teleport to="body">
         <transition
             enter-active-class="ease-in duration-300"
-            enter-from-class="translate-y-full"
-            enter-to-class="translate-y-0"
+            enter-from-class="translate-y-full sm:translate-y-0 sm:translate-x-full"
+            enter-to-class="translate-y-0 sm:translate-y-0 sm:translate-x-0"
             leave-active-class="ease-in duration-300"
-            leave-from-class="translate-y-0"
-            leave-to-class="translate-y-full"
+            leave-from-class="translate-y-0 sm:translate-x-0"
+            leave-to-class="translate-y-full sm:translate-y-0 sm:translate-x-full"
         >
             <div
                 v-show="show"
@@ -16,10 +16,9 @@
                     fixed
                     w-screen
                     inset-0
+                    sm:translate-y-0
                     sm:inset-y-0 sm:left-0 sm:w-1/2
-                    bg-gradient-to-br
-                    from-red-300
-                    to-red-400
+                    bg-gray-100
                     z-10
                 "
             >

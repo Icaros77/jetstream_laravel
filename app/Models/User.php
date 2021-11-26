@@ -71,4 +71,8 @@ class User extends Authenticatable
         return $this->hasOne(ShoppingList::class, 'client_id');
     }
 
+    public function info()
+    {
+        return $this->hasOne(Info::class, 'client_id');
+    }
 }

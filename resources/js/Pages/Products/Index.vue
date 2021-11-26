@@ -1,5 +1,9 @@
 <template>
     <Head title="Products" />
+    <div class="flex justify-center w-full">
+        <filter-bar />
+    </div>
+
     <div
         class="
             max-w-7xl
@@ -8,16 +12,25 @@
             mx-auto
             sm:px-6
             lg:px-8
-            flex flex-wrap
+            flex
+            flex-wrap
             justify-between
             sm:justify-around
         "
     >
-        <show-criterias v-if="filter" :filter="filter" :name="name" :category="category" :vendor="vendor" />
-        <navigation :products="products" />
-        <menu-items :cart="passCart" :products="products"/>
-        <navigation :products="products" />
-        <filter-bar />
+        <show-criterias
+            v-if="filter"
+            :filter="filter"
+            :name="name"
+            :category="category"
+            :vendor="vendor"
+            :products="hasProducts"
+        />
+        <products-present
+            v-if="hasProducts"
+            :products="products"
+            :cart="passCart"
+        />
     </div>
 </template>
 
@@ -25,27 +38,37 @@
 import { defineComponent } from "vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import MenuItems from "./Partials/MenuItems.vue";
-import FilterBar from "./Partials/FilterBar.vue";
-import Navigation from "./Partials/NavigationFilterResult.vue";
+import ProductsPresent from "./Partials/ProductsPresent.vue";
 import ShowCriterias from "./Partials/ShowResultCriterias.vue";
+import FilterBar from "./Partials/FilterBar.vue";
 import Cart from "@/app_modules/Cart";
 
 export default defineComponent({
     components: {
-        MenuItems,
         FilterBar,
-        Navigation,
+        ProductsPresent,
         ShowCriterias,
         Head,
     },
-    props: ["user", "session_cart", "products", "filter", "name", "vendor", "category"],
+    props: [
+        "user",
+        "session_cart",
+        "products",
+        "filter",
+        "name",
+        "vendor",
+        "category",
+    ],
     layout: AppLayout,
 
     computed: {
         passCart() {
             return Cart.$getCart(this).cart;
-        }
+        },
+        hasProducts() {
+            console.log(this.products.data);
+            return this.products.data.length !== 0;
+        },
     },
 });
 </script>

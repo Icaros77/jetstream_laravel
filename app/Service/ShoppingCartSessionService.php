@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Http\Requests\CartRemoveItemRequest;
 use App\Http\Requests\CartUpdateRequest;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -102,15 +103,23 @@ class ShoppingCartSessionService extends ShoppingCartService
         return $products_cart_DB;
     }
 
-    public function removeItem(CartRemoveItemRequest $req): void
+    public function removeItem(Request $req, $id): void
     {
-        $product_number = $req->validated()['product_number'];
-
-
-        $req->session()->forget("session_cart.cart.cart.$product_number");
+        $cart = collect($req->session()->get("session_cart.cart.cart"));
         
-        $cart = $req->session()->get("session_cart.cart.cart");
-        $total_amount_cart = collect($cart)->sum("total_amount");
+        $product = $cart->first(function($product) use($id) {
+            return $product->id == $id;
+        });
+
+        if(is_null($product)) {
+            return;
+        }
+        $product_number = $product->product_number;
+        
+        $req->session()->forget("session_cart.cart.cart.$product_number");
+
+        $total_amount = $product->total_amount;
+        $total_amount_cart = collect($cart)->sum("total_amount") - $total_amount;
         $total_amount_cart = $total_amount_cart ? $total_amount_cart : "0.00";
         
         $req->session()->put("session_cart.cart.total_amount_cart", $total_amount_cart);

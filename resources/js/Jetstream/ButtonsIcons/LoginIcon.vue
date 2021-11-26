@@ -1,14 +1,14 @@
 <template>
     <div
         @click="select"
-        :class="{ 'bg-red-400': buttonActive }"
+        :class="{ 'bg-indigo-400': buttonActive }"
         class="flex-1 flex justify-center transition duration-300"
     >
         <Link :href="route('login')" class="p-2">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 :class="{
-                    'text-red-400': !buttonActive,
+                    'text-indigo-400': !buttonActive,
                     'text-gray-100': buttonActive,
                 }"
                 class="h-16 w-16 fill-current"

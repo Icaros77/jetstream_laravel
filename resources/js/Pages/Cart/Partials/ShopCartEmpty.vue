@@ -3,7 +3,7 @@
         class="
             w-full
             max-w-md
-            pink-indigo-gradient-rounded
+            indigo-gradient-rounded
             flex flex-col
             justify-center
             items-center
@@ -12,12 +12,12 @@
         "
     >
         <div class="p-4">
-            <span class="font-semibold text-indigo-500">Your cart is empty!</span>
+            <span class="font-semibold text-white">Your cart is empty!</span>
         </div>
         <div class="p-4">
             <Link
                 :href="route('products.index')"
-                class="font-bold text-indigo-500 underline uppercase"
+                class="font-bold text-white underline uppercase"
             >
                 Purchase new stuff!!
             </Link>

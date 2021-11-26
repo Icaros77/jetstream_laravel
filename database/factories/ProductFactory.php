@@ -34,11 +34,10 @@ class ProductFactory extends Factory
         ];
     }
 
-    public function addQuantity($amount = null)
+    public function addQuantity(?int $amount)
     {
-
         return $this->afterCreating(function (Product $product) use ($amount) {
-            $amount = $amount ? $amount : random_int(1, 50);
+            $amount = $amount ? $amount : random_int(20, 50);
             ProductQuantities::factory(1)->for($product)->create(['quantity' => $amount]);
         });
     }

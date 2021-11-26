@@ -9,6 +9,7 @@
             shadow-lg
             hover:from-indigo-500 hover:to-indigo-700
         "
+        style="max-width: 80px"
         :class="isActive"
     >
         <Link
@@ -27,11 +28,6 @@ import { Link } from "@inertiajs/inertia-vue3";
 export default defineComponent({
     components: { Link },
     props: ["page_number", "url", "active"],
-    // computed: {
-    //     queryBuilder() {
-    //         return `${this.path}?page=${this.page_number}`;
-    //     },
-    // },
     computed: {
         isActive() {
             return this.active ? "from-indigo-500 to-indigo-700" : "";

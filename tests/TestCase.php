@@ -31,21 +31,12 @@ abstract class TestCase extends BaseTestCase
 
     public function createUserCart()
     {
-        User::factory(1)->addCart()->create(["email" => 'a@hot.com']);
+        User::factory(1)->addInfo()->addCart()->create(["email" => 'atecom@hotmail.it']);
     }
-    /**
-     * Fetch credentials
-     *
-     * @return array
-     */
-    public function credentials()
-    {
-        $user = User::find(1);
 
-        return [
-            "email" => $user->email,
-            "password" => "password"
-        ];
+    public function createUserCartWithProducts()
+    {
+        User::factory(1)->addInfo()->addCartProducts()->create(["email" => "atecom@hotmail.it"]);
     }
 
     /**
@@ -75,15 +66,21 @@ abstract class TestCase extends BaseTestCase
         return $vendors;
     }
 
+    
     /**
-     * Set header X-Requested-With to XMLHttpRequest
-     * for request
-     * @return self
+     * Get the shippment informations
      */
-
-
-    public function setXHR()
+    public function getInfoShippment(?User $user = null)
     {
-        return $this->withHeader("X-Requested-With", "XMLHttpRequest")->get("/sanctum/csrf-cookie");
+        $info_shippment = [
+            "client_name" => $user->name ?? "Name",
+            "client_email" => $user->email ?? "a@g.com",
+            "shippment_address" => $user->info->address ?? "via m 34",
+            "shippment_postal_code" => $user->info->postal_code ?? "29121",
+            "shippment_city" => $user->info->city ?? "city",
+            "shippment_country" => $user->info->country ?? "amo",
+        ];
+        return $info_shippment;
     }
+
 }

@@ -52,6 +52,7 @@ class ProductService
     {
         // $filter, $name, $vendor, $category
         extract($query);
+        $filter = $filter ?? "";
         $filter = collect(preg_split("/\,?\++/", $filter))->unique();
 
         $query_builder = Product::query();
@@ -76,7 +77,6 @@ class ProductService
             ->select("id", "name", "price", "description", "product_number", "image_path");
 
         return $query_builder->paginate(10)->appends($query);
-        // return $query_builder->get();
     }
 
     /**
