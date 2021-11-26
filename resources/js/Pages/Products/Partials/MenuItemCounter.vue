@@ -86,7 +86,7 @@ export default defineComponent({
             const product_data = Cart.$addToCart(this.cart, product);
             if (!product_data) return;
 
-            const form = this.$inertia.form({ ...product_data });
+            const form = this.$inertia.form({ product_data });
 
             form.transform((data) => ({ ...data })).post(route("cart.store"), {
                 preserveScroll: true,
