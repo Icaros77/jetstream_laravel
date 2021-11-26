@@ -41,7 +41,7 @@
             "
         >
             <article
-                class="flex w-full sm:w-2/5 bg-gray-100 rounded-lg shadow-lg"
+                class="flex w-full sm:w-2/5 bg-gray-100 rounded-lg border border-indigo-300"
                 v-for="product in cart.cart"
                 :key="product.id"
             >
