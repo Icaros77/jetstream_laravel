@@ -1893,14 +1893,6 @@ select {
 	--tw-gradient-from: #6366f1;
 	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(99, 102, 241, 0));
 }
-.from-indigo-100 {
-	--tw-gradient-from: #e0e7ff;
-	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(224, 231, 255, 0));
-}
-.from-red-100 {
-	--tw-gradient-from: #fee2e2;
-	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(254, 226, 226, 0));
-}
 .via-pink-100 {
 	--tw-gradient-stops: var(--tw-gradient-from), #fce7f3, var(--tw-gradient-to, rgba(252, 231, 243, 0));
 }
@@ -1936,9 +1928,6 @@ select {
 }
 .to-indigo-700 {
 	--tw-gradient-to: #4338ca;
-}
-.to-red-200 {
-	--tw-gradient-to: #fecaca;
 }
 .bg-cover {
 	background-size: cover;
@@ -2583,14 +2572,6 @@ html::-webkit-scrollbar-thumb:vertical {
 .focus\:ring-indigo-600:focus {
 	--tw-ring-opacity: 1;
 	--tw-ring-color: rgba(79, 70, 229, var(--tw-ring-opacity));
-}
-.focus\:ring-red-400:focus {
-	--tw-ring-opacity: 1;
-	--tw-ring-color: rgba(248, 113, 113, var(--tw-ring-opacity));
-}
-.focus\:ring-indigo-400:focus {
-	--tw-ring-opacity: 1;
-	--tw-ring-color: rgba(129, 140, 248, var(--tw-ring-opacity));
 }
 .focus\:ring-indigo-300:focus {
 	--tw-ring-opacity: 1;
