@@ -2,7 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "./forms/generalForm.css";
 
 html {
     min-width: 360px !important;
@@ -64,7 +63,26 @@ html::-webkit-scrollbar-thumb:vertical {
     .h-body {
         height: calc(100vh - 9rem);
     }
-
+    .h-full-mobile {
+        min-height: calc(100vh - (89px + 9.25rem));
+        height: 100%;
+    }
+    
+    .indigo-gradient-rounded {
+        @apply
+        rounded-lg
+        bg-gradient-to-br
+        from-indigo-300
+        to-indigo-500
+    }
+    .pink-indigo-gradient-rounded {
+        @apply
+        bg-gradient-to-br
+        from-gray-100
+        via-pink-100
+        to-indigo-100
+        rounded-lg
+    }
 
     .header-link {
         @apply 

@@ -11,7 +11,7 @@ const $addToCart = function (cart, product_info) {
         id: product_info.id,
         name: product_info.name,
         demand: product_info.quantity,
-        total_amount: product_info.total_amount * 100,
+        total_amount: product_info.total_amount * 100
     };
 
     return cart[product_number];

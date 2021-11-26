@@ -3,10 +3,7 @@
         <div
             class="
                 p-3
-                bg-gradient-to-br
-                from-indigo-300
-                to-indigo-500
-                rounded-lg
+                indigo-gradient-rounded
                 shadow-lg
             "
         >

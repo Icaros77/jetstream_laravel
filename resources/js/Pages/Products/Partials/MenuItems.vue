@@ -1,6 +1,6 @@
 <template>
     <div
-        class="w-full sm:w-2/5 mb-5 bg-gray-50 rounded-md shadow-lg"
+        class="w-full sm:w-2/5 mb-5 pink-indigo-gradient-rounded rounded-md shadow-lg"
         v-for="item in products.data"
         :key="item.id"
     >
@@ -57,11 +57,11 @@
             </div>
             <div class="w-2/3 sm:w-full p-3 pb-0 flex flex-col justify-around">
                 <p class="px-5 pb-5 flex justify-around">
-                    <span class="text-gray-600 font-semibold">{{
+                    <span class="text-indigo-500 font-semibold">{{
                         item.name
                     }}</span>
-                    <span class="text-gray-600 font-semibold"
-                        >{{ parseFloat(item.price / 100).toFixed(2) }} €</span
+                    <span class="text-indigo-500 font-semibold"
+                        >{{ parsePrice(item) }} €</span
                     >
                 </p>
                 <menu-item-counter :item="item" :cart="cart" />
@@ -85,14 +85,11 @@ export default defineComponent({
             slideFrom: true,
         };
     },
-    computed: {
-        items() {
-            let items = this.products;
-            console.log(items);
-            return [];
-        }
-    },
+    
     methods: {
+        parsePrice(item) {
+            return parseFloat(item.price / 100).toFixed(2);
+        },
         slidingFrom() {
             if (this.slideFrom) {
                 this.slideFrom = false;

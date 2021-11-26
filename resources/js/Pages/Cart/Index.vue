@@ -5,12 +5,10 @@
             max-w-7xl
             w-full
             p-5
+            space-y-4
             mx-auto
             sm:px-6
             lg:px-8
-            flex flex-wrap
-            justify-center
-            sm:justify-around
         "
     >
         <shop-cart-items v-if="isCartEmpty" :cart="cart()" />

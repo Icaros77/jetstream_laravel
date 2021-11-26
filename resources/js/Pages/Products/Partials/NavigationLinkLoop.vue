@@ -22,10 +22,5 @@ import PageLink from "./NavigationPageLink.vue";
 export default defineComponent({
     components: { PageLink, PageForm },
     props: ["link", "index", "current_page", "last_page"],
-    // computed: {
-        // queryBuilder() {
-        //     return `${this.path}?page=${this.page_number}`;
-        // },
-    // },
 });
 </script>

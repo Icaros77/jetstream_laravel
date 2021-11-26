@@ -125,6 +125,7 @@ class ProductService
             ->select([
                 'p.id',
                 'p.product_number',
+                'p.image_path',
                 'p.name',
                 'p.price',
                 DB::raw("(p.price * ($quantity + $demand)) as total_amount")

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CartRemoveItemRequest;
 use App\Http\Requests\CartUpdateRequest;
 use App\Service\ShoppingCartDBService;
 use App\Service\ShoppingCartSessionService;
@@ -25,6 +26,15 @@ class ShoppingListController extends Controller
             "notification" => [
                 "message" => "Item added to cart!"
             ]
+        ]);
+    }
+
+    public function remove_item(CartRemoveItemRequest $req)
+    {
+        $service = Auth::check() ? new ShoppingCartDBService : new ShoppingCartSessionService;
+        $service->removeItem($req);
+        return redirect()->route("cart.index")->with([
+            "notification" => ["message" => "Item removed from cart!"]
         ]);
     }
 }
