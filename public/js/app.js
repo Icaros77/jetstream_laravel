@@ -20228,9 +20228,41 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Cart/Partials/ShopCartItems.vue?vue&type=script&lang=js ***!
   \****************************************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\jetstream\\resources\\js\\Pages\\Cart\\Partials\\ShopCartItems.vue: Unexpected token (19:0)\n\n\u001b[0m \u001b[90m 17 |\u001b[39m             \u001b[36mreturn\u001b[39m total_amount\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtoFixed(\u001b[35m2\u001b[39m) \u001b[33m||\u001b[39m \u001b[32m\"0.00\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 18 |\u001b[39m         }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 19 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 20 |\u001b[39m         placeOrder(event) {\u001b[0m\n\u001b[0m \u001b[90m 21 |\u001b[39m             \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$inertia\u001b[33m.\u001b[39mpost(\u001b[32m\"dummyRoute\"\u001b[39m\u001b[33m,\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 22 |\u001b[39m                 onSuccess\u001b[33m:\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:541:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:534:17)\n    at Parser.raise (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:495:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:3550:16)\n    at Parser.parseIdentifierName (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:12697:18)\n    at Parser.parseIdentifier (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:12677:23)\n    at Parser.parseMaybePrivateName (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:11969:19)\n    at Parser.parsePropertyName (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:12491:109)\n    at Parser.parsePropertyDefinition (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:12374:22)\n    at Parser.parseObjectLike (C:\\xampp\\htdocs\\jetstream\\node_modules\\@babel\\parser\\lib\\index.js:12290:25)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+  props: {
+    cart: Object
+  },
+  computed: {
+    total_amount_cart: function total_amount_cart() {
+      var total_amount = parseFloat(this.cart.total_amount_cart / 100);
+      return (total_amount === null || total_amount === void 0 ? void 0 : total_amount.toFixed(2)) || "0.00";
+    }
+  },
+  methods: {
+    total_amount: function total_amount(product) {
+      var total_amount = parseFloat(product.total_amount / 100);
+      return (total_amount === null || total_amount === void 0 ? void 0 : total_amount.toFixed(2)) || "0.00";
+    },
+    removeItem: function removeItem(event) {
+      var target = event.target.children[0];
+      var id = target.dataset.item;
+      var product_number = target.dataset.item_number;
+      this.$inertia.patch(route("cart.update", {
+        id: id,
+        product_number: product_number
+      }));
+    }
+  }
+}));
 
 /***/ }),
 
@@ -22681,7 +22713,7 @@ var _hoisted_21 = {
   "class": "w-2/5 h-full"
 };
 var _hoisted_22 = ["src", "alt"];
-function render(_ctx, _cache) {
+function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, " Total cart: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.total_amount_cart) + " € ", 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
