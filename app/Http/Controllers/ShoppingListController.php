@@ -29,10 +29,10 @@ class ShoppingListController extends Controller
         ]);
     }
 
-    public function remove_item(CartRemoveItemRequest $req)
+    public function update(Request $req, $id)
     {
         $service = Auth::check() ? new ShoppingCartDBService : new ShoppingCartSessionService;
-        $service->removeItem($req);
+        $service->removeItem($req, $id);
         return redirect()->route("cart.index")->with([
             "notification" => ["message" => "Item removed from cart!"]
         ]);

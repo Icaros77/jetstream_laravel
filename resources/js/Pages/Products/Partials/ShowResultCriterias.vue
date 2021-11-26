@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full flex flex-col justify-center">
+    <div class="w-full max-w-lg flex flex-col justify-center">
         <div
             class="
                 p-3
@@ -9,10 +9,11 @@
         >
             <div class="w-4/5">
                 <header>
-                    <h3 class="text-white">Results for:</h3>
+                    <h3 v-if="products" class="text-white">Results for:</h3>
+                    <h3 v-else class="text-white">No results found for:</h3>
                 </header>
                 <div class="pl-2">
-                    <span class="italic font-bold text-white">{{ filter }}</span>
+                    <span class="italic font-bold text-white">{{ decodeFilter }}</span>
                 </div>
             </div>
             <div class="flex flex-col">
@@ -27,9 +28,9 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    props: ["filter", "name", "category", "vendor"],
+    props: ["filter", "name", "category", "vendor", "products"],
     computed: {
-        filter() {
+        decodeFilter() {
             return this.filter.replace(/\++/, " ");
         },
         criteria() {

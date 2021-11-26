@@ -3,7 +3,7 @@
         class="
             w-full
             max-w-md
-            pink-indigo-gradient-rounded
+            indigo-gradient-rounded
             flex flex-col
             justify-center
             items-center

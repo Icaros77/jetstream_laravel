@@ -1,6 +1,6 @@
 <template>
     <Head title="Register" />
-    <div class="w-full sm:max-w-lg">
+    <div class="w-full mx-auto sm:max-w-lg">
         <div
             class="
                 h-full-mobile

@@ -48,7 +48,6 @@ export default defineComponent({
         fetchResults() {
             if(this.form.page > this.last_page) return;
             this.$inertia.get(route("products.index"), {page: this.form.page});
-            // this.form.get(route("products.index", this.page), {});
         },
     },
 });

@@ -11,7 +11,8 @@
                 bg-transparent
                 border-0
                 focus:ring-0
-                text-indigo-500
+                text-white
+                placeholder-white
             "
             placeholder="Search..."
             :value="modelValue"
@@ -24,7 +25,7 @@
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 fill-current text-indigo-500"
+                class="h-5 w-5 fill-current text-white"
                 viewBox="0 0 20 20"
                 fill="currentColor"
             >

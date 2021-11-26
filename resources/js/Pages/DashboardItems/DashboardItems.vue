@@ -13,9 +13,9 @@
                 h-full
                 bg-gradient-to-br
                 from-gray-100
-                via-pink-100
-                to-indigo-100
+                to-indigo-200
                 rounded-lg
+                shadow-lg
                 items-stretch
             "
         >

@@ -1,7 +1,7 @@
 <template>
     <Head title="Login" />
 
-    <div class="w-full relative sm:max-w-lg">
+    <div class="w-full mx-auto relative sm:max-w-lg">
         <div
             class="
                 h-full-mobile
