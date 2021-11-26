@@ -122,6 +122,9 @@ export default defineComponent({
     },
     computed: {
         slidesUpDown() {
+            if(this.modelValue) {
+                return "-translate-y-2/3 text-base text-indigo-500 font-bold translate-x-5";
+            }
             return this.status
                 ? "-translate-y-2/3 text-base text-indigo-500 font-bold translate-x-5"
                 : "translate-y-0 text-xs text-indigo-400";

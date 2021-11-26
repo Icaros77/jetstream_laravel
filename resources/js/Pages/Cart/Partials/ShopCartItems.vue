@@ -16,14 +16,12 @@
                 </span>
             </div>
             <div class="w-max indigo-gradient-rounded shadow-lg">
-                <form @submit.stop.prevent="placeOrder" class="w-full">
-                    <button
-                        type="submit"
-                        class="text-white font-bold w-full p-3"
-                    >
-                        Place order!
-                    </button>
-                </form>
+                <Link
+                    :href="route('orders.create')"
+                    class="btn text-white font-bold w-full p-3"
+                >
+                    Checkout cart!
+                </Link>
             </div>
         </div>
         <div
@@ -41,7 +39,14 @@
             "
         >
             <article
-                class="flex w-full sm:w-2/5 bg-gray-100 rounded-lg border border-indigo-300"
+                class="
+                    flex
+                    w-full
+                    sm:w-2/5
+                    bg-gray-100
+                    rounded-lg
+                    border border-indigo-300
+                "
                 v-for="product in cart.cart"
                 :key="product.id"
             >
@@ -101,8 +106,10 @@
 
 <script>
 import { defineComponent } from "vue";
+import { Link } from "@inertiajs/inertia-vue3";
 
 export default defineComponent({
+    components: { Link },
     props: {
         cart: Object,
     },
@@ -122,7 +129,7 @@ export default defineComponent({
             let id = target.dataset.item;
             let product_number = target.dataset.item_number;
 
-            this.$inertia.patch(route("cart.update", {id, product_number}));
+            this.$inertia.patch(route("cart.update", { id, product_number }));
         },
     },
 });

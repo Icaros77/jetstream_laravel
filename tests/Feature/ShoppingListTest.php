@@ -325,7 +325,8 @@ class ShoppingListTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->post(route("cart.remove_item"), $product->only("id", "product_number"))
+        $this
+            ->patch(route("cart.update", ["cart" => $product->id]))
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("notification.message", "Item removed from cart!");
 
@@ -341,7 +342,7 @@ class ShoppingListTest extends TestCase
         $cart->save();
 
 
-        $this->post(route("cart.remove_item"), $product_2->only("id", "product_number"))
+        $this->patch(route("cart.update", ["cart" => $product_2->id]))
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("notification.message", "Item removed from cart!");
 
@@ -356,12 +357,13 @@ class ShoppingListTest extends TestCase
 
     public function test_remove_items_from_cart_session()
     {
+        $this->withoutExceptionHandling();
         $vendors = $this->setVendors();
         $product = $vendors->first()->products->first();
 
         $product_number = $product->product_number;
         $session = [
-            "session_cart.cart.cart.$product_number" => array_merge(
+            "session_cart.cart.cart.$product_number" => (object) array_merge(
                 $product->only("id", "product_number", "price"),
                 ["total_amount" => $product->price * 15]
             ),
@@ -369,7 +371,7 @@ class ShoppingListTest extends TestCase
         ];
 
         $this->withSession($session)
-            ->post(route("cart.remove_item"), $product->only("id", "product_number"))
+            ->patch(route("cart.update", ["cart" => $product->id]))
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("session_cart.cart.cart", [])
             ->assertSessionHas("session_cart.cart.total_amount_cart", "0.00")
@@ -377,12 +379,12 @@ class ShoppingListTest extends TestCase
 
         $product_2 = $vendors->last()->products->last();
         $product_number_2 = $product_2->product_number;
-        
+
         $data_2 = array_merge(
             $product_2->only("id", "product_number", "price"),
             ["total_amount" => $product_2->price * 15]
         );
-        
+
         $session["session_cart.cart.cart.$product_number_2"] = $data_2;
         $session["session_cart.cart.total_amount_cart"] = number_format(
             $product->price * 15 + $product_2->price * 15,
@@ -392,7 +394,7 @@ class ShoppingListTest extends TestCase
         );
 
         $this->withSession($session)
-            ->post(route("cart.remove_item"), $product->only("id", "product_number"))
+            ->patch(route("cart.update", ["cart" => $product->id]))
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("session_cart.cart.cart", [$product_number_2 => $data_2])
             ->assertSessionHas("session_cart.cart.total_amount_cart", number_format(
