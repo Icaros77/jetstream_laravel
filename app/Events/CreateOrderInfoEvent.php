@@ -2,8 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Order;
-use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,21 +10,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserPlaceOrder
+class CreateOrderInfoEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
-    public $order;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Order $order, User $user)
+    public function __construct()
     {
-        $this->user = $user;
-        $this->order = $order;
+        //
     }
 
     /**

@@ -29,7 +29,7 @@
                 "
             >
                 <form
-                    @submit.prevent="checkCart"
+                    @submit.prevent="login"
                     class="p-2 flex flex-col w-full"
                 >
                     <label-name

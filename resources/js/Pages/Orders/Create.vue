@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-center">
-        <shipment-form :user="user" />
+        <shipment-form :user="user" :info="info"/>
     </div>
 </template>
 
@@ -12,6 +12,6 @@ import ShipmentForm from "./Partials/ShipmentForm.vue";
 export default defineComponent({
     components: { ShipmentForm },
     layout: AppLayout,
-    props: ["user"],
+    props: ["user", "info"],
 });
 </script>

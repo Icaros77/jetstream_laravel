@@ -12,7 +12,7 @@
             sm:justify-around
         "
     >
-        <dashboard-items />
+        <dashboard-items :orders="orders" :user="user" />
     </div>
 </template>
 
@@ -20,13 +20,14 @@
 import { defineComponent } from "vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import DashboardItems from "./DashboardItems/DashboardItems.vue";
+import DashboardItems from "./Partials/DashboardItems.vue";
 
 export default defineComponent({
     components: {
         DashboardItems,
         Head,
     },
+    props: ["orders", "user"],
     layout: AppLayout,
 });
 </script>

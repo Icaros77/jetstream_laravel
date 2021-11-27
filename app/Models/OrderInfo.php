@@ -14,10 +14,10 @@ class OrderInfo extends Model
     protected $fillable = [
         "client_name",
         "client_email",
-        "shippment_address",
-        "shippment_postal_code",
-        "shippment_city",
-        "shippment_country",
+        "shipment_address",
+        "shipment_postal_code",
+        "shipment_city",
+        "shipment_country",
         "order_id"
     ];
 

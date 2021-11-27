@@ -75,10 +75,10 @@ abstract class TestCase extends BaseTestCase
         $info_shippment = [
             "client_name" => $user->name ?? "Name",
             "client_email" => $user->email ?? "a@g.com",
-            "shippment_address" => $user->info->address ?? "via m 34",
-            "shippment_postal_code" => $user->info->postal_code ?? "29121",
-            "shippment_city" => $user->info->city ?? "city",
-            "shippment_country" => $user->info->country ?? "amo",
+            "shipment_address" => $user->info->address ?? "via m 34",
+            "shipment_postal_code" => $user->info->postal_code ?? "29121",
+            "shipment_city" => $user->info->city ?? "city",
+            "shipment_country" => $user->info->country ?? "amo",
         ];
         return $info_shippment;
     }

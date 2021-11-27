@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Events\UserPlaceOrder;
+use App\Events\UserPlaceOrderEvent;
 use App\Models\Order;
 use App\Service\OrderService;
 use App\Http\Requests\PlaceOrderRequest;
@@ -16,7 +16,7 @@ class OrderServiceSession extends OrderService
     
     public function placeOrder(PlaceOrderRequest $req):void
     {
-        $infos = $req->validated();
+        $info = $req->validated();
         $cart_session = (object) $req->session()->get("session_cart.cart");
         $products_in_cart = $cart_session->cart;
         $order_number = $this->generateOrderNumber();
@@ -27,17 +27,13 @@ class OrderServiceSession extends OrderService
             "total_amount_cart" => $cart_session->total_amount_cart,
         ]);
 
-        OrderInfo::create(array_merge(
-            $infos,
-            ["order_id" => $order->id]
-        ));
-
         $user = new User;
-        $user->name = $infos['client_name']; 
-        $user->email = $infos['client_email']; 
-        UserPlaceOrder::dispatch($order, $user);
+        $user->name = $info['client_name']; 
+        $user->email = $info['client_email'];
 
-        $req->session()->put("session_cart.cart.cart", null);
+        UserPlaceOrderEvent::dispatch($order, $user, $info);
+
+        $req->session()->put("session_cart.cart.cart", []);
         $req->session()->put("session_cart.cart.total_amount_cart", "0.00");
     }
 }

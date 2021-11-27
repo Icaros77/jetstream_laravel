@@ -12,9 +12,22 @@ use Inertia\Inertia;
 class OrderController extends Controller
 {
 
+    public function index()
+    {
+        $user = Auth::user()->load("orders.info");
+        $orders = $user->orders;
+        return Inertia::render("Orders/Index", ["title" => "Orders History", "orders" => $orders]);
+    }
+
     public function create()
     {
-        return Inertia::render("Orders/Index", ["title" => "Purchase!"]);
+        $params = ["title" => "Purchase!"];
+        if(Auth::check()) {
+            $user = Auth::user()->load("info");
+            $info =  $user->info;
+            $params['info'] = $info;
+        }
+        return Inertia::render("Orders/Create", $params);
     }
 
     public function store(PlaceOrderRequest $req)

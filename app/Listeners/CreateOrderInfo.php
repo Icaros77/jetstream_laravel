@@ -2,15 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\UserPlaceOrderEvent;
-use App\Mail\OrderPlaced;
-use App\Models\ProductQuantities;
+use App\Models\OrderInfo;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
-class EmailUserOrderPlaced
+class CreateOrderInfo
 {
     /**
      * Create the event listener.
@@ -28,12 +24,16 @@ class EmailUserOrderPlaced
      * @param  object  $event
      * @return void
      */
-    public function handle(UserPlaceOrderEvent $event)
+    public function handle($event)
     {
-        $user = $event->user;
         $order = $event->order;
+        $info  = $event->info;
+        OrderInfo::create(
+            array_merge(
+                $info,
+                ["order_id" => $order->id],
 
-
-        Mail::to($user)->send(new OrderPlaced($order));
+            )
+        );
     }
 }

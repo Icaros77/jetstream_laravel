@@ -4,7 +4,7 @@
         :class="{ 'bg-indigo-400': buttonActive }"
         class="transition flex-1 flex justify-center duration-300"
     >
-        <Link :href="route('dashboard')" class="p-2 inline-block">
+        <Link :href="route('dashboard')" class="p-2 inline-flex w-full h-full justify-center items-center">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-16 w-16 fill-current"

@@ -12,7 +12,7 @@ class Order extends Model
     protected $fillable = [
         // list of products
         "cart",
-        
+
         // index
         "order_number",
 
@@ -24,11 +24,21 @@ class Order extends Model
 
     protected $casts = [
         "cart" => 'object',
-        "cart->*" => 'object'
+        "cart->*" => 'object',
+        "created_at" => "datetime:Y-m-d"
     ];
 
     public function info()
     {
-        return $this->hasOne(OrderInfo::class);
+        return $this->hasOne(OrderInfo::class)
+            ->select(
+                "order_id",
+                "client_name",
+                "client_email",
+                "shipment_address",
+                "shipment_postal_code",
+                "shipment_city",
+                "shipment_country"
+            );
     }
 }

@@ -28,10 +28,10 @@ class PlaceOrderRequest extends FormRequest
         return [
             "client_name" => ["required", "string"],
             "client_email" => ["required", "string", "email"],
-            "shippment_address" => ["required", "string"],
-            "shippment_postal_code" => ["required", "string", "regex:/\d+\-?\d+/"],
-            "shippment_city" => ["required", "string"],
-            "shippment_country" => ["required", "string"],
+            "shipment_address" => ["required", "string"],
+            "shipment_postal_code" => ["required", "string", "regex:/\d+\-?\d+/"],
+            "shipment_city" => ["required", "string"],
+            "shipment_country" => ["required", "string"],
         ];
     }
 
@@ -44,18 +44,18 @@ class PlaceOrderRequest extends FormRequest
             "client_email.string" => "The Email must be a string",
             "client_email.email" => "Must be a valid Email address",
             
-            "shippment_addresss.required" => "Please insert an address for shippment",
-            "shippment_addresss.string" => "The address must be a string",
+            "shipment_addresss.required" => "Please insert an address for shipment",
+            "shipment_addresss.string" => "The address must be a string",
             
-            "shippment_postal_code.required" => "Please insert a Postal Code for the shippment",
-            "shippment_postal_code.string" => "The Postal Code must be a string",
-            "shippment_postal_code.numeric" => "The Postal Code must be composed by numbers",
+            "shipment_postal_code.required" => "Please insert a Postal Code for the shipment",
+            "shipment_postal_code.string" => "The Postal Code must be a string",
+            "shipment_postal_code.numeric" => "The Postal Code must be composed by numbers",
             
-            "shippment_city.required" => "Please insert a City for the shippment",
-            "shippment_city.string" => "The City must be a string",
+            "shipment_city.required" => "Please insert a City for the shipment",
+            "shipment_city.string" => "The City must be a string",
             
-            "shippment_country.required" => "Please insert a Country for the shippment",
-            "shippment_country.string" => "The Country must be a string",
+            "shipment_country.required" => "Please insert a Country for the shipment",
+            "shipment_country.string" => "The Country must be a string",
         ];
     }
 }

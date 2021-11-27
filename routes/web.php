@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Foundation\Application;
@@ -26,9 +27,7 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get("/", function () {
-    return Inertia::render("Dashboard", ['title' => 'Dashboard']);
-})->name("dashboard");
+Route::get("/", [DashboardController::class, "index"])->name("dashboard");
 
 
 Route::post("/login", [LoginController::class, "login"])->name("login")

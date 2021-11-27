@@ -22,16 +22,16 @@ import LabelName from "@/components/FormElements/LabelName.vue";
 
 export default defineComponent({
     components: { LabelName },
-    props: ["user"],
+    props: ["user", "info"],
     data() {
         return {
             form: this.$inertia.form({
                 client_name: this.user?.name || "",
                 client_email: this.user?.email || "",
-                shipment_address: this.user?.info?.address || "",
-                shipment_postal_code: this.user?.info?.postal_code || "",
-                shipment_city: this.user?.info?.city || "",
-                shipment_country: this.user?.info?.country || "",
+                shipment_address: this.info?.address || "",
+                shipment_postal_code: this.info?.postal_code || "",
+                shipment_city: this.info?.city || "",
+                shipment_country: this.info?.country || "",
             }),
         }
     },

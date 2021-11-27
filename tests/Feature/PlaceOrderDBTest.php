@@ -18,6 +18,7 @@ class PlaceOrderDBTest extends TestCase
 
     public function test_event_user_place_order_fires()
     {
+        $this->withoutExceptionHandling();
         Event::fake();
         $this->createUserCartWithProducts();
         $user = User::with(["cart", "info"])->first();

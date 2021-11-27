@@ -17,10 +17,10 @@ class CreateOrderInfosTable extends Migration
             $table->id();
             $table->string("client_name");
             $table->string("client_email");
-            $table->string("shippment_address");
-            $table->string("shippment_postal_code");
-            $table->string("shippment_city");
-            $table->string("shippment_country");
+            $table->string("shipment_address");
+            $table->string("shipment_postal_code");
+            $table->string("shipment_city");
+            $table->string("shipment_country");
             $table->foreignId('order_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

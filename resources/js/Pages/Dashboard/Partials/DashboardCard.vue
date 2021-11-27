@@ -1,9 +1,12 @@
 <template>
     <article
-        :index="index"
-        v-for="(info, index) in mainInfo"
-        :key="info.title"
-        class="p-3 max-w-xs min-w-20 min-h-8 sm:min-w-15 sm:min-h-12 md:max-w-full md:w-1/3"
+        class="
+            p-3
+            max-w-xs
+            min-w-20 min-h-8
+            sm:min-w-15 sm:min-h-12
+            md:max-w-full md:w-1/3
+        "
     >
         <div
             class="
@@ -21,10 +24,25 @@
         >
             <div class="flex flex-col flex-grow">
                 <header class="w-max sm:h-12 sm:w-full">
-                    <h2 class="text-indigo-400 p-1 font-bold sm:flex sm:max-h-full">
-                        <span class="sm:flex-grow sm:p-1">{{ info.title }}</span>
+                    <h2
+                        class="
+                            text-indigo-400
+                            p-1
+                            font-bold
+                            sm:flex sm:max-h-full
+                        "
+                    >
+                        <span class="sm:flex-grow sm:p-1">
+                            {{ info.title }}
+                        </span>
                         <span
-                            class="max-h-full justify-center items-center hidden sm:inline-block"
+                            class="
+                                max-h-full
+                                justify-center
+                                items-center
+                                hidden
+                                sm:inline-block
+                            "
                         >
                             <img
                                 :src="info.icon"
@@ -44,10 +62,20 @@
                         h-full
                     "
                 >
-                    <span v-if="info.special" class="inline-block text-3xl sm:text-5xl md:text-4xl lg:text-5xl">{{
-                        info.special
-                    }}</span>
-                    <span class="text-4xl sm:text-5xl md:text-4xl lg:text-5xl"> {{ info.content }}</span>
+                    <span
+                        v-if="info.special"
+                        class="
+                            inline-block
+                            text-3xl
+                            sm:text-5xl
+                            md:text-4xl
+                            lg:text-5xl
+                        "
+                        >{{ info.special }}</span
+                    >
+                    <span class="text-4xl sm:text-5xl md:text-4xl lg:text-5xl">
+                        {{ info.content }}</span
+                    >
                 </p>
             </div>
             <div
@@ -68,37 +96,9 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-    setup() {
-        function today() {
-            const today = new Date();
-            return `${today.getFullYear()}/${today.getMonth()}/${today.getDate()}`;
-        }
-        return { today };
-    },
-    data() {
-        return {
-            mainInfo: [
-                {
-                    title: "Expenses this month",
-                    content: "200",
-                    special: "€",
-                    icon: "images/money.png",
-                },
-                {
-                    title: "Orders this month",
-                    content: "14",
-                    icon: "images/delivery.png",
-                },
-                {
-                    title: "Last date order",
-                    content: this.today(),
-                    icon: "images/last_order.png",
-                },
-            ],
-        };
-    },
-});
+    props: ['info'],
+})
 </script>

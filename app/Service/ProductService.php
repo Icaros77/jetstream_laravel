@@ -112,11 +112,6 @@ class ProductService
         $quantity = $product['quantity'];
         $demand = $product['demand'];
 
-        throw_if(
-            !is_int($demand) || !is_int($id) || !is_int($quantity),
-            SQLInjectionException::class
-        );
-
         $product_DB = DB::table("products as p")
             ->join("product_quantities as q", 'p.id', 'q.product_id')
             ->where('p.id', $id)

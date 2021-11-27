@@ -61,7 +61,7 @@ class ShoppingCartDBService extends ShoppingCartService
         $user  = $req->user()->load("cart:id,cart,total_amount_cart,client_id");
 
         $cart = $user->cart;
-        $cart_DB = collect($cart->cart);
+        $cart_DB = collect(json_decode($cart->cart));
 
         $cart_DB = $cart_DB->filter(function($product) use($id) {
             return $product->id != $id;
