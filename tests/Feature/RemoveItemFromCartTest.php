@@ -22,7 +22,7 @@ class RemoveItemFromCartTest extends TestCase
         $cart = $user->cart;
         $total_amount_cart = $cart->total_amount_cart;
 
-        $products = collect($cart->cart);
+        $products = collect(json_decode($cart->cart));
         $product = $products->first();
         $total_amount = $product->total_amount;
         $product_number = $product->product_number;
@@ -104,14 +104,14 @@ class RemoveItemFromCartTest extends TestCase
 
     public function test_remove_items_from_cart_db()
     {
-        
+        $this->withoutExceptionHandling();
         $this->createUserCart();
         $user = User::with("cart")->first();
         $vendors = $this->setVendors();
         $product = $vendors->first()->products->first();
 
         $cart = $user->cart;
-        $cart->cart = [$product->product_number => $product->toArray()];
+        $cart->cart = json_encode([$product->product_number => $product->toArray()]);
         $cart->save();
 
         $this->actingAs($user);
@@ -124,10 +124,10 @@ class RemoveItemFromCartTest extends TestCase
 
         $product_2 = $vendors->last()->products->last();
 
-        $cart->cart = [
+        $cart->cart = json_encode([
             $product->product_number => $product->only("id", "product_number"),
             $product_2->product_number => $product_2->only("id", "product_number"),
-        ];
+        ]);
 
         $cart->save();
 

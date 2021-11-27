@@ -64,13 +64,13 @@ class UserFactory extends Factory
             });
 
             $total = $products->sum("total_amount");
-            $products_in_cart = (object) $products->groupBy("product_number");
+            $products_in_cart = $products->groupBy("product_number");
             $products_in_cart = $products_in_cart->transform(function ($product) {
-                return (object) $product->toArray()[0];
+                return $product->toArray()[0];
             });
             
             ShoppingList::factory()->create([
-                'cart' => $products_in_cart,
+                'cart' => json_encode($products_in_cart),
                 "client_id" => $user->id,
                 "total_amount_cart" => $total
             ]);

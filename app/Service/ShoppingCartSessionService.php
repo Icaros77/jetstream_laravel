@@ -24,14 +24,14 @@ class ShoppingCartSessionService extends ShoppingCartService
 
     public function updateCart(CartUpdateRequest $req): void
     {
-        $product_demanded = collect($req->validated()['product_data']);
+        $product_demanded = (object) $req->validated();
 
         $product_service = new ProductService;
         $product_DB = $product_service->checkProduct($product_demanded);
 
         $product_number = $product_DB->product_number;
-        $demand = $product_demanded['demand'];
-        $product_DB->quantity = $product_demanded['quantity'] + $demand;
+        $demand = $product_demanded->demand;
+        $product_DB->quantity = $product_demanded->quantity + $demand;
 
         $amount_to_add = $demand * $product_DB->price;
 

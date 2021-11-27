@@ -10,8 +10,12 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function index(Request $req)
+    public function index()
     {
+        // change product_data for ShoppingListTest
+        // add payment method (payment table for future scalability)
+        // payment info save in order info
+        // allow multiple address for user
         $params = ["title" => "Dashboard"];
         if (Auth::check()) {
             $today = new DateTime("today", new DateTimeZone("Europe/Rome"));

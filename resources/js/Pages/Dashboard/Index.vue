@@ -12,7 +12,7 @@
             sm:justify-around
         "
     >
-        <dashboard-items :orders="orders" :user="user" />
+        <dashboard-items v-if="hasOrders" :orders="orders" :user="user" />
     </div>
 </template>
 
@@ -29,5 +29,10 @@ export default defineComponent({
     },
     props: ["orders", "user"],
     layout: AppLayout,
+    computed: {
+        hasOrders() {
+            return this.orders?.length > 0;
+        }
+    }
 });
 </script>

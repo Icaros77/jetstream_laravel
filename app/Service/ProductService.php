@@ -102,28 +102,29 @@ class ProductService
      * throws an ProductInvalidException
      * and doesn't update the cart,
      * checks id and quantity
-     * @param Collection $products_insert
+     * @param stdClass $products_insert
      * @return stdClass $product_DB
      */
-    public function checkProduct(Collection $product): stdClass
+    public function checkProduct(stdClass $product): stdClass
     {
-        $id = $product['id'];
-        $product_number = $product['product_number'];
-        $quantity = $product['quantity'];
-        $demand = $product['demand'];
+        $id = $product->id;
+        $product_number = $product->product_number;
+        $demand = $product->demand;
+        $quantity = $product->quantity;
 
         $product_DB = DB::table("products as p")
             ->join("product_quantities as q", 'p.id', 'q.product_id')
             ->where('p.id', $id)
             ->where('p.product_number', $product_number)
             ->where('q.quantity', '>', 0)
+            ->where('q.quantity', '>', "(q.quantity_in_process + $demand)")
             ->select([
                 'p.id',
                 'p.product_number',
                 'p.image_path',
                 'p.name',
                 'p.price',
-                DB::raw("(p.price * ($quantity + $demand)) as total_amount")
+                DB::raw("p.price * ($quantity + $demand) as total_amount")
             ])
             ->get()
             ->first();

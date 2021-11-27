@@ -14,15 +14,20 @@ class OrderController extends Controller
 
     public function index()
     {
-        $user = Auth::user()->load("orders.info");
-        $orders = $user->orders;
-        return Inertia::render("Orders/Index", ["title" => "Orders History", "orders" => $orders]);
+        $params = ["title" => "Orders History"];
+
+        if (Auth::check()) {
+            $user = Auth::user()->load("orders.info");
+            $orders = $user->orders;
+            $params["orders"] = $orders;
+        }
+        return Inertia::render("Orders/Index", $params);
     }
 
     public function create()
     {
         $params = ["title" => "Purchase!"];
-        if(Auth::check()) {
+        if (Auth::check()) {
             $user = Auth::user()->load("info");
             $info =  $user->info;
             $params['info'] = $info;

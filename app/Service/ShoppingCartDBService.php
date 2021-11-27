@@ -25,15 +25,17 @@ class ShoppingCartDBService extends ShoppingCartService
         $user = $req->user()->load("cart:id,cart,total_amount_cart,client_id");
         $productService = new ProductService;
 
-        $product_insert = collect($req->validated()['product_data']);
+        $product_insert = (object) $req->validated();
 
         $product_DB = $productService->checkProduct($product_insert);
-        $demand = $product_insert['demand'];
+        $demand = $product_insert->demand;
         $product_number = $product_DB->product_number;
 
+
         $cart = $user->cart;
+
         $products_in_cart = json_decode($cart->cart) ??
-            json_decode(json_encode([$product_number => (array) $product_DB]));
+            (object) [$product_number => $product_DB];
 
         if (!isset($products_in_cart->$product_number)) {
             $products_in_cart->$product_number = $product_DB;
@@ -48,11 +50,10 @@ class ShoppingCartDBService extends ShoppingCartService
         $cart->total_amount_cart += $products_in_cart->$product_number->price * $demand;
         $cart->new_items = 1;
         $cart->save();
-
         DB::update(
-            "UPDATE product_quantities SET quantity = (quantity - ?),
-            quantity_in_process = (quantity_in_process + ?) WHERE product_id = ?",
-            [$demand, $demand, $product_DB->id]
+            "UPDATE product_quantities SET quantity_in_process = (quantity_in_process + ?) 
+            WHERE product_id = ?",
+            [$demand, $product_DB->id]
         );
     }
 

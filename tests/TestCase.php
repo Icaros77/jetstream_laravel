@@ -44,9 +44,8 @@ abstract class TestCase extends BaseTestCase
      */
     public function setRequestCartData(&$data, $demand, $quantity = 0)
     {
-        $data['product_data']['demand'] = $demand;
-        $data['product_data']['quantity'] = $quantity;
-        unset($data['product_data']['vendor_id']);
+        $data['demand'] = $demand;
+        $data['quantity'] = $quantity;
     }
 
     /**
@@ -70,7 +69,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Get the shippment informations
      */
-    public function getInfoShippment(?User $user = null)
+    public function getInfoShipment(?User $user = null)
     {
         $info_shippment = [
             "client_name" => $user->name ?? "Name",

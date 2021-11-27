@@ -20296,7 +20296,14 @@ __webpack_require__.r(__webpack_exports__);
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head
   },
   props: ["orders", "user"],
-  layout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  layout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  computed: {
+    hasOrders: function hasOrders() {
+      var _this$orders;
+
+      return ((_this$orders = this.orders) === null || _this$orders === void 0 ? void 0 : _this$orders.length) > 0;
+    }
+  }
 }));
 
 /***/ }),
@@ -20825,9 +20832,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       product.total_amount = this.total_amount;
       var product_data = _app_modules_Cart__WEBPACK_IMPORTED_MODULE_2__["default"].$addToCart(this.cart, product);
       if (!product_data) return;
-      var form = this.$inertia.form({
-        product_data: product_data
-      });
+      var form = this.$inertia.form(_objectSpread({}, product_data));
       form.transform(function (data) {
         return _objectSpread({}, data);
       }).post(route("cart.store"), {
@@ -22918,12 +22923,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Head, {
     title: "Dashboard"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dashboard_items, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_ctx.hasOrders ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_dashboard_items, {
+    key: 0,
     orders: _ctx.orders,
     user: _ctx.user
   }, null, 8
   /* PROPS */
-  , ["orders", "user"])])], 64
+  , ["orders", "user"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 64
   /* STABLE_FRAGMENT */
   );
 }

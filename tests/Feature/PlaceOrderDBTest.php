@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Events\UserPlaceOrder;
+use App\Events\UserPlaceOrderEvent;
 use App\Mail\OrderPlaced;
 use App\Models\Product;
 use App\Models\User;
@@ -18,18 +18,17 @@ class PlaceOrderDBTest extends TestCase
 
     public function test_event_user_place_order_fires()
     {
-        $this->withoutExceptionHandling();
         Event::fake();
         $this->createUserCartWithProducts();
         $user = User::with(["cart", "info"])->first();
 
-        $info_shippment = $this->getInfoShippment($user);
+        $info_shippment = $this->getInfoShipment($user);
 
         $this->actingAs($user)->get(route("cart.index"));
         $this->post(route("orders.store"), $info_shippment)
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("notification.message", "Order has been placed!");
-        Event::assertDispatched(UserPlaceOrder::class);
+        Event::assertDispatched(UserPlaceOrderEvent::class);
     }
     /**
      * A basic feature test example.
@@ -43,10 +42,10 @@ class PlaceOrderDBTest extends TestCase
 
         $user = User::with(["cart", "info"])->first();
         $cart = $user->cart;
-        $quantities = collect($cart->cart)->pluck("quantity", "id");
+        $quantities = collect(json_decode($cart->cart))->pluck("quantity", "id");
 
         $total_amount_cart = $cart->total_amount_cart;
-        $info_shippment = $this->getInfoShippment($user);
+        $info_shippment = $this->getInfoShipment($user);
 
 
         $this->actingAs($user)->get(route("cart.index"));
@@ -57,7 +56,7 @@ class PlaceOrderDBTest extends TestCase
 
         $this->assertDatabaseHas("orders", [
             "client_id" => $user->id,
-            "cart" => json_encode($cart->cart),
+            "cart" => $cart->cart,
             "total_amount_cart" => $total_amount_cart
         ]);
 

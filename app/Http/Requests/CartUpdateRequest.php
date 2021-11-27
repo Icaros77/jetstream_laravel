@@ -24,17 +24,36 @@ class CartUpdateRequest extends FormRequest
      */
     public function rules(Request $req)
     {
-        // dd($req->all());
         return [
-            'product_data' => ['required', 'array'],
+            'id' => ["required", "numeric", "integer"],
+            'name' => ["required", "string"],
+            'product_number' => ["required", "string"],
+            'demand' => ["required", "numeric", "integer"],
+            'quantity' => ["required", "numeric", "integer"],
+
         ];
     }
 
     public function messages()
     {
         return [
-            'product_data.required' => 'Product is required',
-            'product_data.array' => 'Product must be array'
+            'id.required' => 'ID required',
+            'id.numeric' => 'ID must be a number',
+            'id.integer' => 'ID must be an integer',
+
+            'name.required' => 'Name is required',
+            'name.string' => 'Name must be a string',
+
+            'product_number.required' => 'Product number is required',
+            'product_number.string' => 'Product number must be a string',
+
+            'demand.required' => 'Demand is required',
+            'demand.numeric' => 'Demand must be a number',
+            'demand.integer' => 'Demand must be an integer',
+            
+            'quantity.required' => 'Demand is required',
+            'quantity.numeric' => 'Demand must be a number',
+            'quantity.integer' => 'Demand must be an integer'
         ];
     }
 }
