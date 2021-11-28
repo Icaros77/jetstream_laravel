@@ -12,7 +12,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // change product_data for ShoppingListTest
         // add payment method (payment table for future scalability)
         // payment info save in order info
         // allow multiple address for user
