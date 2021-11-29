@@ -15,6 +15,7 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * Create the user without cart
+     * and without info
      * 
      * @return user
      */

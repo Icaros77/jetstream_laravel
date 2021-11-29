@@ -17,10 +17,7 @@
                     w-full
                     h-full
                     max-w-sm
-                    sm:bg-gradient-to-br
-                    sm:from-indigo-300
-                    sm:to-indigo-500
-                    sm:rounded-lg
+                    sm:indigo-gradient-rounded
                     sm:flex
                     sm:justify-center
                     sm:items-center
@@ -28,10 +25,7 @@
                     sm:max-w-full
                 "
             >
-                <form
-                    @submit.prevent="login"
-                    class="p-2 flex flex-col w-full"
-                >
+                <form @submit.prevent="login" class="p-2 flex flex-col w-full">
                     <label-name
                         v-model="form.email"
                         :first="true"
@@ -66,9 +60,7 @@
                                 p-3
                                 shadow-lg
                                 w-max
-                                bg-gradient-to-br
-                                from-indigo-300
-                                to-indigo-500
+                                indigo-gradient-rounded
                                 text-xs text-left
                                 sm:inline-block sm:from-red-300 sm:to-red-500
                             "
@@ -79,16 +71,13 @@
                             type="submit"
                             class="
                                 btn
-                                bg-gradient-to-br
-                                from-indigo-300
-                                to-indigo-500
+                                indigo-gradient-rounded
                                 italics
                                 border-none
                                 shadow-lg
                                 sm:text-right
                                 sm:inline-block
-                                sm:from-red-300
-                                sm:to-red-500
+                                sm:red-gradient-rounded
                                 sm:w-max
                                 sm:self-end
                             "
@@ -107,12 +96,10 @@
                         shadow-lg
                         w-9/12
                         text-center
+                        red-gradient-rounded
                         rounded-full
-                        bg-gradient-to-br
                         text-white text-lg
                         uppercase
-                        from-indigo-300
-                        to-indigo-500
                     "
                 >
                     No account? Sign Up!

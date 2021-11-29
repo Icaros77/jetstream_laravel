@@ -12,9 +12,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // add payment method (payment table for future scalability)
-        // payment info save in order info
         // allow multiple address for user
+        // create invoices
+        // send invoice to user
+        // notify vendor
+        // create API for vendors
+        //      - register(create) vendor
+        //      - put/patch resources products/category/quantities for vendor
+        //      - check current inventory
         $params = ["title" => "Dashboard"];
         if (Auth::check()) {
             $today = new DateTime("today", new DateTimeZone("Europe/Rome"));

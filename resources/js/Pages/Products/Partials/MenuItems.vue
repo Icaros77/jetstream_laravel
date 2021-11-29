@@ -62,8 +62,8 @@
                     </p>
                 </div>
             </div>
-            <div class="w-2/3 sm:w-full p-3 pb-0 flex flex-col justify-around">
-                <p class="px-5 pb-5 flex justify-around">
+            <div class="w-2/3 sm:w-full pb-0 flex flex-col justify-around">
+                <p class="p-5 flex justify-around">
                     <span class="text-indigo-500 font-semibold">{{
                         item.name
                     }}</span>

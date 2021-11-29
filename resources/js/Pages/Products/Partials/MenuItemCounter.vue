@@ -1,5 +1,5 @@
 <template>
-    <div class="sm:w-full flex flex-col">
+    <div class="sm:w-full p-3 flex flex-col">
         <div class="sm:w-full flex justify-around">
             <div class="w-2/3 flex justify-center items-center">
                 <span class="text-indigo-700 font-bold"

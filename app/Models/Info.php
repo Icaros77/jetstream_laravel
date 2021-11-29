@@ -14,6 +14,7 @@ class Info extends Model
         "postal_code",
         "city",
         "country",
+        "default",
         "client_id"
     ];
 

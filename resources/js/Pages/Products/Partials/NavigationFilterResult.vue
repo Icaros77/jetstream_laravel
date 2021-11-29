@@ -32,7 +32,6 @@ export default defineComponent({
     computed: {
         getLinks() {
             let links = this.links.slice(1);
-            console.log(links);
             return links;
         }
     }

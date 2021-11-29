@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlaceOrderRequest;
+use App\Models\PaymentMethod;
 use App\Service\OrderServiceDB;
 use App\Service\OrderServiceSession;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class OrderController extends Controller
     {
         $params = ["title" => "Purchase!"];
         if (Auth::check()) {
-            $user = Auth::user()->load("info");
+            $user = Auth::user()->load(["info"]);
             $info =  $user->info;
             $params['info'] = $info;
         }

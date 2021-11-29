@@ -6,8 +6,7 @@ use App\Events\UserPlaceOrderEvent;
 use App\Models\Order;
 use App\Service\OrderService;
 use App\Http\Requests\PlaceOrderRequest;
-use App\Models\Info;
-use App\Models\OrderInfo;
+use App\Service\InfoService;
 use App\Traits\PlaceOrderTrait;
 
 class OrderServiceDB extends OrderService
@@ -29,21 +28,15 @@ class OrderServiceDB extends OrderService
             "client_id" => $user->id
         ]);
 
-        $info = $req->validated();
+        $shipment_info = $req->validated();
 
         if (is_null($user->info)) {
-            Info::create([
-                "address" => $info['shipment_address'],
-                "postal_code" => $info['shipment_postal_code'],
-                "city" => $info['shipment_city'],
-                "country" => $info['shipment_country'],
-                "client_id" => $user->id
-            ]);
+            (new InfoService)->addShipmentInfoTo($user, $shipment_info);
         }
 
         // Create order info, sends email of order to client
         // modifies it that 2 events get fired
-        UserPlaceOrderEvent::dispatch($order, $user, $info);
+        UserPlaceOrderEvent::dispatch($order, $user, $shipment_info);
 
         $cart_DB->cart = null;
         $cart_DB->total_amount_cart = 0;

@@ -28,7 +28,6 @@ export default defineComponent({
     props: ["link", "index", "current_page", "last_page"],
     computed: {
         getPage() {
-            console.log(this.index)
             return parseInt(this.link.label);
         },
     },

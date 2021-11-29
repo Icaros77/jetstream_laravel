@@ -66,7 +66,6 @@ export default defineComponent({
             return Cart.$getCart(this).cart;
         },
         hasProducts() {
-            console.log(this.products.data);
             return this.products.data.length !== 0;
         },
     },

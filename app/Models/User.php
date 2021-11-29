@@ -73,8 +73,8 @@ class User extends Authenticatable
 
     public function info()
     {
-        return $this->hasOne(Info::class, 'client_id')
-            ->select("client_id", "address", "postal_code", "city", "country");
+        return $this->hasMany(Info::class, 'client_id')
+            ->select("id","client_id", "address", "postal_code", "city", "country", "default");
     }
 
     public function orders()

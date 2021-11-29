@@ -17,10 +17,7 @@
                     w-full
                     flex-grow flex
                     max-w-sm
-                    sm:bg-gradient-to-br
-                    sm:from-indigo-300
-                    sm:to-indigo-500
-                    sm:rounded-lg
+                    sm:indigo-gradient-rounded
                     sm:justify-center
                     sm:items-center
                     sm:p-8
@@ -81,9 +78,7 @@
                                 type="button"
                                 class="
                                     btn
-                                    bg-gradient-to-br
-                                    from-indigo-300
-                                    to-indigo-500
+                                    indigo-gradient-rounded
                                     italics
                                     border-none
                                     shadow-lg
@@ -133,9 +128,7 @@
                                 type="button"
                                 class="
                                     btn
-                                    bg-gradient-to-br
-                                    from-indigo-300
-                                    to-indigo-500
+                                    indigo-gradient-rounded
                                     italics
                                     border-none
                                     shadow-lg
@@ -152,9 +145,7 @@
                                     hidden
                                     shadow-lg
                                     text-center
-                                    bg-gradient-to-br
-                                    from-indigo-300
-                                    to-indigo-500
+                                    indigo-gradient-rounded
                                     sm:btn
                                     sm:p-2
                                     sm:w-max
@@ -170,9 +161,7 @@
                                 type="submit"
                                 class="
                                     btn
-                                    bg-gradient-to-br
-                                    from-red-400
-                                    to-red-600
+                                    red-gradient-rounded
                                     italics
                                     border-none
                                     shadow-lg
@@ -206,9 +195,7 @@
                         class="
                             w-10/12
                             p-1
-                            bg-gradient-to-br
-                            from-indigo-300
-                            to-indigo-500
+                            indigo-gradient-rounded
                             text-white text-sm text-center
                             rounded-full
                         "
@@ -220,9 +207,7 @@
                             mt-2
                             w-10/12
                             p-1
-                            bg-gradient-to-br
-                            from-indigo-300
-                            to-indigo-500
+                            indigo-gradient-rounded
                             text-white text-sm text-center
                             rounded-full
                         "
@@ -239,12 +224,10 @@
                         shadow-lg
                         w-full
                         text-center
+                        indigo-gradient-rounded
                         rounded-full
-                        bg-gradient-to-br
                         text-white text-base
                         uppercase
-                        from-indigo-300
-                        to-indigo-500
                     "
                 >
                     Have an account? Login!
@@ -290,7 +273,7 @@ export default defineComponent({
                             this.$refs.go_back.click();
                         },
                         onFinish: (page) => {
-                            this.form.reset('email');
+                            this.form.reset("email");
                         },
                     });
             });

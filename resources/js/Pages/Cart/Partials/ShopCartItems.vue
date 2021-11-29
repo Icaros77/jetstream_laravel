@@ -6,7 +6,6 @@
                 flex flex-wrap
                 justify-between
                 md:max-w-md
-                p-3
                 sm:ml-auto sm:justify-around
             "
         >
