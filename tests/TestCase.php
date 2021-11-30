@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Models\PaymentMethod;
 use App\Models\ShoppingList;
 use App\Models\User;
 use App\Models\Vendor;
@@ -72,13 +73,15 @@ abstract class TestCase extends BaseTestCase
      */
     public function getInfoShipment(?User $user = null)
     {
+        $payment_method = PaymentMethod::first()->method;
         $info_shippment = [
             "client_name" => $user->name ?? "Name",
             "client_email" => $user->email ?? "a@g.com",
-            "shipment_address" => $user->info->address ?? "via m 34",
-            "shipment_postal_code" => $user->info->postal_code ?? "29121",
-            "shipment_city" => $user->info->city ?? "city",
-            "shipment_country" => $user->info->country ?? "amo",
+            "shipment_address" => $user?->info->first()?->address ?? "via m 34",
+            "shipment_postal_code" => $user?->info->first()?->postal_code ?? "29121",
+            "shipment_city" => $user?->info->first()?->city ?? "city",
+            "shipment_country" => $user?->info->first()?->country ?? "amo",
+            "payment_method" => $payment_method
         ];
         return $info_shippment;
     }

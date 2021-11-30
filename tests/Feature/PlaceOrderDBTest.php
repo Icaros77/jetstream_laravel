@@ -6,6 +6,7 @@ use App\Events\UserPlaceOrderEvent;
 use App\Mail\OrderPlaced;
 use App\Models\Product;
 use App\Models\User;
+use Database\Seeders\PaymentMethodSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\Mail;
 class PlaceOrderDBTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setup(): void
+    {
+        parent::setup();
+
+        (new PaymentMethodSeeder)->run();
+    }
 
     public function test_event_user_place_order_fires()
     {

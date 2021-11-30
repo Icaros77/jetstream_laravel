@@ -25,6 +25,9 @@ class PlaceOrderRequest extends FormRequest
      */
     public function rules()
     {
+        // manage payment_method and payment_info
+        // for order_infos table
+        // look for relations
         return [
             "client_name" => ["required", "string"],
             "client_email" => ["required", "string", "email"],

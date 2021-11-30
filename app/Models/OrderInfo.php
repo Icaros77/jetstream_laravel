@@ -18,6 +18,7 @@ class OrderInfo extends Model
         "shipment_postal_code",
         "shipment_city",
         "shipment_country",
+        "payment_method",
         "order_id"
     ];
 

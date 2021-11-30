@@ -2,17 +2,26 @@
 
 namespace Tests\Feature;
 
+use Database\Seeders\PaymentMethodSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PlaceOrderSessionTest extends TestCase
 {
-    
+
     use RefreshDatabase;
+    
+    public function setup():void
+    {
+        parent::setup();
+
+        (new PaymentMethodSeeder)->run();
+    }
 
     public function test_place_order_session()
     {
+        $this->withoutExceptionHandling();
         $vendors = $this->setVendors();
         $products = $vendors->first()->products;
 
