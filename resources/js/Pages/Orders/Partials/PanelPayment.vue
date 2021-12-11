@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex flex-col px-2">
-        <payment-selection />
+        <payment-selection :payment_methods="payment_methods" />
         <div class="flex justify-between">
             <button
                 @click="moveTo"
@@ -50,12 +50,13 @@
 
 <script>
 import { defineComponent } from "vue";
-import PaymentSelection from "./PaymentMethod.vue";
+import PaymentSelection from "./PaymentSelection.vue";
 
 export default defineComponent({
     emits: ["changePanel"],
     components: { PaymentSelection },
     props: ["payment_methods"],
+
     methods: {
         moveTo(event) {
             this.$emit("changePanel", event);

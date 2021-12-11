@@ -40,7 +40,7 @@ export default defineComponent({
             return "shipment";
         };
 
-        const defaultInfo = Object.values(props.info || []).find(
+        const defaultInfo =  Object.values(props.info || []).find(
             (info) => info.default
         );
 

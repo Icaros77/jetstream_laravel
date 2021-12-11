@@ -20602,13 +20602,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _PaymentMethod_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentMethod.vue */ "./resources/js/Pages/Orders/Partials/PaymentMethod.vue");
+/* harmony import */ var _PaymentSelection_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentSelection.vue */ "./resources/js/Pages/Orders/Partials/PaymentSelection.vue");
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   emits: ["changePanel"],
   components: {
-    PaymentSelection: _PaymentMethod_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    PaymentSelection: _PaymentSelection_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ["payment_methods"],
   methods: {
@@ -20706,6 +20706,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
   components: {
     Method: _PaymentMethod_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  setup: function setup(props) {
+    console.log(props.payment_methods);
   },
   props: ["payment_methods", "payment_infos"]
 }));
@@ -23828,7 +23831,11 @@ var _hoisted_8 = [_hoisted_6, _hoisted_7];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_payment_selection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("payment-selection");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_payment_selection), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_payment_selection, {
+    payment_methods: _ctx.payment_methods
+  }, null, 8
+  /* PROPS */
+  , ["payment_methods"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
       return _ctx.moveTo && _ctx.moveTo.apply(_ctx, arguments);
     }),
@@ -23892,15 +23899,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_shipment_form_session = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("shipment-form-session");
 
-  return _ctx.hasUser && _ctx.hasInfos ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    key: 0
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_shipment_selection, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_ctx.hasUser && _ctx.hasInfos ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_shipment_selection, {
+    key: 0,
     activeAddress: _ctx.activeAddress,
     infos: _ctx.infos,
     onUpdateForm: _ctx.updateForm
   }, null, 8
   /* PROPS */
-  , ["activeAddress", "infos", "onUpdateForm"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  , ["activeAddress", "infos", "onUpdateForm"])) : _ctx.hasUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_shipment_form, {
+    key: 1
+  })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_shipment_form_session, {
+    key: 2,
+    onUpdateForm: _ctx.updateForm
+  }, null, 8
+  /* PROPS */
+  , ["onUpdateForm"])), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return _ctx.moveTo && _ctx.moveTo.apply(_ctx, arguments);
     }, ["stop"])),
@@ -23908,14 +23921,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "btn indigo-gradient-rounded"
   }, _hoisted_4)])], 64
   /* STABLE_FRAGMENT */
-  )) : _ctx.hasUser ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_shipment_form, {
-    key: 1
-  })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_shipment_form_session, {
-    key: 2,
-    onUpdateForm: _ctx.updateForm
-  }, null, 8
-  /* PROPS */
-  , ["onUpdateForm"]));
+  );
 }
 
 /***/ }),
@@ -23957,17 +23963,17 @@ __webpack_require__.r(__webpack_exports__);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_method = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("method");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.payment_methods, function (method) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.payment_methods, function (method) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: method.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_method, {
-      method: method
+      method: method.method
     }, null, 8
     /* PROPS */
     , ["method"])]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))]);
+  );
 }
 
 /***/ }),

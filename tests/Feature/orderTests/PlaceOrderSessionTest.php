@@ -13,6 +13,8 @@ class PlaceOrderSessionTest extends TestCase
 
     public function test_place_order_session()
     {
+        $this->withoutExceptionHandling();
+
         $vendors = $this->setVendors();
         $products = $vendors->first()->products;
 
@@ -29,9 +31,10 @@ class PlaceOrderSessionTest extends TestCase
             "session_cart.cart.total_amount_cart" => $total_amount_cart
         ];
 
-        $info_shippment = $this->getInfoShipment();
+        $info_shipment = $this->getInfoShipment();
+
         $this->withSession($session)
-            ->post(route("orders.store"), $info_shippment)
+            ->post(route("orders.store"), $info_shipment)
             ->assertRedirect(route("cart.index"));
 
         $this->assertDatabaseCount("orders", 1);

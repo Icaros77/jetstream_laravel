@@ -25,9 +25,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
-            'product_number' => implode("", $this->faker->randomElements([
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
-            ], 12, true)),
+            'product_number' => implode("", $this->faker->randomElements(range(0,9), 12, true)),
             'price' => random_int(100, 720),
             'description' => $this->faker->paragraph(1),
             'image_path' => $this->faker->imageUrl(),

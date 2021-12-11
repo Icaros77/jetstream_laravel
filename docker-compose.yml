@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  laravel:
+    build: .
+    container_name: laravel
+    
+    # volumes:
+    #   - .:/var/www/html
+    ports:
+      - "8000:80"
+    links:
+      - db
+    env_file:
+      - .env
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - "8001:81"
+  #   links:
+  #     - "db"

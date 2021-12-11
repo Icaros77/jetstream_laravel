@@ -22,10 +22,10 @@ class PlaceOrderDBTest extends TestCase
         $this->createUserCartWithProducts();
         $user = User::with(["cart", "info"])->first();
 
-        $info_shippment = $this->getInfoShipment($user);
+        $info_shipment = $this->getInfoShipment($user);
 
         $this->actingAs($user)->get(route("cart.index"));
-        $this->post(route("orders.store"), $info_shippment)
+        $this->post(route("orders.store"), $info_shipment)
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("notification.message", "Order has been placed!");
         Event::assertDispatched(UserPlaceOrderEvent::class);

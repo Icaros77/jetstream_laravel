@@ -33,6 +33,9 @@ class OrderController extends Controller
             $info =  $user->info;
             $params['info'] = $info;
         }
+        
+        $payments_methods = PaymentMethod::select("id", "method")->get();
+        $params["payment_methods"] = $payments_methods;
         return Inertia::render("Orders/Create", $params);
     }
 

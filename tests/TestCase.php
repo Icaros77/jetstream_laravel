@@ -2,11 +2,15 @@
 
 namespace Tests;
 
+use App\Models\PaymentInfo;
+use App\Models\PaymentMethod;
 use App\Models\ShoppingList;
 use App\Models\User;
 use App\Models\Vendor;
 use Database\Seeders\DatabaseSeeder;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Nette\Utils\Random;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -66,21 +70,51 @@ abstract class TestCase extends BaseTestCase
         return $vendors;
     }
 
-    
+
     /**
      * Get the shippment informations
      */
     public function getInfoShipment(?User $user = null)
     {
-        $info_shippment = [
+        $this->create_random_payment_methods();
+        $payment_method = PaymentMethod::first();
+
+        $payment = $this->create_random_payment_info();
+
+        $code = Random::generate(3, '0-9');
+
+        $info = $user->info->first();
+
+        return [
+            "payment_info" => $payment->info,
+            "code" => $code,
+
+            "payment_method" => $payment_method->id,
+            
             "client_name" => $user->name ?? "Name",
             "client_email" => $user->email ?? "a@g.com",
-            "shipment_address" => $user->info->address ?? "via m 34",
-            "shipment_postal_code" => $user->info->postal_code ?? "29121",
-            "shipment_city" => $user->info->city ?? "city",
-            "shipment_country" => $user->info->country ?? "amo",
+            "shipment_address" => $info->address ?? "via m 34",
+            "shipment_postal_code" => $info->postal_code ?? "29121",
+            "shipment_city" => $info->city ?? "city",
+            "shipment_country" => $info->country ?? "amo",
         ];
-        return $info_shippment;
     }
 
+    /**
+     * Create default payment method CC/DC
+     */
+    public function create_random_payment_methods()
+    {
+        PaymentMethod::factory(2)
+            ->state(new Sequence(["method" => "CC"], ["method" => "DC"]))
+            ->create();
+    }
+
+    /**
+     * Create random payment infos and code
+     */
+    public function create_random_payment_info()
+    {
+        return PaymentInfo::factory()->create();
+    }
 }

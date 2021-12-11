@@ -18,9 +18,18 @@ class OrderInfo extends Model
         "shipment_postal_code",
         "shipment_city",
         "shipment_country",
+
+        "payment_method",
+        "payment_info",
+
         "order_id"
     ];
 
+    protected $casts = [
+        "code" => "encrypted",
+        "payment_info" => "encrypted"
+    ];
+    
     public function order()
     {
         return $this->belongsTo(Order::class);

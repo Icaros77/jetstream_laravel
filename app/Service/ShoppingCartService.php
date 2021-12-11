@@ -21,7 +21,7 @@ abstract class ShoppingCartService
      * remove item from cart
      * checks id, alrady checked from
      * CartRemoveItmeRequest $req
-     * @param String $req
+     * @param Request $req
      * @return void
      */
     // abstract function removeItem(CartRemoveItemRequest $req):void;
