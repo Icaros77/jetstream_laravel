@@ -15,10 +15,10 @@ class CreateInfosTable extends Migration
     {
         Schema::create('infos', function (Blueprint $table) {
             $table->id();
-            $table->string("address")->nullable(false);
-            $table->string("postal_code")->nullable(false);
-            $table->string("city")->nullable(false);
-            $table->string("country")->nullable(false);
+            $table->string("shipment_address")->nullable(false);
+            $table->string("shipment_postal_code")->nullable(false);
+            $table->string("shipment_city")->nullable(false);
+            $table->string("shipment_country")->nullable(false);
             $table->foreignId("client_id")->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });

@@ -14,7 +14,6 @@ class PlaceOrderSessionTest extends TestCase
     public function test_place_order_session()
     {
         $this->withoutExceptionHandling();
-
         $vendors = $this->setVendors();
         $products = $vendors->first()->products;
 

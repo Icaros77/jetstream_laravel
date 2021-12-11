@@ -28,7 +28,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',    
+        'password',
     ];
 
     /**
@@ -62,7 +62,8 @@ class User extends Authenticatable
         // 'profile_photo_url',
     ];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
     }
 
@@ -74,7 +75,15 @@ class User extends Authenticatable
     public function info()
     {
         return $this->hasMany(Info::class, 'client_id')
-            ->select("id","client_id", "address", "postal_code", "city", "country", "default");
+            ->select(
+                "id",
+                "client_id",
+                "shipment_address",
+                "shipment_postal_code",
+                "shipment_city",
+                "shipment_country",
+                "default"
+            );
     }
 
     public function orders()

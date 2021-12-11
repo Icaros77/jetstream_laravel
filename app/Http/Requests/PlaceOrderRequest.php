@@ -26,18 +26,27 @@ class PlaceOrderRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            "payment_method" => ["required", "integer", "exists:payment_methods,id"],
-            "payment_info" => ["required", "integer"],
-            "code" => ["required", "integer"],
+        $default_rules = [
+            "payment_method" => ["required", "numeric", "exists:payment_methods,id"],
+            "payment_info" => ["required", "numeric"],
+            "code" => ["required", "numeric"],
+        ];
 
+        $session_rules = [
             "client_name" => ["required", "string"],
             "client_email" => ["required", "string", "email"],
             "shipment_address" => ["required", "string"],
-            "shipment_postal_code" => ["required", "string", "regex:/\d+\-?\d+/"],
+            "shipment_postal_code" => ["required", "string"],
             "shipment_city" => ["required", "string"],
             "shipment_country" => ["required", "string"],
         ];
+
+        $logged_in_rules = ["info_id" => ["required", "numeric", "exists:infos,id"]];
+
+        return array_merge(
+            $default_rules,
+            Auth::check() ? $logged_in_rules : $session_rules
+        );
     }
 
     public function messages()
@@ -47,7 +56,7 @@ class PlaceOrderRequest extends FormRequest
             "payment_method.exists" => "Payment method doesn't exist",
 
             "payment_info.required" => "Please insert a payment info",
-            
+
             "client_name.required" => "Please insert a name",
             "client_name.string" => "The name must be a string",
             "client_email.required" => "Please insert a Email",
@@ -59,7 +68,6 @@ class PlaceOrderRequest extends FormRequest
 
             "shipment_postal_code.required" => "Please insert a Postal Code for the shipment",
             "shipment_postal_code.string" => "The Postal Code must be a string",
-            "shipment_postal_code.numeric" => "The Postal Code must be composed by numbers",
 
             "shipment_city.required" => "Please insert a City for the shipment",
             "shipment_city.string" => "The City must be a string",

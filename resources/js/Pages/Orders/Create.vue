@@ -32,6 +32,8 @@ import PanelShipment from "./Partials/PanelShipment.vue";
 import PanelPayment from "./Partials/PanelPayment.vue";
 import OrderProgressBar from "./Partials/OrderProgressBar.vue";
 
+// separate the vue files into 2 folders
+// one for DB and one for Session users
 export default defineComponent({
     setup(props) {
         const positionbar = function () {

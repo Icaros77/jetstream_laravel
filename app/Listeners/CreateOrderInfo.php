@@ -29,15 +29,22 @@ class CreateOrderInfo
     {
         $order = $event->order;
         $info  = $event->info;
-        
-        unset($info["code"]);
-        $payment_method = PaymentMethod::find($info["payment_method"])->select("method")->first();
+        $user = $event->user;
+
+        // this is bad, turn it back into an array
+        // suggestions use $info->only() before sending it down
+        $payment_method = PaymentMethod::find($info['payment_method'])->select("method")->first();
         $info["payment_method"] = $payment_method->method;
-        
+
         OrderInfo::create(
             array_merge(
                 $info,
-                ["order_id" => $order->id],
+                [
+                    "client_name" => $user->name,
+                    "client_email" => $user->email,
+
+                    "order_id" => $order->id
+                ]
 
             )
         );

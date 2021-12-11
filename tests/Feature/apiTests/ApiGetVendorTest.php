@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-class ApiFetchSpecificVendorTest extends TestCase
+class ApiGetVendorTest extends TestCase
 {
 
     use RefreshDatabase;

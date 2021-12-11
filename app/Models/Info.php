@@ -10,10 +10,10 @@ class Info extends Model
     use HasFactory;
 
     protected $fillable = [
-        "address",
-        "postal_code",
-        "city",
-        "country",
+        "shipment_address",
+        "shipment_postal_code",
+        "shipment_city",
+        "shipment_country",
         "default",
         "client_id"
     ];

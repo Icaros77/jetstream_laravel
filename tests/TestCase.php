@@ -83,21 +83,32 @@ abstract class TestCase extends BaseTestCase
 
         $code = Random::generate(3, '0-9');
 
-        $info = $user->info->first();
+        $info = $user?->info->first();
 
-        return [
+        // create a OrderInfoFactory
+        $payment_data = [
             "payment_info" => $payment->info,
             "code" => $code,
-
             "payment_method" => $payment_method->id,
-            
-            "client_name" => $user->name ?? "Name",
-            "client_email" => $user->email ?? "a@g.com",
-            "shipment_address" => $info->address ?? "via m 34",
-            "shipment_postal_code" => $info->postal_code ?? "29121",
-            "shipment_city" => $info->city ?? "city",
-            "shipment_country" => $info->country ?? "amo",
         ];
+
+        $session_user_shipment_info = [
+            "client_name" => $user?->name ?? "Name",
+            "client_email" => $user?->email ?? "a@g.com",
+            "shipment_address" => $info?->address ?? "via m 34",
+            "shipment_postal_code" => $info?->postal_code ?? "29121",
+            "shipment_city" => $info?->city ?? "city",
+            "shipment_country" => $info?->country ?? "amo"
+        ];
+
+        $logged_in_user_shipment_info = [
+            "info_id" => $info?->id
+        ];
+
+        return array_merge(
+            $payment_data,
+            is_null($user) ? $session_user_shipment_info : $logged_in_user_shipment_info
+        );
     }
 
     /**

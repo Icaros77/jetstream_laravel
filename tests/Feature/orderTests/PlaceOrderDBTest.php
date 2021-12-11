@@ -30,13 +30,10 @@ class PlaceOrderDBTest extends TestCase
             ->assertSessionHas("notification.message", "Order has been placed!");
         Event::assertDispatched(UserPlaceOrderEvent::class);
     }
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+    
     public function test_place_an_order_cart_db()
     {
+        $this->withoutExceptionHandling();
         Mail::fake();
         $this->createUserCartWithProducts();
 
@@ -45,11 +42,10 @@ class PlaceOrderDBTest extends TestCase
         $quantities = collect(json_decode($cart->cart))->pluck("quantity", "id");
 
         $total_amount_cart = $cart->total_amount_cart;
-        $info_shippment = $this->getInfoShipment($user);
-
+        $info_shipment = $this->getInfoShipment($user);
 
         $this->actingAs($user)->get(route("cart.index"));
-        $this->post(route("orders.store"), $info_shippment)
+        $this->post(route("orders.store"), $info_shipment)
             ->assertRedirect(route("cart.index"))
             ->assertSessionHas("notification.message", "Order has been placed!");
 

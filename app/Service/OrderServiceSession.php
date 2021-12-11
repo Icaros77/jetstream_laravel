@@ -6,6 +6,7 @@ use App\Events\UserPlaceOrderEvent;
 use App\Models\Order;
 use App\Service\OrderService;
 use App\Http\Requests\PlaceOrderRequest;
+use App\Models\Info;
 use App\Models\OrderInfo;
 use App\Models\User;
 use App\Traits\PlaceOrderTrait;

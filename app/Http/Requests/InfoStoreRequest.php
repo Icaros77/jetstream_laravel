@@ -26,7 +26,7 @@ class InfoStoreRequest extends FormRequest
     {
         return [
             "shipment_address" => ["required", "string"],
-            "shipment_postal_code" => ["required", "string", "regex:/\d+?\-?\d+/"],
+            "shipment_postal_code" => ["required", "string"],
             "shipment_city" => ["required", "string"],
             "shipment_country" => ["required", "string"],
         ];
@@ -40,7 +40,6 @@ class InfoStoreRequest extends FormRequest
             
             "shipment_postal_code.required" => "Please insert a Postal Code for the shipment",
             "shipment_postal_code.string" => "The Postal Code must be a string",
-            "shipment_postal_code.numeric" => "The Postal Code must be composed by numbers",
             
             "shipment_city.required" => "Please insert a City for the shipment",
             "shipment_city.string" => "The City must be a string",

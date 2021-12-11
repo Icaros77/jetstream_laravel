@@ -22,10 +22,10 @@ class InfoFactory extends Factory
     public function definition()
     {
         return [
-            'address' =>$this->faker->address(),
-            'postal_code' => $this->faker->postcode(),
-            'city' => $this->faker->city(),
-            'country' => $this->faker->country(),
+            'shipment_address' =>$this->faker->address(),
+            'shipment_postal_code' => $this->faker->postcode(),
+            'shipment_city' => $this->faker->city(),
+            'shipment_country' => $this->faker->country(),
         ];
     }
 }
